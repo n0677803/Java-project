@@ -8,14 +8,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
 import java.util.*;
-import java.lang.StringBuffer; 
+import java.lang.StringBuffer; //For concating strings
+
+
+//Input validation stuff
+
 
 public class newReg extends javax.swing.JFrame {
 
     
     //array list help https://beginnersbook.com/2013/12/java-arraylist/
     public static ArrayList<String> myFaveList = new ArrayList<String>(); //List to store elements for the favourites
-    
     
     public void databaseaddition(String username, String dob, String pob, String favgenre) {
         try {
@@ -40,7 +43,8 @@ public class newReg extends javax.swing.JFrame {
     public void fave_text_add(String input){ //Adds text to the global array and favourite genre box
         
         if (!myFaveList.contains(input)){ //If doesn't contain then continue
-         myFaveList.add(input); //add the input to the list    
+         myFaveList.add(input); //add the input to the list
+         //list_fave.add(0 , input);
         }
        
     
@@ -55,7 +59,7 @@ public class newReg extends javax.swing.JFrame {
     }
     public void update_fave_text(){
         StringBuffer temp = new StringBuffer(); //Used to add each string from the list and the next line
-        String result = new String();
+        String result; //Final string
         
         for (int i = 0; i < myFaveList.size();i++){//loop start
         temp.append(myFaveList.get(i));
@@ -68,7 +72,16 @@ public class newReg extends javax.swing.JFrame {
         txt_fave_area.setText(result);
     }
     
-    
+   public void validate_inputs(){
+       
+       try{//try start
+           
+       }//try end
+       catch(Exception e){ //ex start
+           
+       } //ex end
+   }
+
     public newReg() {
         initComponents();
 
@@ -85,14 +98,12 @@ public class newReg extends javax.swing.JFrame {
 
         jOptionPane1 = new javax.swing.JOptionPane();
         jLabel1 = new javax.swing.JLabel();
-        username = new javax.swing.JTextField();
+        txt_username = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        pob = new javax.swing.JTextField();
+        txt_PlaceOfBirth = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        dob = new javax.swing.JTextField();
         registerbutton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        favgenre = new javax.swing.JTextField();
         loginbutton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         fave_text_combobox = new javax.swing.JComboBox<>();
@@ -100,6 +111,13 @@ public class newReg extends javax.swing.JFrame {
         btn_fav_remove = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_fave_area = new javax.swing.JTextArea();
+        DoB_D = new javax.swing.JTextField();
+        DoB_Y = new javax.swing.JTextField();
+        DoB_M = new javax.swing.JTextField();
+        DoB_slash1 = new javax.swing.JLabel();
+        DoB_slash2 = new javax.swing.JLabel();
+        Lb_Title = new javax.swing.JLabel();
+        btn_fav_bot = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,7 +161,7 @@ public class newReg extends javax.swing.JFrame {
             }
         });
 
-        btn_fav_remove.setText("REMOVE");
+        btn_fav_remove.setText("REMOVE SPECIFIC");
         btn_fav_remove.setMinimumSize(new java.awt.Dimension(75, 35));
         btn_fav_remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,10 +169,70 @@ public class newReg extends javax.swing.JFrame {
             }
         });
 
+        txt_fave_area.setEditable(false);
         txt_fave_area.setColumns(20);
         txt_fave_area.setRows(5);
         txt_fave_area.setPreferredSize(new java.awt.Dimension(150, 90));
         jScrollPane1.setViewportView(txt_fave_area);
+
+        DoB_D.setText("DD");
+        DoB_D.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DoB_DFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                DoB_DFocusLost(evt);
+            }
+        });
+        DoB_D.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DoB_DActionPerformed(evt);
+            }
+        });
+
+        DoB_Y.setText("YYYY");
+        DoB_Y.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DoB_YFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                DoB_YFocusLost(evt);
+            }
+        });
+        DoB_Y.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DoB_YActionPerformed(evt);
+            }
+        });
+
+        DoB_M.setText("MM");
+        DoB_M.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DoB_MFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                DoB_MFocusLost(evt);
+            }
+        });
+        DoB_M.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DoB_MActionPerformed(evt);
+            }
+        });
+
+        DoB_slash1.setText("/");
+
+        DoB_slash2.setText("/");
+
+        Lb_Title.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Lb_Title.setText("REGISTRATION");
+
+        btn_fav_bot.setText("REMOVE RECENT");
+        btn_fav_bot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_fav_botActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,9 +241,6 @@ public class newReg extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel6)
@@ -180,57 +255,82 @@ public class newReg extends javax.swing.JFrame {
                                 .addComponent(fave_text_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btn_fav_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_fav_remove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_fav_bot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(129, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btn_fav_remove, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(btn_fav_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(dob, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                                    .addComponent(pob, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(username, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(favgenre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(20, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_PlaceOfBirth)
+                                    .addComponent(txt_username)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(DoB_D, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(DoB_slash1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(DoB_M, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(DoB_slash2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(DoB_Y, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Lb_Title))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(Lb_Title)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_PlaceOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addComponent(favgenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(DoB_slash1)
+                        .addComponent(DoB_M, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DoB_Y, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DoB_slash2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(DoB_D, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(fave_text_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_fav_add, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_fav_remove, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 43, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_fav_bot, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registerbutton1)
                     .addComponent(loginbutton))
@@ -241,7 +341,7 @@ public class newReg extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbutton1ActionPerformed
-        databaseaddition(username.getText(), dob.getText(), pob.getText(), favgenre.getText());
+        //databaseaddition(username.getText(), dob.getText(), pob.getText(), favgenre.getText());
     }//GEN-LAST:event_registerbutton1ActionPerformed
 
     private void loginbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbuttonActionPerformed
@@ -269,6 +369,73 @@ public class newReg extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fave_text_comboboxActionPerformed
 
+    private void DoB_DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoB_DActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DoB_DActionPerformed
+
+    private void DoB_YActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoB_YActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DoB_YActionPerformed
+
+    private void DoB_MActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoB_MActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DoB_MActionPerformed
+
+    private void DoB_DFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DoB_DFocusGained
+        // TODO add your handling code here:
+        if (DoB_D.getText().equals("DD")) //When the user clicks on, clear the box
+        {
+            DoB_D.setText("");
+        }
+    }//GEN-LAST:event_DoB_DFocusGained
+
+    private void DoB_DFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DoB_DFocusLost
+        // TODO add your handling code here:
+        if (DoB_D.getText().equals("")) //When the user clicks on, clear the box
+        {
+            DoB_D.setText("DD");
+        }
+    }//GEN-LAST:event_DoB_DFocusLost
+
+    private void DoB_MFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DoB_MFocusGained
+        // TODO add your handling code here:
+        if (DoB_M.getText().equals("MM")) //When the user clicks on, clear the box
+        {
+            DoB_D.setText("");
+        }
+    }//GEN-LAST:event_DoB_MFocusGained
+
+    private void DoB_MFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DoB_MFocusLost
+        // TODO add your handling code here:
+        if (DoB_M.getText().equals("")) //When the user clicks on, clear the box
+        {
+            DoB_D.setText("MM");
+        }
+    }//GEN-LAST:event_DoB_MFocusLost
+
+    private void DoB_YFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DoB_YFocusGained
+        // TODO add your handling code here:
+        if (DoB_Y.getText().equals("YYYY")) //When the user clicks on, clear the box
+        {
+            DoB_D.setText("");
+        }
+    }//GEN-LAST:event_DoB_YFocusGained
+
+    private void DoB_YFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DoB_YFocusLost
+        // TODO add your handling code here:
+        if (DoB_Y.getText().equals("")) //When the user clicks on, clear the box
+        {
+            DoB_D.setText("YY");
+        }
+    }//GEN-LAST:event_DoB_YFocusLost
+
+    private void btn_fav_botActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fav_botActionPerformed
+        // TODO add your handling code here:
+    String temp = myFaveList.remove(myFaveList.size() - 1);
+    fave_text_remove(temp);
+    update_fave_text();
+    }//GEN-LAST:event_btn_fav_botActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -284,6 +451,18 @@ public class newReg extends javax.swing.JFrame {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
+                
+//                //Number format stuff so the user can only input numbers at certain points
+//                NumberFormat intFormat = NumberFormat.getIntegerInstance();
+//                NumberFormatter intFormatter = new NumberFormatter(intFormat);
+//                intFormatter.setValueClass(int.class);
+//                intFormatter.setAllowsInvalid(false); //Doesn't allow invalid inputs
+//                intFormatter.setMinimum(1); //Set the minimum input
+//                
+//                JFormattedTextField myField = new JFormattedTextField(intFormatter);
+//                JOptionPane.showMessageDialog(null, myField);
+//                
+//                System.out.println(myField.getValue());
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(newReg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -305,11 +484,16 @@ public class newReg extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField DoB_D;
+    private javax.swing.JTextField DoB_M;
+    private javax.swing.JTextField DoB_Y;
+    private javax.swing.JLabel DoB_slash1;
+    private javax.swing.JLabel DoB_slash2;
+    private javax.swing.JLabel Lb_Title;
     private javax.swing.JButton btn_fav_add;
+    private javax.swing.JButton btn_fav_bot;
     private javax.swing.JButton btn_fav_remove;
-    public javax.swing.JTextField dob;
     private javax.swing.JComboBox<String> fave_text_combobox;
-    private javax.swing.JTextField favgenre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -318,10 +502,10 @@ public class newReg extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton loginbutton;
-    public javax.swing.JTextField pob;
     private javax.swing.JButton registerbutton1;
+    public javax.swing.JTextField txt_PlaceOfBirth;
     private javax.swing.JTextArea txt_fave_area;
-    public javax.swing.JTextField username;
+    public javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 
 }
