@@ -1,11 +1,13 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-
-import javax.swing.DefaultListModel;
 
 /**
  *
@@ -16,9 +18,14 @@ public class RegistrationScreen extends javax.swing.JFrame {
     /**
      * Creates new form RegistrationScreen
      */
+    
+    static List<String> Fave_List = new ArrayList<String>(); //List storing faves
+    static int Fave_Limit = 3; //Hiow many faves they can have
+    
     public RegistrationScreen() {
         initComponents();
-        btn_Remove.setEnabled(false); //Disable the remove button
+        
+        txt_FaveArea.setRows(Fave_Limit);
         
     }
 
@@ -39,12 +46,12 @@ public class RegistrationScreen extends javax.swing.JFrame {
         txt_DateOfBirth = new javax.swing.JTextField();
         cmb_FaveGenres = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
-        pane_FaveGenres = new javax.swing.JScrollPane();
-        lst_Fave = new javax.swing.JList<>();
         btn_Add = new javax.swing.JButton();
         btn_Remove = new javax.swing.JButton();
         btn_Register = new javax.swing.JButton();
         btn_Login = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt_FaveArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,22 +62,6 @@ public class RegistrationScreen extends javax.swing.JFrame {
         Lbl_DateOfBirth.setText("Date of Birth:");
 
         cmb_FaveGenres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rock and Roll", "Techno", "Classical", "Drum and Bass", "Rap", "Opera" }));
-
-        pane_FaveGenres.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        pane_FaveGenres.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        lst_Fave.setModel(new javax.swing.DefaultListModel<String>() {
-            String[] strings = { "hey", "there" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        lst_Fave.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lst_Fave.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lst_FaveValueChanged(evt);
-            }
-        });
-        pane_FaveGenres.setViewportView(lst_Fave);
 
         btn_Add.setText("ADD");
         btn_Add.setMaximumSize(new java.awt.Dimension(80, 23));
@@ -84,37 +75,37 @@ public class RegistrationScreen extends javax.swing.JFrame {
         btn_Remove.setText("REMOVE");
         btn_Remove.setMaximumSize(new java.awt.Dimension(80, 23));
         btn_Remove.setMinimumSize(new java.awt.Dimension(80, 23));
+        btn_Remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_RemoveActionPerformed(evt);
+            }
+        });
 
         btn_Register.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_Register.setText("REGISTER");
 
         btn_Login.setText("Login");
 
+        txt_FaveArea.setColumns(20);
+        txt_FaveArea.setRows(5);
+        txt_FaveArea.setAutoscrolls(false);
+        jScrollPane1.setViewportView(txt_FaveArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addGap(65, 65, 65)
                         .addComponent(btn_Register, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_Login))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(pane_FaveGenres, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmb_FaveGenres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(btn_Remove, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                        .addComponent(btn_Add, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(Lbl_PlaceOfBirth)
                                     .addComponent(lbl_Username)
@@ -123,9 +114,22 @@ public class RegistrationScreen extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txt_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_PlaceOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_DateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(txt_DateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmb_FaveGenres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btn_Remove, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                        .addComponent(btn_Add, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(0, 201, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,18 +146,21 @@ public class RegistrationScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Lbl_DateOfBirth)
                     .addComponent(txt_DateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(cmb_FaveGenres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pane_FaveGenres, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Register, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(btn_Login))
@@ -166,27 +173,48 @@ public class RegistrationScreen extends javax.swing.JFrame {
    
     //Add button, add stuff from the combo box to the list
     private void btn_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddActionPerformed
-        // Add the fave music genre to the list
-        //listModel = new DefaultListModel();
-        //lst_Fave.setModel()
-        DefaultListModel model=
+        // Add the fave music genre to the list    
+        Add_String(cmb_FaveGenres.getSelectedItem().toString());       
     }//GEN-LAST:event_btn_AddActionPerformed
-    //Handles enabling the remove button, needs to haev a value selected to enable the remove button
-    private void lst_FaveValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_FaveValueChanged
-        // TODO add your handling code here: //when selecting a value 
+    private void Add_String(String input_string){
         
-        if (evt.getValueIsAdjusting() == false){
-            
-            if (lst_Fave.getSelectedIndex() == -1){ //No selection
-                btn_Remove.setEnabled(false);//Disable the remove button
-            }
-            else{
-                btn_Remove.setEnabled(true); //Enable the remove button
-            }
-            
+        if (!Fave_List.contains(input_string) && Check_Limit()){ //Make sure the thing being added isn't already in the box
+            Fave_List.add(input_string); //Add the data
+            update_fave_box(); //Update the box with the new array data
         }
-    }//GEN-LAST:event_lst_FaveValueChanged
 
+    }
+  
+    private void btn_RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RemoveActionPerformed
+
+        Remove_String(cmb_FaveGenres.getSelectedItem().toString());
+    }//GEN-LAST:event_btn_RemoveActionPerformed
+  //--------------------------------------------------------------------------
+    private void Remove_String(String input_string){
+        if (Fave_List.contains(input_string)){
+            Fave_List.remove(input_string);
+            update_fave_box(); //Update the box with the new array data
+        }
+    }
+    
+    private void update_fave_box(){
+        String myString = "";
+       
+        for (int i = 0; i < Fave_List.size(); i++)
+        {
+            myString += Fave_List.get(i);
+            myString += "\n"; //Next line
+        }     
+        txt_FaveArea.setText(myString);    
+    }
+    
+    private boolean Check_Limit(){
+            
+        if (Fave_List.size() < Fave_Limit )
+            return true;
+        else
+            return false;
+    }
     /**
      * @param args the command line arguments
      */
@@ -231,11 +259,11 @@ public class RegistrationScreen extends javax.swing.JFrame {
     private javax.swing.JButton btn_Register;
     private javax.swing.JButton btn_Remove;
     private javax.swing.JComboBox<String> cmb_FaveGenres;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbl_Username;
-    private javax.swing.JList<String> lst_Fave;
-    private javax.swing.JScrollPane pane_FaveGenres;
     private javax.swing.JTextField txt_DateOfBirth;
+    private javax.swing.JTextArea txt_FaveArea;
     private javax.swing.JTextField txt_PlaceOfBirth;
     private javax.swing.JTextField txt_Username;
     // End of variables declaration//GEN-END:variables
