@@ -18,6 +18,8 @@ public class RegistrationScreen extends javax.swing.JFrame {
      */
     public RegistrationScreen() {
         initComponents();
+        btn_Remove.setEnabled(false); //Disable the remove button
+        
     }
 
     /**
@@ -38,7 +40,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         cmb_FaveGenres = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         pane_FaveGenres = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lst_Fave = new javax.swing.JList<>();
         btn_Add = new javax.swing.JButton();
         btn_Remove = new javax.swing.JButton();
         btn_Register = new javax.swing.JButton();
@@ -57,12 +59,18 @@ public class RegistrationScreen extends javax.swing.JFrame {
         pane_FaveGenres.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         pane_FaveGenres.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        lst_Fave.setModel(new javax.swing.DefaultListModel<String>() {
+            String[] strings = { "hey", "there" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        lst_Fave.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lst_Fave.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jList1ValueChanged(evt);
+                lst_FaveValueChanged(evt);
             }
         });
-        pane_FaveGenres.setViewportView(jList1);
+        pane_FaveGenres.setViewportView(lst_Fave);
 
         btn_Add.setText("ADD");
         btn_Add.setMaximumSize(new java.awt.Dimension(80, 23));
@@ -156,16 +164,28 @@ public class RegistrationScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
    
+    //Add button, add stuff from the combo box to the list
     private void btn_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddActionPerformed
-        // Add the fave music file
-        
+        // Add the fave music genre to the list
         //listModel = new DefaultListModel();
-        
+        //lst_Fave.setModel()
+        DefaultListModel model=
     }//GEN-LAST:event_btn_AddActionPerformed
-
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jList1ValueChanged
+    //Handles enabling the remove button, needs to haev a value selected to enable the remove button
+    private void lst_FaveValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_FaveValueChanged
+        // TODO add your handling code here: //when selecting a value 
+        
+        if (evt.getValueIsAdjusting() == false){
+            
+            if (lst_Fave.getSelectedIndex() == -1){ //No selection
+                btn_Remove.setEnabled(false);//Disable the remove button
+            }
+            else{
+                btn_Remove.setEnabled(true); //Enable the remove button
+            }
+            
+        }
+    }//GEN-LAST:event_lst_FaveValueChanged
 
     /**
      * @param args the command line arguments
@@ -211,9 +231,9 @@ public class RegistrationScreen extends javax.swing.JFrame {
     private javax.swing.JButton btn_Register;
     private javax.swing.JButton btn_Remove;
     private javax.swing.JComboBox<String> cmb_FaveGenres;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbl_Username;
+    private javax.swing.JList<String> lst_Fave;
     private javax.swing.JScrollPane pane_FaveGenres;
     private javax.swing.JTextField txt_DateOfBirth;
     private javax.swing.JTextField txt_PlaceOfBirth;
