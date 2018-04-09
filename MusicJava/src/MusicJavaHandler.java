@@ -15,10 +15,22 @@ public class MusicJavaHandler implements Runnable {
             ObjectInputStream inFromClient = new ObjectInputStream(client.getInputStream());
             try{
                 String[] text = (String[]) inFromClient.readObject();
+                //code here to write to file
+                String fileName = "userData.txt";
+                int from = 0;
+                int to= text.length;
+                
+                FileWriter fout = new FileWriter(fileName,false);
+                PrintWriter pout = new PrintWriter(fout,true); 
+                //write to the file
+                for (int i = from; i < to; i++ ) {
+                    pout.println(text[i]);
+                }
+                pout.close(); // close the stream
             } catch (ClassNotFoundException a) {
                 //handle error
             }
-            //code here to write to file
+            
             
         }catch(IOException e){}
         //an entire task can be implemented here
