@@ -20,7 +20,7 @@ public class MusicJavaHandler implements Runnable {
                 int from = 0;
                 int to= text.length;
                 
-                FileWriter fout = new FileWriter(fileName,false);
+                FileWriter fout = new FileWriter(fileName,true);
                 PrintWriter pout = new PrintWriter(fout,true); 
                 //write to the file
                 for (int i = from; i < to; i++ ) {
