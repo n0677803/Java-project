@@ -4,7 +4,7 @@ String DOB
 Array String Genres;
 Int uniqueID;
 
-Login button pushed
+Register button pushed
 {
 Username = user.textfield;
 POB = pob.textfield;

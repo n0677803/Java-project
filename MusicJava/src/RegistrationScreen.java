@@ -1,34 +1,15 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
- * @author Joshua
- */
 public class RegistrationScreen extends javax.swing.JFrame {
-
-    /**
-     * Creates new form RegistrationScreen
-     */
-    
     static List<String> Fave_List = new ArrayList<String>(); //List storing faves
-    static int Fave_Limit = 3; //Hiow many faves they can have
+    static int Fave_Limit = 3; //How many faves they can have
     
     public RegistrationScreen() {
-        initComponents();
-        
-        txt_FaveArea.setRows(Fave_Limit);
-        
+        initComponents();        
+        txt_FaveArea.setRows(Fave_Limit);        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,6 +64,11 @@ public class RegistrationScreen extends javax.swing.JFrame {
 
         btn_Register.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_Register.setText("REGISTER");
+        btn_Register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_RegisterActionPerformed(evt);
+            }
+        });
 
         btn_Login.setText("Login");
 
@@ -169,27 +155,30 @@ public class RegistrationScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
    
     //Add button, add stuff from the combo box to the list
     private void btn_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddActionPerformed
         // Add the fave music genre to the list    
         Add_String(cmb_FaveGenres.getSelectedItem().toString());       
     }//GEN-LAST:event_btn_AddActionPerformed
-    private void Add_String(String input_string){
-        
+    //Function to add strings to the list
+    private void Add_String(String input_string){        
         if (!Fave_List.contains(input_string) && Check_Limit()){ //Make sure the thing being added isn't already in the box
             Fave_List.add(input_string); //Add the data
             update_fave_box(); //Update the box with the new array data
         }
-
     }
-  
+  //Remove button, remove stuff from the list
     private void btn_RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RemoveActionPerformed
 
         Remove_String(cmb_FaveGenres.getSelectedItem().toString());
     }//GEN-LAST:event_btn_RemoveActionPerformed
+
+    private void btn_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegisterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_RegisterActionPerformed
   //--------------------------------------------------------------------------
+   //Function to remove strings from the list
     private void Remove_String(String input_string){
         if (Fave_List.contains(input_string)){
             Fave_List.remove(input_string);
@@ -198,8 +187,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
     }
     
     private void update_fave_box(){
-        String myString = "";
-       
+        String myString = "";       
         for (int i = 0; i < Fave_List.size(); i++)
         {
             myString += Fave_List.get(i);
@@ -208,8 +196,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         txt_FaveArea.setText(myString);    
     }
     
-    private boolean Check_Limit(){
-            
+    private boolean Check_Limit(){            
         if (Fave_List.size() < Fave_Limit )
             return true;
         else
