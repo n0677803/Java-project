@@ -1,0 +1,27 @@
+Bool login = false;
+
+Login button pushed
+{
+String enteredUsername;
+
+enteredUsername = username.textfield
+
+While (login = false)
+openfile(userinformation.txt);
+
+//parse file for usernames with loop, usernames should be at every “x” line. I.e the list will go pob, dob, username, genre || meaning every 3rd line (3, 6, 9) would be a username
+
+Array string usernames;
+
+//Parsing loop here putting all names into usernames array
+
+
+	if(enteredUsername.isInArray(usernames))
+	{
+		Login = true;
+		//othercode to make it so when mainuserscreen loads it loads whichever 
+usernames specific info
+	}
+
+
+}

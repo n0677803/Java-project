@@ -1,0 +1,22 @@
+String username;
+String POB;
+String DOB
+Array String Genres;
+Int uniqueID;
+
+Login button pushed
+{
+Username = user.textfield;
+POB = pob.textfield;
+DOB = dob.textfield;
+Genres = genres.listfield; //(probably have to loop somehow, dont waste time on this, not important)
+uniqueID = generate unique ID;  //and compare to all ID’s currently in file (will have to use parsing code here that will parse and look through file but we will have to write this anyway for later so its a copy paste job)
+
+openfile(userinformation.txt);
+writeToNewLine.username;
+writeToNewLine.POB;
+writeToNewLine.DOB;
+writeToNewLine.Genres; //(probably have to loop this)
+writeToNewLine.uniqueID;
+closefile(userinformation.txt);
+}
