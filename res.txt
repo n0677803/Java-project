@@ -1,0 +1,6 @@
+This is a list of helpful links, tutorials, and sources, etc
+
+Client and server help:
+https://stackoverflow.com/questions/26479207/register-clients-to-server-java-sockets-programming
+
+https://stackoverflow.com/questions/10131377/socket-programming-multiple-client-to-one-server?rq=1
