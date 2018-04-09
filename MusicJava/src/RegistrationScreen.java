@@ -178,12 +178,9 @@ public class RegistrationScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_RemoveActionPerformed
 
     private void btn_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegisterActionPerformed
-        // TODO add your handling code here:
-       
         String[] userdata = {txt_Username.getText(), txt_PlaceOfBirth.getText(), txt_DateOfBirth.getText()};
        //String POB = ;
-       // String DOB = ();
-        
+       // String DOB = ();        
         try{
         Socket server = new Socket("localhost", 9090);
         JOptionPane.showMessageDialog(null, "Attempting To Register!");
@@ -191,11 +188,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         outToServer.writeObject(userdata);
         } catch (IOException e) {
             //handle error here
-        }
-        
-        
-        
-        
+        } 
     }//GEN-LAST:event_btn_RegisterActionPerformed
   //--------------------------------------------------------------------------
    //Function to remove strings from the list
