@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.net.*;
+import java.io.*;
+import javax.swing.JOptionPane;
 
 public class RegistrationScreen extends javax.swing.JFrame {
     static List<String> Fave_List = new ArrayList<String>(); //List storing faves
@@ -176,6 +179,23 @@ public class RegistrationScreen extends javax.swing.JFrame {
 
     private void btn_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegisterActionPerformed
         // TODO add your handling code here:
+       
+        String[] userdata = {txt_Username.getText(), txt_PlaceOfBirth.getText(), txt_DateOfBirth.getText()};
+       //String POB = ;
+       // String DOB = ();
+        
+        try{
+        Socket server = new Socket("localhost", 9090);
+        JOptionPane.showMessageDialog(null, "Attempting To Register!");
+        ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+        outToServer.writeObject(userdata);
+        } catch (IOException e) {
+            //handle error here
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_btn_RegisterActionPerformed
   //--------------------------------------------------------------------------
    //Function to remove strings from the list
