@@ -1,0 +1,17 @@
+user types in login detail
+
+login form connects server
+
+server activates login handler
+
+
+login handler access useraccounts txt file and parses login details into array of string
+
+
+login compares each array entry to the entered login details until it finds a match or there are no more on the list
+
+
+if the handler finds a match it stores the matches login details in a string activeUser and opens and sends that info to the main user form
+
+
+main user form the looks for activeUser within the useraccounts file and parses all the details beneath (assosiated with) those login details and fills out the main user form with them
