@@ -9,3 +9,7 @@ https://stackoverflow.com/questions/10131377/socket-programming-multiple-client-
 
 Username/password verification:
 https://www.reddit.com/r/learnjava/comments/1r2uil/reading_into_a_file/
+
+
+Sockets and logins:
+https://www.reddit.com/r/learnjava/comments/3qraok/pass_sockets_between_threads/
