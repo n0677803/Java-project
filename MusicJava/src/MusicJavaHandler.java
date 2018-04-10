@@ -24,8 +24,9 @@ public class MusicJavaHandler implements Runnable {
                 PrintWriter pout = new PrintWriter(fout,true); 
                 //write to the file
                 for (int i = from; i < to; i++ ) {
-                    pout.println(text[i]);
+                    pout.print(text[i] + ",");
                 }
+                pout.println("");
                 pout.close(); // close the stream
             } catch (ClassNotFoundException a) {
                 //handle error
