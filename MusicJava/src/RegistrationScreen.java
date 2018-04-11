@@ -211,6 +211,24 @@ public class RegistrationScreen extends javax.swing.JFrame {
             update_fave_box(); //Update the box with the new array data
         }
     }
+    
+    private String Combine_genre(){
+        String temp = "";
+        
+        if (Fave_List.size() != 0)
+        { //If there's actual values populating the list
+            for (int i = 0; i < Fave_List.size(); i++) //start loop
+            {
+                temp = temp + Fave_List.get(i) + "\n"; //Merge the string
+            } //end loop
+        }
+        else{
+            temp = "NO-GENRE-SELECTED";
+        }
+        
+        
+        return temp;
+    }
   //Remove button, remove stuff from the list
     private void btn_RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RemoveActionPerformed
 
@@ -230,7 +248,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         userdata[1] = txt_Password_input.getText() + myDelimiter; //Place of birth
         userdata[2] = txt_PlaceOfBirth.getText() + myDelimiter; //Place of birth
         userdata[3] = txt_DateOfBirth.getText() + cmb_Month_Select.getSelectedItem().toString() + txt_Year.getText() + myDelimiter; //get the date stuff
-        userdata[4] = Fave_List.get(0) + "\n" + Fave_List.get(1) + "\n" + Fave_List.get(2); //Add them together with \n to signifiy next line
+        userdata[4] = Combine_genre(); //Function to combine all of the genres into one line
         
        //String POB = ;
        // String DOB = ();        
@@ -239,6 +257,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Attempting To Register!");
         ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
         outToServer.writeObject(userdata);
+        JOptionPane.showMessageDialog(null, "Register successful, welcome " + userdata[0]);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Registration failed, Connection failed!!!");
             //handle error here
