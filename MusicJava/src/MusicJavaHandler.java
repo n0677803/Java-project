@@ -13,24 +13,28 @@ public class MusicJavaHandler implements Runnable {
     public void run() {
         try{
             ObjectInputStream inFromClient = new ObjectInputStream(client.getInputStream());
-            try{
-                String[] text = (String[]) inFromClient.readObject();
-                //code here to write to file
-                String fileName = "userData.txt";
-                int from = 0;
-                int to= text.length;
+            
+                try{
+                    String[] text = (String[]) inFromClient.readObject();
+                    if("HndlReg".equals(text[0])){
+                        //code here to write to file
+                        String fileName = "userData.txt";
+                        int from = 1;
+                        int to= text.length;
                 
-                FileWriter fout = new FileWriter(fileName,true);
-                PrintWriter pout = new PrintWriter(fout,true); 
-                //write to the file
-                for (int i = from; i < to; i++ ) {
-                    pout.print(text[i] + ",");
+                        FileWriter fout = new FileWriter(fileName,true);
+                        PrintWriter pout = new PrintWriter(fout,true); 
+                        //write to the file
+                        for (int i = from; i < to; i++ ) {
+                            pout.print(text[i] + ",");
+                        }
+                        pout.println("");
+                        pout.close(); // close the stream
+                    }
+                } catch (ClassNotFoundException a) {
+                    //handle error
                 }
-                pout.println("");
-                pout.close(); // close the stream
-            } catch (ClassNotFoundException a) {
-                //handle error
-            }
+            
             
             
         }catch(IOException e){}

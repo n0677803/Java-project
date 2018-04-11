@@ -252,15 +252,16 @@ public class RegistrationScreen extends javax.swing.JFrame {
          JOptionPane.showMessageDialog(null, "Registration failed, please fill out all the boxes!");
         } else { //every thing is fine, you can continue.
         
-        String[] userdata = new String[5];
+        String[] userdata = new String[6];
         String myDelimiter = " "; //Easier to manage if we use a variable
         String my2ndDelimiter = "/"; //Easier to manage if we use a variable
         
-        userdata[0] = txt_Username.getText() + myDelimiter; //
-        userdata[1] = txt_Password_input.getText() + myDelimiter; //Place of birth
-        userdata[2] = txt_PlaceOfBirth.getText() + myDelimiter; //Place of birth
-        userdata[3] = txt_DateOfBirth.getText() + my2ndDelimiter + cmb_Month_Select.getSelectedItem().toString() + my2ndDelimiter + txt_Year.getText() + myDelimiter; //get the date stuff
-        userdata[4] = Combine_genre(); //Function to combine all of the genres into one line
+        userdata[0] = "HndlReg";
+        userdata[1] = txt_Username.getText() + myDelimiter; //
+        userdata[2] = txt_Password_input.getText() + myDelimiter; //Place of birth
+        userdata[3] = txt_PlaceOfBirth.getText() + myDelimiter; //Place of birth
+        userdata[4] = txt_DateOfBirth.getText() + my2ndDelimiter + cmb_Month_Select.getSelectedItem().toString() + my2ndDelimiter + txt_Year.getText() + myDelimiter; //get the date stuff
+        userdata[5] = Combine_genre(); //Function to combine all of the genres into one line
         
        //String POB = ;
        // String DOB = ();        
@@ -269,6 +270,9 @@ public class RegistrationScreen extends javax.swing.JFrame {
         
         ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
         outToServer.writeObject(userdata);
+        //here we need to make the server send back a message to confirm registration has worked
+        //this is good coding practice
+        //just because we can communicate with server, doesnt mean it actually worked
         JOptionPane.showMessageDialog(null, "Register successful, welcome " + userdata[0]);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Registration failed, Connection failed!!!");
