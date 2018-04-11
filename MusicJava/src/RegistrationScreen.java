@@ -246,6 +246,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_RemoveActionPerformed
 
     private void btn_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegisterActionPerformed
+        JOptionPane.showMessageDialog(null, "Attempting To Register!");
         if(txt_Username.getText().isEmpty() ||txt_Password_input.getText().isEmpty() || txt_PlaceOfBirth.getText().isEmpty() || txt_DateOfBirth.getText().isEmpty() || txt_Year.getText().isEmpty() ){
          // error
          JOptionPane.showMessageDialog(null, "Registration failed, please fill out all the boxes!");
@@ -265,7 +266,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
        // String DOB = ();        
         try{
         Socket server = new Socket("localhost", 9090);
-        JOptionPane.showMessageDialog(null, "Attempting To Register!");
+        
         ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
         outToServer.writeObject(userdata);
         JOptionPane.showMessageDialog(null, "Register successful, welcome " + userdata[0]);

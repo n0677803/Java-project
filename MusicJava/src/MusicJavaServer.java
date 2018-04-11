@@ -6,7 +6,7 @@ public class MusicJavaServer {
         while (true) {
             System.out.println("Waiting for connection...");
             Socket client = server.accept();
-            System.out.println("Connected" + client.getInetAddress());
+            System.out.println("Client " + client.getInetAddress() + " connected!");
             //assign each client to a thread
             MusicJavaHandler t = new MusicJavaHandler(client);
             Thread th = new Thread(t);
