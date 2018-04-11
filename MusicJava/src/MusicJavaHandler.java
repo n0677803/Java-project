@@ -30,7 +30,10 @@ public class MusicJavaHandler implements Runnable {
                         }
                         pout.println("");
                         pout.close(); // close the stream
+                    } else if ("HndlLog".equals(text[0])) {
+                        
                     }
+                   
                 } catch (ClassNotFoundException a) {
                     //handle error
                 }
