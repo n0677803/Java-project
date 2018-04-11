@@ -214,12 +214,22 @@ public class RegistrationScreen extends javax.swing.JFrame {
     
     private String Combine_genre(){
         String temp = "";
+        String my2ndDelimiter = "/"; //Easier to manage if we use a variable
         
         if (Fave_List.size() != 0)
         { //If there's actual values populating the list
             for (int i = 0; i < Fave_List.size(); i++) //start loop
             {
-                temp = temp + Fave_List.get(i) + "\n"; //Merge the string
+                //commented ifs for removing final delimiter 
+                //   (this/this/this/) >>>
+                //>>>(this/this/this)
+                //but havent decided if nessesary
+                //if (i < Fave_List.size() -1 ){
+                temp = temp + Fave_List.get(i) + my2ndDelimiter + "\n"; //Merge the string
+                //} else {
+                //        temp = temp + Fave_List.get(i) + "\n"; //Merge the string
+               // }
+                    
             } //end loop
         }
         else{
@@ -243,11 +253,12 @@ public class RegistrationScreen extends javax.swing.JFrame {
         
         String[] userdata = new String[5];
         String myDelimiter = " "; //Easier to manage if we use a variable
+        String my2ndDelimiter = "/"; //Easier to manage if we use a variable
         
         userdata[0] = txt_Username.getText() + myDelimiter; //
         userdata[1] = txt_Password_input.getText() + myDelimiter; //Place of birth
         userdata[2] = txt_PlaceOfBirth.getText() + myDelimiter; //Place of birth
-        userdata[3] = txt_DateOfBirth.getText() + cmb_Month_Select.getSelectedItem().toString() + txt_Year.getText() + myDelimiter; //get the date stuff
+        userdata[3] = txt_DateOfBirth.getText() + my2ndDelimiter + cmb_Month_Select.getSelectedItem().toString() + my2ndDelimiter + txt_Year.getText() + myDelimiter; //get the date stuff
         userdata[4] = Combine_genre(); //Function to combine all of the genres into one line
         
        //String POB = ;
