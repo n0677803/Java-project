@@ -1,5 +1,6 @@
 import java.net.*;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 import javax.swing.JOptionPane;
 
@@ -38,53 +39,75 @@ public class MusicJavaHandler implements Runnable {
                         // now create the filestream and connect PrintWriter
                         // the value true enables autoflushing
                         try {
+                            //file stuff
                             FileReader fin = new FileReader(fileName);
-                            int arSize;
-                            String[] userdata;
-                            //read from the file
-                            try (BufferedReader din = new BufferedReader(fin)) {
-                                //read from the file
-                                String line; // line of text
-                                line = null;
-                                int numPoints = 0; // running total of points
-                                arSize = 6;
-                                //while (din.readLine() != null) arSize++;
-                                //cunt
-                                //din = new BufferedReader(fin);
-                                userdata = new String[arSize];
-                                while ((line = din.readLine()) != null) {
-                                    // here we have read in a line of text
-                                    // now parse line to extract data and print it out to the screen
-                                    StringTokenizer st = new StringTokenizer(line, ",");
-                                    //for(int i = 0; i<=1;i++){
-                                        userdata[numPoints] = st.nextToken().trim() + "**" + st.nextToken().trim();
-                                    //}
-                                    
-                                    numPoints++;
-                                }
-                                // close the stream
-                                //loop checking text[1] against all the values in userdata
-                            } // line of text
+                            BufferedReader din = new BufferedReader(fin); //Reader
                             
-                           
-                            String userlogged = "";
-                            boolean loginsuccess = false;
-                            System.out.println("LOOKS AT ME:- " + userdata[0] + text[1]);
-                            //JOptionPane.showMessageDialog(null, userdata[0]);
-                            //JOptionPane.showMessageDialog(null, text[1]);
-                            for(int j = 0;j<arSize;j++){
-                                if(userdata[j].equals("Alic**india")){
-                                    userlogged = userdata[j];
-                                    loginsuccess = true;
-                                    j = arSize+1;
+                            int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
+                            int CurrentFileRecordIndex = 0; // CurrentRecord position
+                            
+                            boolean user_found = false; //If the user has been gound or not
+                            boolean loginsuccess = false; //If the user successfully logs in or not
+                            
+                            String[] userdata = new String[arSize];
+                            String line = ""; // line of text
+                            String user_input_Name = "TEST"; //hard coded test values , code to pass them in
+                            String user_input_Password = "PTEST" ; //hard coded test values , code to pass them in
+                            String userlogged = "";       
+                            int userRecordIndex = 0;
+                            
+                            //Read lines out until the right one is found, or not, retrieves next line every loop
+                            while ((line = din.readLine()) != null){
+                                StringTokenizer st = new StringTokenizer(line, ","); //Create tokens out of the retrieved line
+                                String tempName = st.nextToken().trim();
+                                if (user_input_Name.equals(tempName)) //If the name being searched for equals the token (stored username)
+                                {
+                                    user_found = true;
+                                    userlogged = tempName; //Retrieve the name
+                                    String retrieved_password = st.nextToken().trim();//Retrieve the password
+                                    if (user_input_Password.equals(retrieved_password )) //Compare the password
+                                    {
+                                        //found the username, and the password for it is correct
+                                        loginsuccess = true;
+                                    }
+                                    else if (!user_input_Password.equals(retrieved_password)) //Does not equal
+                                    {
+                                        //Found the username, but the password for it is incorrect
+                                        loginsuccess = false;
+                                    }
                                     
-                                    
-                                }
+                                    break;                                
+                                } //endif
                                 
-                            }
-                            outToClient.writeUTF(userlogged);
+                                CurrentFileRecordIndex++;
+                            } //endloop
                             
-                            
+//
+//              
+//                            while ((line = din.readLine()) != null) { //startloop
+//                                    // here we have read in a line of text
+//                                    // now parse line to extract data and print it out to the screen
+//                                    StringTokenizer st = new StringTokenizer(line, ",");
+//                                    //for(int i = 0; i<=1;i++){
+//                                        userdata[numPoints] = st.nextToken().trim() + "**" + st.nextToken().trim();
+//                                    //}
+//                                    
+//                                    numPoints++;
+//                                }//endloop                                          
+//                            System.out.println("LOOKS AT ME:- " + userdata[0] + text[1]);
+//                            //JOptionPane.showMessageDialog(null, userdata[0]);
+//                            //JOptionPane.showMessageDialog(null, text[1]);
+//                            for(int j = 0;j<arSize;j++){
+//                                if(userdata[j].equals("Alic**india")){
+//                                    userlogged = userdata[j];
+//                                    loginsuccess = true;
+//                                    break; //Break out of the loop because the login success if 
+//                                    
+//                                    
+//                                }
+//                                
+//                            }
+                            outToClient.writeUTF(userlogged);                         
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage());
                         }
@@ -99,4 +122,58 @@ public class MusicJavaHandler implements Runnable {
         }catch(IOException ai){System.err.println("Error! - " + ai.getMessage());}
         
     }   //thread method
+    
+    
+    public int get_file_line_count(String input_filename) //Retrieves number of lines in a file
+    {
+        int line_count = 0;
+        try{//start try                  
+        BufferedReader reader = new BufferedReader(new FileReader(input_filename));        //create reader
+        while (reader.readLine() != null) line_count++;//For every line in the file, plus 1       
+        reader.close(); //Don't need because netbeans automatically closes reader after try is done
+        }//end try
+        catch (IOException e) 
+        {
+        System.err.println("Error! - " + e.getMessage());       
+        }
+        
+        return line_count; //Return
+    }
+    
+    public String[] retrieve_file_record(String input_filename ,int input_record_length, int input_index)
+    {
+        String[] retrieved_record = new String[input_record_length];
+        
+        if (input_index <= get_file_line_count(input_filename)) //Making sure that the input index is larger than the file record number
+        {
+            try{
+            BufferedReader reader = new BufferedReader(new FileReader(input_filename));
+            String line;
+            StringTokenizer myTokens = null;
+            int i = 0;
+
+            while ((line = reader.readLine()) != null){//start loop
+                if (i == input_index){ //If the current line is the one input by the program
+                    myTokens = new StringTokenizer(line, ",");
+                    break;
+                }    
+                i++;
+            } //endloop
+            //Now put the retrieved token set into the record
+            if (myTokens != null) //If tokens were retrieved
+            {
+                for (int j = 0; j <= retrieved_record.length; j++)
+                {
+                retrieved_record[j] = myTokens.nextToken(); //Get all the toekns out
+                }
+            }
+            
+            }
+            catch (IOException e) 
+            {
+            System.err.println("Error! - " + e.getMessage());       
+            }
+        }
+        return retrieved_record;
+    }
 }
