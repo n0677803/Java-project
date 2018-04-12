@@ -120,12 +120,12 @@ public class LoginScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Attempting To Login!");
             ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(login);
-            
+            JOptionPane.showMessageDialog(null, "Attempting To Recieve data from server");
             DataInputStream inFromServer = new DataInputStream(server.getInputStream());
             String text = inFromServer.readUTF();
             JOptionPane.showMessageDialog(null, "User:" + text + " successfully logged in!");
         } catch (IOException e) {
-            //handle error here
+            JOptionPane.showMessageDialog(null, "error caught login");
         }
         
     }//GEN-LAST:event_loginButtonActionPerformed
