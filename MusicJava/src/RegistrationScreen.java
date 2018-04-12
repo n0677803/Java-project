@@ -254,7 +254,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         
         String[] userdata = new String[6];
         String myDelimiter = " "; //Easier to manage if we use a variable
-        String my2ndDelimiter = "/"; //Easier to manage if we use a variable
+        String my2ndDelimiter = "_"; //Easier to manage if we use a variable
         
         userdata[0] = "HndlReg";
         userdata[1] = txt_Username.getText() + myDelimiter; //
@@ -301,7 +301,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         for (int i = 0; i < Fave_List.size(); i++)
         {
             myString += Fave_List.get(i);
-            myString += "\n"; //Next line
+            myString += "@";
         }     
         txt_FaveArea.setText(myString);    
     }

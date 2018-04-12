@@ -47,16 +47,18 @@ public class MusicJavaHandler implements Runnable {
                                 String line; // line of text
                                 line = null;
                                 int numPoints = 0; // running total of points
-                                arSize = 0;
-                                while (din.readLine() != null) arSize++;
+                                arSize = 6;
+                                //while (din.readLine() != null) arSize++;
+                                //cunt
+                                //din = new BufferedReader(fin);
                                 userdata = new String[arSize];
                                 while ((line = din.readLine()) != null) {
                                     // here we have read in a line of text
                                     // now parse line to extract data and print it out to the screen
                                     StringTokenizer st = new StringTokenizer(line, ",");
-                                    for(int i = 0; i<=1;i++){
+                                    //for(int i = 0; i<=1;i++){
                                         userdata[numPoints] = st.nextToken().trim() + "**" + st.nextToken().trim();
-                                    }
+                                    //}
                                     
                                     numPoints++;
                                 }
