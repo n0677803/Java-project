@@ -46,13 +46,13 @@ public class MusicJavaHandler implements Runnable {
                             int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
                             int CurrentFileRecordIndex = 0; // CurrentRecord position
                             
-                            boolean user_found = false; //If the user has been gound or not
+                            boolean user_found = false; //If the user has been found or not
                             boolean loginsuccess = false; //If the user successfully logs in or not
                             
                             String[] userdata = new String[arSize];
                             String line = ""; // line of text
-                            String user_input_Name = "TEST"; //hard coded test values , code to pass them in
-                            String user_input_Password = "PTEST" ; //hard coded test values , code to pass them in
+                            String user_input_Name = text[1]; //hard coded test values , code to pass them in
+                            String user_input_Password = text[2] ; //hard coded test values , code to pass them in
                             String userlogged = "";       
                             int userRecordIndex = 0;
                             

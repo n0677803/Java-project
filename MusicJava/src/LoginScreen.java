@@ -111,10 +111,10 @@ public class LoginScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String[] login = new String[2];
+        String[] login = new String[3];
         login[0] = "HndlLog";
-        login[1] = txt_Username.getText() + "**" + txt_Password.getText();
-        
+        login[1] = txt_Username.getText();
+        login[2] = txt_Password.getText();
         try{
             Socket server = new Socket("localhost", 9090);
             JOptionPane.showMessageDialog(null, "Attempting To Login!");
