@@ -43,7 +43,7 @@ public class MusicJavaHandler implements Runnable {
                             FileReader fin = new FileReader(fileName);
                             BufferedReader din = new BufferedReader(fin); //Reader
                             
-                            //int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
+                            int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
                             int CurrentFileRecordIndex = 0; // CurrentRecord position
                             
                             boolean user_found = false; //If the user has been found or not
