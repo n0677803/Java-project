@@ -44,6 +44,8 @@ public class RegistrationScreen extends javax.swing.JFrame {
         txt_Year = new javax.swing.JTextField();
         txt_Password_input = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        btn_select_file = new javax.swing.JButton();
+        txt_file_path = new javax.swing.JTextField();
 
         jTextField1.setText("jTextField1");
 
@@ -102,7 +104,14 @@ public class RegistrationScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Profile Picture:");
+
+        btn_select_file.setText("Select file");
+        btn_select_file.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_select_fileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,34 +141,38 @@ public class RegistrationScreen extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(btn_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Lbl_DateOfBirth)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_DateOfBirth)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(cmb_Month_Select, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txt_Year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Lbl_PlaceOfBirth)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_PlaceOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Lbl_Username)
+                                    .addComponent(Lbl_Password))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txt_Password_input, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                                    .addComponent(txt_Username))
+                                .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(Lbl_DateOfBirth)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txt_DateOfBirth)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(cmb_Month_Select, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txt_Year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(Lbl_PlaceOfBirth)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txt_PlaceOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(Lbl_Username)
-                                            .addComponent(Lbl_Password))
+                                        .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txt_Password_input, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                                            .addComponent(txt_Username))
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jLabel1)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addComponent(btn_select_file)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txt_file_path))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -171,11 +184,13 @@ public class RegistrationScreen extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Lbl_Username)
                             .addComponent(txt_Username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(btn_select_file))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Lbl_Password)
-                            .addComponent(txt_Password_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_Password_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_file_path, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_PlaceOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,10 +276,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
          // error
          JOptionPane.showMessageDialog(null, "Registration failed, please fill out all the boxes!");
         } else { //every thing is fine, you can continue.
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 
-        //int result = fileChooser.showOpenDialog(parent);
             
             
             
@@ -308,6 +320,23 @@ public class RegistrationScreen extends javax.swing.JFrame {
     private void cmb_Month_SelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_Month_SelectActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_Month_SelectActionPerformed
+
+    private void btn_select_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_select_fileActionPerformed
+        // TODO add your handling code here:
+        String path = "C:\\Users\\Public";
+        String filePath = "C:\\Users\\Public";
+        JFileChooser fileChooser = new JFileChooser(path);
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+
+        int result = fileChooser.showOpenDialog(null);
+        
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            File selectedFile = fileChooser.getSelectedFile();
+            System.out.println(selectedFile.getAbsolutePath());
+            txt_file_path.setText(selectedFile.getAbsolutePath());
+        }
+    }//GEN-LAST:event_btn_select_fileActionPerformed
   //--------------------------------------------------------------------------
    //Function to remove strings from the list
     private void Remove_String(String input_string){
@@ -378,6 +407,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
     private javax.swing.JButton btn_Login;
     private javax.swing.JButton btn_Register;
     private javax.swing.JButton btn_Remove;
+    private javax.swing.JButton btn_select_file;
     private javax.swing.JComboBox<String> cmb_FaveGenres;
     private javax.swing.JComboBox<String> cmb_Month_Select;
     private javax.swing.JLabel jLabel1;
@@ -390,5 +420,6 @@ public class RegistrationScreen extends javax.swing.JFrame {
     private javax.swing.JTextField txt_PlaceOfBirth;
     private javax.swing.JTextField txt_Username;
     private javax.swing.JTextField txt_Year;
+    private javax.swing.JTextField txt_file_path;
     // End of variables declaration//GEN-END:variables
 }
