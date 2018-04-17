@@ -216,7 +216,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         String temp = "";
         String my2ndDelimiter = "/"; //Easier to manage if we use a variable
         
-        if (Fave_List.size() != 0)
+        if (!Fave_List.isEmpty())
         { //If there's actual values populating the list
             for (int i = 0; i < Fave_List.size(); i++) //start loop
             {
@@ -225,7 +225,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
                 //>>>(this/this/this)
                 //but havent decided if nessesary
                 //if (i < Fave_List.size() -1 ){
-                temp = temp + Fave_List.get(i) + my2ndDelimiter + "\n"; //Merge the string
+                temp = temp + Fave_List.get(i) + my2ndDelimiter; //Merge the string
                 //} else {
                 //        temp = temp + Fave_List.get(i) + "\n"; //Merge the string
                // }

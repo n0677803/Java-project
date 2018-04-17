@@ -43,7 +43,7 @@ public class MusicJavaHandler implements Runnable {
                             FileReader fin = new FileReader(fileName);
                             BufferedReader din = new BufferedReader(fin); //Reader
                             
-                            int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
+                            //int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
                             int CurrentFileRecordIndex = 0; // CurrentRecord position
                             
                             boolean user_found = false; //If the user has been found or not
@@ -54,7 +54,7 @@ public class MusicJavaHandler implements Runnable {
                             String user_input_Name = text[1]; //hard coded test values , code to pass them in
                             String user_input_Password = text[2] ; //hard coded test values , code to pass them in
                             String userlogged = "";       
-                            int userRecordIndex = 0;
+                            int userRecordIndex = 0; //position
                             
                             //Read lines out until the right one is found, or not, retrieves next line every loop
                             while ((line = din.readLine()) != null){
@@ -63,12 +63,12 @@ public class MusicJavaHandler implements Runnable {
                                 if (user_input_Name.equals(tempName)) //If the name being searched for equals the token (stored username)
                                 {
                                     user_found = true;
-                                    userlogged = tempName; //Retrieve the name
                                     String retrieved_password = st.nextToken().trim();//Retrieve the password
                                     if (user_input_Password.equals(retrieved_password )) //Compare the password
                                     {
                                         //found the username, and the password for it is correct
                                         loginsuccess = true;
+                                        userlogged = tempName; //Retrieve the name
                                     }
                                     else if (!user_input_Password.equals(retrieved_password)) //Does not equal
                                     {
@@ -107,6 +107,19 @@ public class MusicJavaHandler implements Runnable {
 //                                }
 //                                
 //                            }
+                                if(user_found == false) //username not found
+                                {
+                                    JOptionPane.showMessageDialog(null,"username not found");
+                                }
+                                else if (user_found == true && loginsuccess == false) //username found, but password is wrong
+                                {
+                                    JOptionPane.showMessageDialog(null, "username found, however the password is incorrect");
+                                }
+                                else if (user_found == true && loginsuccess == true)
+                                {
+                                    JOptionPane.showMessageDialog(null, "Login successful");
+                                }
+
                             outToClient.writeUTF(userlogged);                         
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage());
