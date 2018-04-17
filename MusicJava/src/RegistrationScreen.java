@@ -256,6 +256,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
 
     private void btn_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegisterActionPerformed
         JOptionPane.showMessageDialog(null, "Attempting To Register!");
+        
         if(txt_Username.getText().isEmpty() ||txt_Password_input.getText().isEmpty() || txt_PlaceOfBirth.getText().isEmpty() || txt_DateOfBirth.getText().isEmpty() || txt_Year.getText().isEmpty() ){
          // error
          JOptionPane.showMessageDialog(null, "Registration failed, please fill out all the boxes!");
@@ -321,7 +322,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         for (int i = 0; i < Fave_List.size(); i++)
         {
             myString += Fave_List.get(i);
-            myString += "@";
+            myString += "\n        ";
         }     
         txt_FaveArea.setText(myString);    
     }
