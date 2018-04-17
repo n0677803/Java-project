@@ -27,7 +27,7 @@ public class MusicJavaHandler implements Runnable {
                 
                         FileWriter fout = new FileWriter(fileName,true);
                         //write to the file
-                        if (Username_duplicate_check(fileName,text[0] )) //check if the username already exists or not
+                        if (!Username_duplicate_check(fileName,text[1] )) //check if the username already exists or not
                         {
                             try (PrintWriter pout = new PrintWriter(fout,true)) {
                                 //write to the file

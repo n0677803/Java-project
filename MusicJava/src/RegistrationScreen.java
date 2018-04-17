@@ -4,6 +4,8 @@ import java.net.*;
 import java.io.*;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 
 public class RegistrationScreen extends javax.swing.JFrame {
@@ -112,6 +114,8 @@ public class RegistrationScreen extends javax.swing.JFrame {
                 btn_select_fileActionPerformed(evt);
             }
         });
+
+        txt_file_path.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -285,6 +289,8 @@ public class RegistrationScreen extends javax.swing.JFrame {
         String myDelimiter = " "; //Easier to manage if we use a variable
         String my2ndDelimiter = "/"; //Easier to manage if we use a variable
         
+        
+        
         userdata[0] = "HndlReg";
         userdata[1] = txt_Username.getText(); //
         userdata[2] = txt_Password_input.getText(); //Place of birth
@@ -294,7 +300,9 @@ public class RegistrationScreen extends javax.swing.JFrame {
         userdata[6] = "noFriends";
         userdata[7] = "noSentRequests";
         userdata[8] = "noRecievedRequests";
-        userdata[9] = "";
+        userdata[9] = txt_file_path.getText();
+        new File("...\\Music\\" + userdata[1] + "_Music").mkdir();
+        userdata[10] = userdata[1] + "_Music";
         
        //String POB = ;
        // String DOB = ();        
@@ -325,8 +333,14 @@ public class RegistrationScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         String path = "C:\\Users\\Public";
         String filePath = "C:\\Users\\Public";
+        
         JFileChooser fileChooser = new JFileChooser(path);
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "JPG, GIF, & PNG Images", "jpg", "gif", "png");
+        
+        fileChooser.setFileFilter(filter);
 
         int result = fileChooser.showOpenDialog(null);
         
@@ -351,7 +365,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         for (int i = 0; i < Fave_List.size(); i++)
         {
             myString += Fave_List.get(i);
-            myString += "\n        ";
+            myString += "\n";
         }     
         txt_FaveArea.setText(myString);    
     }

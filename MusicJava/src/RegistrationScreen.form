@@ -319,6 +319,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_file_path">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
