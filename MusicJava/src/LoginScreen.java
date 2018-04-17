@@ -123,7 +123,6 @@ public class LoginScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Attempting To Recieve data from server");
             DataInputStream inFromServer = new DataInputStream(server.getInputStream());
             String text = inFromServer.readUTF();
-            JOptionPane.showMessageDialog(null, "User:" + text + " successfully logged in!");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "error caught login");
         }

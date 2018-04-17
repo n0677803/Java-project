@@ -18,8 +18,8 @@ public class MusicJavaHandler implements Runnable {
             ObjectInputStream inFromClient = new ObjectInputStream(client.getInputStream());
             
                 try{
-                    String[] text = (String[]) inFromClient.readObject();
-                    if("HndlReg".equals(text[0])){
+                    String[] text = (String[]) inFromClient.readObject(); //retrieves the array
+                    if("HndlReg".equals(text[0])){ //if the command is register
                         //code here to write to file
                         String fileName = "userData.txt";
                         int from = 1;
@@ -27,12 +27,19 @@ public class MusicJavaHandler implements Runnable {
                 
                         FileWriter fout = new FileWriter(fileName,true);
                         //write to the file
-                        try (PrintWriter pout = new PrintWriter(fout,true)) {
-                            //write to the file
-                            for (int i = from; i < to; i++ ) {
-                                pout.print(text[i] + ",");
-                            }   pout.println("");
-                            // close the stream
+                        if (Username_duplicate_check(fileName,text[0] )) //check if the username already exists or not
+                        {
+                            try (PrintWriter pout = new PrintWriter(fout,true)) {
+                                //write to the file
+                                for (int i = from; i < to; i++ ) {//startloop
+                                    pout.print(text[i] + ",");
+                                }//endloop 
+                                pout.println(""); //goes onto next line in preparation for the next line
+                            }
+                        }
+                        else 
+                        {
+                            JOptionPane.showMessageDialog(null, "Registration failed, username already taken");
                         }
                     } else if ("HndlLog".equals(text[0])) {
                         String fileName = "userData.txt";
@@ -43,7 +50,7 @@ public class MusicJavaHandler implements Runnable {
                             FileReader fin = new FileReader(fileName);
                             BufferedReader din = new BufferedReader(fin); //Reader
                             
-                            //int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
+                            int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
                             int CurrentFileRecordIndex = 0; // CurrentRecord position
                             
                             boolean user_found = false; //If the user has been found or not
@@ -188,5 +195,36 @@ public class MusicJavaHandler implements Runnable {
             }
         }
         return retrieved_record;
+    }
+    public boolean Username_duplicate_check(String input_filename, String input_username)
+    {
+        boolean username_found = false; //The resulting boolean whether the username is found or not
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(input_filename));
+            String line;
+            String retrieved_username;
+            StringTokenizer myTokens = null;
+
+
+            while ((line = reader.readLine()) != null){//start loop
+            myTokens = new StringTokenizer(line, ",");
+            retrieved_username = myTokens.nextToken(); //retrive the first token, which is the username, and put it into a string
+
+            if (retrieved_username.equals(input_username))//If the username input by the user is the same as the one on the current line
+            {
+                username_found = true;
+                break; //Break out of the loop since te username as already been found
+            }
+            
+            } //endloop
+            //Now put the retrieved token set into the record
+            
+            }
+            catch (IOException e) 
+            {
+            System.err.println("Error! - " + e.getMessage());       
+            }
+        
+        return username_found;
     }
 }
