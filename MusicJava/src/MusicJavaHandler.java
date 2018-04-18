@@ -22,12 +22,13 @@ public class MusicJavaHandler implements Runnable {
                     if("HndlReg".equals(text[0])){ //if the command is register
                         //code here to write to file
                         String fileName = "userData.txt";
+                        String dataDir = "dataStorage\\";
                         int from = 1;
                         int to= text.length;
                 
-                        FileWriter fout = new FileWriter(fileName,true);
+                        FileWriter fout = new FileWriter(dataDir + fileName,true);
                         //write to the file
-                        if (!Username_duplicate_check(fileName,text[1] )) //check if the username already exists or not
+                        if (!Username_duplicate_check(dataDir + fileName,text[1] )) //check if the username already exists or not
                         {
                             try (PrintWriter pout = new PrintWriter(fout,true)) {
                                 //write to the file
@@ -36,6 +37,8 @@ public class MusicJavaHandler implements Runnable {
                                 }//endloop 
                                 pout.println(""); //goes onto next line in preparation for the next line
                             }
+                            new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
+
                         }
                         else 
                         {
@@ -43,14 +46,15 @@ public class MusicJavaHandler implements Runnable {
                         }
                     } else if ("HndlLog".equals(text[0])) {
                         String fileName = "userData.txt";
+                        String dataDir = "dataStorage\\";
                         // now create the filestream and connect PrintWriter
                         // the value true enables autoflushing
                         try {
                             //file stuff
-                            FileReader fin = new FileReader(fileName);
+                            FileReader fin = new FileReader(dataDir + fileName);
                             BufferedReader din = new BufferedReader(fin); //Reader
                             
-                            int arSize = get_file_line_count(fileName); //Size of the array when dragging out the user names           
+                            int arSize = get_file_line_count(dataDir + fileName); //Size of the array when dragging out the user names           
                             int CurrentFileRecordIndex = 0; // CurrentRecord position
                             
                             boolean user_found = false; //If the user has been found or not

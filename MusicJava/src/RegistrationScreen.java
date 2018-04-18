@@ -300,9 +300,9 @@ public class RegistrationScreen extends javax.swing.JFrame {
         userdata[6] = "noFriends";
         userdata[7] = "noSentRequests";
         userdata[8] = "noRecievedRequests";
-        userdata[9] = txt_file_path.getText();
-        new File("\\Music\\" + userdata[1] + "_Music").mkdirs();
+        userdata[9] = txt_file_path.getText();       
         userdata[10] = userdata[1] + "_Music";
+        new File("dataStorage").mkdir();
         
        //String POB = ;
        // String DOB = ();        
