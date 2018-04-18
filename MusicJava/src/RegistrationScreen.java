@@ -314,7 +314,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         //here we need to make the server send back a message to confirm registration has worked
         //this is good coding practice
         //just because we can communicate with server, doesnt mean it actually worked
-        JOptionPane.showMessageDialog(null, "Register successful, welcome " + userdata[1]);
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Registration failed, Connection failed!!!");
             //handle error here

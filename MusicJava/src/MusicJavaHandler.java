@@ -38,7 +38,7 @@ public class MusicJavaHandler implements Runnable {
                                 pout.println(""); //goes onto next line in preparation for the next line
                             }
                             new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
-
+                            JOptionPane.showMessageDialog(null, "Registration Success! Welcome: " + text[1]);
                         }
                         else 
                         {
@@ -64,7 +64,7 @@ public class MusicJavaHandler implements Runnable {
                             String line = ""; // line of text
                             String user_input_Name = text[1]; //hard coded test values , code to pass them in
                             String user_input_Password = text[2] ; //hard coded test values , code to pass them in
-                            String userlogged = "";       
+                            String userlogged = "failed";       
                             int userRecordIndex = 0; //position
                             
                             //Read lines out until the right one is found, or not, retrieves next line every loop
@@ -93,31 +93,7 @@ public class MusicJavaHandler implements Runnable {
                                 CurrentFileRecordIndex++;
                             } //endloop
                             
-//
-//              
-//                            while ((line = din.readLine()) != null) { //startloop
-//                                    // here we have read in a line of text
-//                                    // now parse line to extract data and print it out to the screen
-//                                    StringTokenizer st = new StringTokenizer(line, ",");
-//                                    //for(int i = 0; i<=1;i++){
-//                                        userdata[numPoints] = st.nextToken().trim() + "**" + st.nextToken().trim();
-//                                    //}
-//                                    
-//                                    numPoints++;
-//                                }//endloop                                          
-//                            System.out.println("LOOKS AT ME:- " + userdata[0] + text[1]);
-//                            //JOptionPane.showMessageDialog(null, userdata[0]);
-//                            //JOptionPane.showMessageDialog(null, text[1]);
-//                            for(int j = 0;j<arSize;j++){
-//                                if(userdata[j].equals("Alic**india")){
-//                                    userlogged = userdata[j];
-//                                    loginsuccess = true;
-//                                    break; //Break out of the loop because the login success if 
-//                                    
-//                                    
-//                                }
-//                                
-//                            }
+
                                 if(user_found == false) //username not found
                                 {
                                     JOptionPane.showMessageDialog(null,"username not found");
@@ -129,9 +105,11 @@ public class MusicJavaHandler implements Runnable {
                                 else if (user_found == true && loginsuccess == true)
                                 {
                                     JOptionPane.showMessageDialog(null, "Login successful");
+                                    outToClient.writeUTF(userlogged);                                    
+                                    new MainUserScreen().setVisible(true);
                                 }
 
-                            outToClient.writeUTF(userlogged);                         
+                                                     
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage());
                         }
