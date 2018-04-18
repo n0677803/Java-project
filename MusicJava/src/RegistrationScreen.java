@@ -301,7 +301,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         userdata[7] = "noSentRequests";
         userdata[8] = "noRecievedRequests";
         userdata[9] = txt_file_path.getText();
-        new File("...\\Music\\" + userdata[1] + "_Music").mkdir();
+        new File("\\Music\\" + userdata[1] + "_Music").mkdirs();
         userdata[10] = userdata[1] + "_Music";
         
        //String POB = ;
@@ -332,7 +332,6 @@ public class RegistrationScreen extends javax.swing.JFrame {
     private void btn_select_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_select_fileActionPerformed
         // TODO add your handling code here:
         String path = "C:\\Users\\Public";
-        String filePath = "C:\\Users\\Public";
         
         JFileChooser fileChooser = new JFileChooser(path);
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
