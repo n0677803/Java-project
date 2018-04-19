@@ -116,7 +116,10 @@ public class MusicJavaHandler implements Runnable {
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage());
                         }
+                    } else if ("HndlMain".equals(text[0])) {
+                        //data in from client to be sent to mainuserscreen client to begin population of fields
                     }
+                       
                    
                 } catch (ClassNotFoundException a) {
                     System.err.println("Error! - " + a.getMessage());

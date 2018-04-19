@@ -259,6 +259,8 @@ public class MainUserScreen extends javax.swing.JFrame {
                 new MainUserScreen().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
