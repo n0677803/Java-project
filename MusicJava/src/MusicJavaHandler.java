@@ -6,11 +6,11 @@ import javax.swing.JOptionPane;
 
 public class MusicJavaHandler implements Runnable {
     Socket client;
-    DataOutputStream outToClient;
+    ObjectOutputStream outToClient;
     
     public MusicJavaHandler (Socket _client) throws IOException{
         client = _client;
-        outToClient = new DataOutputStream(client.getOutputStream());   
+        outToClient = new ObjectOutputStream(client.getOutputStream());   
         } //constructor
     
     public void run() {
@@ -105,9 +105,12 @@ public class MusicJavaHandler implements Runnable {
                                 else if (user_found == true && loginsuccess == true)
                                 {
                                     JOptionPane.showMessageDialog(null, "Login successful");
-                                    outToClient.writeUTF(userlogged);                                    
+                                                                       
                                     new MainUserScreen().setVisible(true);
+                                      
                                 }
+                                
+                                outToClient.writeObject(retrieve_file_record(dataDir + fileName, 9, CurrentFileRecordIndex)); 
 
                                                      
                         } catch (IOException e) {

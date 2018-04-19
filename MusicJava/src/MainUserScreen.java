@@ -13,6 +13,7 @@ public class MainUserScreen extends javax.swing.JFrame {
     /**
      * Creates new form MainUserScreen
      */
+    
     public MainUserScreen() {
         initComponents();
     }

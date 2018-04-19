@@ -1,5 +1,6 @@
 
 import java.io.DataInputStream;
+import java.io.ObjectInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -115,18 +116,26 @@ public class LoginScreen extends javax.swing.JFrame {
         login[0] = "HndlLog";
         login[1] = txt_Username.getText();
         login[2] = txt_Password.getText();
-        try{
-            Socket server = new Socket("localhost", 9090);
+        try(Socket server = new Socket("localhost", 9090);){
+            
             JOptionPane.showMessageDialog(null, "Attempting To Login!");
             ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(login);
             JOptionPane.showMessageDialog(null, "Attempting To Recieve data from server");
-            DataInputStream inFromServer = new DataInputStream(server.getInputStream());
-            String text = inFromServer.readUTF();
-            if(!"failed".equals(text)){
-                this.setVisible(false);
-            }
+            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
+            try{
+            String[] text = (String[]) inFromServer.readObject();
+            
+            if(!"failed".equals(text)){       
 
+                outToServer.writeObject(text);
+                
+                this.dispose();
+            }
+            } catch (ClassNotFoundException d){
+            
+            }
+            server.close();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "error caught login");
         }
