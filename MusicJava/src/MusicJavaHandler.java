@@ -109,7 +109,11 @@ public class MusicJavaHandler implements Runnable {
                                                                        
                                     new MainUserScreen().setVisible(true);
                                       
-                                }
+                                } else {
+                                    int[] lol = {1,2,3};
+                            outToClient.writeObject(lol);
+                        }
+                               
                                 
                                  
 

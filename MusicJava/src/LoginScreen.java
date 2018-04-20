@@ -191,7 +191,7 @@ class serverCode implements Runnable {
             try{
                 String[] text = (String[]) inFromServer.readObject();
             
-                if(!"HndlMain".equals(text)){       
+                if("HndlMain".equals(text[0])){       
 
                 outToServer.writeObject(text); //sending the users to data to server 
                 
