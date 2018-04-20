@@ -190,10 +190,11 @@ class serverCode implements Runnable {
             //also contains first value determining if login was success or failure refering to code below
             try{
                 String[] text = (String[]) inFromServer.readObject();
-            
+               
+            ObjectOutputStream outToServer2 = new ObjectOutputStream(server.getOutputStream());
                 if("HndlMain".equals(text[0])){       
 
-                outToServer.writeObject(text); //sending the users to data to server 
+                outToServer2.writeObject(text); //sending the users to data to server 
                 
                 //LoginScreen.setVisible(false);
             }

@@ -55,7 +55,7 @@ public class MusicJavaHandler implements Runnable {
                             BufferedReader din = new BufferedReader(fin); //Reader
                             
                             int arSize = get_file_line_count(dataDir + fileName); //Size of the array when dragging out the user names           
-                            int CurrentFileRecordIndex = -1; // CurrentRecord position
+                            int CurrentFileRecordIndex = 1; // CurrentRecord position
                             
                             boolean user_found = false; //If the user has been found or not
                             boolean loginsuccess = false; //If the user successfully logs in or not
@@ -105,12 +105,12 @@ public class MusicJavaHandler implements Runnable {
                                 else if (user_found == true && loginsuccess == true)
                                 {
                                     JOptionPane.showMessageDialog(null, "Login successful");
-                                    outToClient.writeObject(retrieve_file_record(dataDir + fileName, 10, CurrentFileRecordIndex));
+                                    outToClient.writeObject(retrieve_file_record(dataDir + fileName, 11, CurrentFileRecordIndex));
                                                                        
                                     new MainUserScreen().setVisible(true);
                                       
                                 } else {
-                                    int[] lol = {1,2,3};
+                                    int[] lol = {1,2,3}; //bad code but just sending back anything to prevent crash with wrong login
                             outToClient.writeObject(lol);
                         }
                                
@@ -157,7 +157,7 @@ public class MusicJavaHandler implements Runnable {
     
     public String[] retrieve_file_record(String input_filename ,int input_record_length, int input_index)
     {
-        String[] retrieved_record = new String[(input_record_length + 1)];
+        String[] retrieved_record = new String[input_record_length];
         retrieved_record[0] = "HndlMain";
         
         if (input_index <= get_file_line_count(input_filename)) //Making sure that the input index is larger than the file record number
@@ -166,7 +166,7 @@ public class MusicJavaHandler implements Runnable {
             BufferedReader reader = new BufferedReader(new FileReader(input_filename));
             String line;
             StringTokenizer myTokens = null;
-            int i = 0;
+            int i = 1;
 
             while ((line = reader.readLine()) != null){//start loop
                 if (i == input_index){ //If the current line is the one input by the program
@@ -178,7 +178,7 @@ public class MusicJavaHandler implements Runnable {
             //Now put the retrieved token set into the record
             if (myTokens != null) //If tokens were retrieved
             {
-                for (int j = 1; j <= retrieved_record.length; j++)
+                for (int j = 0; j < retrieved_record.length; j++)
                 {
                 retrieved_record[j] = myTokens.nextToken(); //Get all the toekns out
                 }
