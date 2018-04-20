@@ -105,12 +105,13 @@ public class MusicJavaHandler implements Runnable {
                                 else if (user_found == true && loginsuccess == true)
                                 {
                                     JOptionPane.showMessageDialog(null, "Login successful");
+                                    outToClient.writeObject(retrieve_file_record(dataDir + fileName, 9, CurrentFileRecordIndex));
                                                                        
                                     new MainUserScreen().setVisible(true);
                                       
                                 }
                                 
-                                outToClient.writeObject(retrieve_file_record(dataDir + fileName, 9, CurrentFileRecordIndex)); 
+                                 
 
                                                      
                         } catch (IOException e) {
@@ -118,6 +119,7 @@ public class MusicJavaHandler implements Runnable {
                         }
                     } else if ("HndlMain".equals(text[0])) {
                         //data in from client to be sent to mainuserscreen client to begin population of fields
+                        outToClient.writeObject(text); 
                     }
                        
                    

@@ -22,6 +22,7 @@ public class LoginScreen extends javax.swing.JFrame {
      * Creates new form LoginScreen
      */
     public LoginScreen() {
+
         initComponents();
     }
 
@@ -112,35 +113,14 @@ public class LoginScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String[] login = new String[3];
-        login[0] = "HndlLog";
-        login[1] = txt_Username.getText();
-        login[2] = txt_Password.getText();
-        try(Socket server = new Socket("localhost", 9090);){
-            
-            JOptionPane.showMessageDialog(null, "Attempting To Login!");
-            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
-            outToServer.writeObject(login);
-            JOptionPane.showMessageDialog(null, "Attempting To Recieve data from server");
-            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
-            try{
-            String[] text = (String[]) inFromServer.readObject();
-            
-            if(!"failed".equals(text)){       
-
-                outToServer.writeObject(text);
-                
-                this.dispose();
-            }
-            } catch (ClassNotFoundException d){
-            
-            }
-            server.close();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "error caught login");
-        }
-        
-        
+        String[] login = new String[3]; //this array 3 values regarding the login
+        login[0] = "HndlLog"; //this value us used in the handler to determine what needs to be handled
+        //e.g. "HndlReg" for registration handler - "HndlMain" for handling the main screen"
+        login[1] = txt_Username.getText(); //this value is for the username
+        login[2] = txt_Password.getText(); //this value is for the password        
+        serverCode t = new serverCode(login);
+        Thread th = new Thread(t);
+        th.start();
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
@@ -187,4 +167,47 @@ public class LoginScreen extends javax.swing.JFrame {
     private javax.swing.JTextField txt_Username;
     private javax.swing.JLabel txt_password;
     // End of variables declaration//GEN-END:variables
+}
+
+
+class serverCode implements Runnable {
+    
+    String[] login = new String[3];
+    
+    public serverCode (String[] _login){
+        login = _login;
+    }
+    
+    public void run() {
+        
+        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+            
+            JOptionPane.showMessageDialog(null, "Attempting To Login!");
+            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+            outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
+            JOptionPane.showMessageDialog(null, "Attempting To Recieve data from server");
+            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream()); //recieves array containing all the logged users information
+            //also contains first value determining if login was success or failure refering to code below
+            try{
+                String[] text = (String[]) inFromServer.readObject();
+            
+                if(!"HndlMain".equals(text)){       
+
+                outToServer.writeObject(text); //sending the users to data to server 
+                
+                //LoginScreen.setVisible(false);
+            }
+            } catch (ClassNotFoundException d){
+            
+            }
+            
+            server.close();
+            
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "error caught login");
+        }       
+    }   //thread method
+    
+    
+
 }
