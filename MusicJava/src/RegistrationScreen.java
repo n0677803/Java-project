@@ -92,6 +92,11 @@ public class RegistrationScreen extends javax.swing.JFrame {
         });
 
         btn_Login.setText("Login");
+        btn_Login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LoginActionPerformed(evt);
+            }
+        });
 
         txt_FaveArea.setEditable(false);
         txt_FaveArea.setColumns(20);
@@ -350,6 +355,12 @@ public class RegistrationScreen extends javax.swing.JFrame {
             txt_file_path.setText(selectedFile.getAbsolutePath());
         }
     }//GEN-LAST:event_btn_select_fileActionPerformed
+
+    private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
+        // TODO add your handling code here:
+        this.dispose();//Close this form
+        new LoginScreen().setVisible(true);
+    }//GEN-LAST:event_btn_LoginActionPerformed
   //--------------------------------------------------------------------------
    //Function to remove strings from the list
     private void Remove_String(String input_string){

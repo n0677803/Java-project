@@ -19,7 +19,7 @@ public class MusicJavaHandler implements Runnable {
             
                 try{
                     String[] text = (String[]) inFromClient.readObject(); //retrieves the array
-                    if("HndlReg".equals(text[0])){ //if the command is register
+                    if("HndlReg".equals(text[0])){ ////REGISTER HANDLE ---------------------------------------------------------------------------
                         //code here to write to file
                         String fileName = "userData.txt";
                         String dataDir = "dataStorage\\";
@@ -44,7 +44,7 @@ public class MusicJavaHandler implements Runnable {
                         {
                             JOptionPane.showMessageDialog(null, "Registration failed, username already taken");
                         }
-                    } else if ("HndlLog".equals(text[0])) {
+                    } else if ("HndlLog".equals(text[0])) { //LOGIN HANDLE ---------------------------------------------------------------------------
                         String fileName = "userData.txt";
                         String dataDir = "dataStorage\\";
                         // now create the filestream and connect PrintWriter
@@ -105,7 +105,7 @@ public class MusicJavaHandler implements Runnable {
                                 else if (user_found == true && loginsuccess == true)
                                 {
                                     JOptionPane.showMessageDialog(null, "Login successful");
-                                    outToClient.writeObject(retrieve_file_record(dataDir + fileName, 11, CurrentFileRecordIndex));
+                                    outToClient.writeObject(retrieve_file_record_byindex(dataDir + fileName, 11, CurrentFileRecordIndex));
                                                                        
                                     new MainUserScreen().setVisible(true);
                                       
@@ -155,7 +155,7 @@ public class MusicJavaHandler implements Runnable {
         return line_count; //Return
     }
     
-    public String[] retrieve_file_record(String input_filename ,int input_record_length, int input_index)
+    public String[] retrieve_file_record_byindex(String input_filename ,int input_record_length, int input_index)
     {
         String[] retrieved_record = new String[input_record_length];
         retrieved_record[0] = "HndlMain";
@@ -190,6 +190,41 @@ public class MusicJavaHandler implements Runnable {
             System.err.println("Error! - " + e.getMessage());       
             }
         }
+        return retrieved_record;
+    }
+    
+        public String[] retrieve_file_record_byname(String input_filename ,int input_record_length, String input_username)
+    {
+        String[] retrieved_record = new String[input_record_length];
+        retrieved_record[0] = "HndlMain";
+        
+
+            try{
+            BufferedReader reader = new BufferedReader(new FileReader(input_filename));
+            String line;
+            int i = 0;
+            StringTokenizer myTokens; //Initialize
+            
+            while ((line = reader.readLine()) != null){//start loop
+                myTokens = new StringTokenizer(line, ","); //Create tokens out of the retrieved line
+                String tempName = myTokens.nextToken().trim();
+                if (input_username.equals(tempName)) //If the name being searched for equals the token (stored username)
+                {
+                    for (int j = 0; j < retrieved_record.length; j++) //Populate the array
+                        {
+                            retrieved_record[j] = myTokens.nextToken().trim(); //Get all the tokens out
+                        }
+                    break; //break out of the loop since the collect username has been found
+                }//endif
+          
+            } //endloop
+            
+            }//end try
+            catch (IOException e) 
+            {
+            System.err.println("Error! - " + e.getMessage());       
+        }
+        
         return retrieved_record;
     }
     public boolean Username_duplicate_check(String input_filename, String input_username)
