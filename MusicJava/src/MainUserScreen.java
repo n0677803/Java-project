@@ -18,7 +18,7 @@ public class MainUserScreen extends javax.swing.JFrame {
      * Creates new form MainUserScreen
      */
     
-    public MainUserScreen(String Current_User) { //construction
+    public MainUserScreen() { //construction
         initComponents();
         String tempUsername;
         String[] tempUserData;
@@ -69,11 +69,6 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lst_friends_display.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(lst_friends_display);
 
         jLabel1.setText("Friends");
@@ -84,11 +79,6 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         jLabel2.setText("Information");
 
-        txt_shared_songs.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(txt_shared_songs);
 
         jLabel3.setText("Shared Songs");
@@ -106,18 +96,8 @@ public class MainUserScreen extends javax.swing.JFrame {
         jButton2.setText("Send");
         jButton2.setToolTipText("");
 
-        lst_friendslist.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane5.setViewportView(lst_friendslist);
 
-        lst_friend_requests.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane6.setViewportView(lst_friend_requests);
 
         jLabel6.setText("Connected People");
@@ -291,24 +271,24 @@ public class MainUserScreen extends javax.swing.JFrame {
         //FRIENDS BOX STUFF
         if (input_user_Data[5].equals("noFriends"))
         {
-//            //lst_friends_display
-//            DefaultListModel model = new DefaultListModel();
-//            model.addElement("No Friends");
-//            lst_friends_display.setModel(model);
+            //lst_friends_display
+            DefaultListModel tempModel = new DefaultListModel();
+            tempModel.addElement("You have no friends");
+            lst_friends_display.setModel(tempModel);
         }      
         //SENT FRIEND REQUEST STUFF
         if (input_user_Data[6].equals("noSentRequests"))
         {
-//            DefaultListModel templist = new DefaultListModel();
-//            templist.addElement("No Friends");
-//            JList lst_friends_display = new JList(templist);
+            DefaultListModel tempModel = new DefaultListModel();
+            tempModel.addElement("You have no sent friend requests");
+            lst_friends_display.setModel(tempModel);
         }               
         //RECIEVED FRIEND REQUEST STUFF
         if (input_user_Data[7].equals("noRecievedRequests"))
-        {
-//            DefaultListModel templist = new DefaultListModel();
-//            templist.addElement("No Friends");
-//            JList lst_friends_display = new JList(templist);
+        {   //lst_friend_requests
+            DefaultListModel tempModel = new DefaultListModel();
+            tempModel.addElement("You have no recieved friend requests");
+            lst_friend_requests.setModel(tempModel);
         }
         
     }

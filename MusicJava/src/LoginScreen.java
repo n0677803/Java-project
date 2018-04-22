@@ -133,7 +133,7 @@ public class LoginScreen extends javax.swing.JFrame {
         {
             //Open up the main user screen form
             this.dispose();
-            new MainUserScreen(login[1]).setVisible(true); //Open up registartion form
+            new MainUserScreen().setVisible(true); //Open up registartion form
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
