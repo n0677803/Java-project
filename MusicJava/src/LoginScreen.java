@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author Matthew
  */
 public class LoginScreen extends javax.swing.JFrame {
-
+    static boolean Logged_In = false; //How many faves they can have
     /**
      * Creates new form LoginScreen
      */
@@ -122,10 +122,19 @@ public class LoginScreen extends javax.swing.JFrame {
         login[0] = "HndlLog"; //this value us used in the handler to determine what needs to be handled
         //e.g. "HndlReg" for registration handler - "HndlMain" for handling the main screen"
         login[1] = txt_Username.getText(); //this value is for the username
-        login[2] = txt_Password.getText(); //this value is for the password        
+        login[2] = txt_Password.getText(); //this value is for the password   
+        //Run the server class containing the serve code for logging in
+        
         serverCode t = new serverCode(login);
         Thread th = new Thread(t);
         th.start();
+        
+        if (Logged_In) //If the user has successfully logged in, they move to the profile screen
+        {
+            //Open up the main user screen form
+            this.dispose();
+            new MainUserScreen(login[1]).setVisible(true); //Open up registartion form
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
@@ -199,14 +208,12 @@ class serverCode implements Runnable {
             ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream()); //recieves array containing all the logged users information
             //also contains first value determining if login was success or failure refering to code below
             try{
-                String[] text = (String[]) inFromServer.readObject();
+                String[] text = (String[]) inFromServer.readObject(); //recieve code from the login screen
                
             ObjectOutputStream outToServer2 = new ObjectOutputStream(server.getOutputStream());
                 if("HndlMain".equals(text[0])){       
-
+                    LoginScreen.Logged_In = true; //Yes they have logged in
                 outToServer2.writeObject(text); //sending the users to data to server 
-                
-                //LoginScreen.setVisible(false);
             }
             } catch (ClassNotFoundException d){
             
@@ -218,7 +225,6 @@ class serverCode implements Runnable {
             JOptionPane.showMessageDialog(null, "error caught login");
         }       
     }   //thread method
-    
-    
+        
 
 }

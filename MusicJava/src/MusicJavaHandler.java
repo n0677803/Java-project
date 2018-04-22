@@ -47,14 +47,15 @@ public class MusicJavaHandler implements Runnable {
                     } else if ("HndlLog".equals(text[0])) { //LOGIN HANDLE ---------------------------------------------------------------------------
                         String fileName = "userData.txt";
                         String dataDir = "dataStorage\\";
+                        String file_location = dataDir + fileName;
                         // now create the filestream and connect PrintWriter
                         // the value true enables autoflushing
                         try {
                             //file stuff
-                            FileReader fin = new FileReader(dataDir + fileName);
+                            FileReader fin = new FileReader(file_location);
                             BufferedReader din = new BufferedReader(fin); //Reader
                             
-                            int arSize = get_file_line_count(dataDir + fileName); //Size of the array when dragging out the user names           
+                            int arSize = get_file_line_count(file_location); //Size of the file when dragging out the user names           
                             int CurrentFileRecordIndex = 1; // CurrentRecord position
                             
                             boolean user_found = false; //If the user has been found or not
@@ -105,19 +106,15 @@ public class MusicJavaHandler implements Runnable {
                                 else if (user_found == true && loginsuccess == true)
                                 {
                                     JOptionPane.showMessageDialog(null, "Login successful");
-                                    outToClient.writeObject(retrieve_file_record_byindex(dataDir + fileName, 11, CurrentFileRecordIndex));
+                                    outToClient.writeObject(retrieve_file_record_byname(dataDir + fileName, 11, user_input_Name));
                                                                        
-                                    new MainUserScreen().setVisible(true);
+                                    //new MainUserScreen().setVisible(true); //Not in handler
                                       
                                 } else {
                                     int[] lol = {1,2,3}; //bad code but just sending back anything to prevent crash with wrong login
                             outToClient.writeObject(lol);
                         }
-                               
-                                
-                                 
-
-                                                     
+                                                 
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage());
                         }
@@ -125,6 +122,14 @@ public class MusicJavaHandler implements Runnable {
                         //data in from client to be sent to mainuserscreen client to begin population of fields
                         JOptionPane.showMessageDialog(null, "CODE WORKS!!");
                         outToClient.writeObject(text); 
+                    }
+                    else if("HndlRetrieve".equals(text[0])){
+                        String fileName = "userData.txt";
+                        String dataDir = "dataStorage\\";
+                        String file_location = dataDir + fileName;
+                        String user_input_Name = text[1]; //hard coded test values , code to pass them in
+                        
+                        retrieve_file_record_byname(file_location , get_line_length(file_location) ,user_input_Name);
                     }
                        
                    
@@ -153,6 +158,26 @@ public class MusicJavaHandler implements Runnable {
         }
         
         return line_count; //Return
+    }
+    public int get_line_length(String input_filename)
+    {
+        int line_length = 0;
+            try{
+            BufferedReader reader = new BufferedReader(new FileReader(input_filename));
+            String line;
+            StringTokenizer myTokens = null;
+            
+            line = reader.readLine();
+            myTokens = new StringTokenizer(line,",");
+            line_length = myTokens.countTokens(); //Get the number of tokens
+            
+            }//end try
+            catch (IOException e) 
+            {
+            System.err.println("Error! - " + e.getMessage());       
+            }
+            
+            return line_length;
     }
     
     public String[] retrieve_file_record_byindex(String input_filename ,int input_record_length, int input_index)

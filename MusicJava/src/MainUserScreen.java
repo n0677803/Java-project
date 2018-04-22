@@ -1,3 +1,7 @@
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,8 +18,17 @@ public class MainUserScreen extends javax.swing.JFrame {
      * Creates new form MainUserScreen
      */
     
-    public MainUserScreen() {
+    public MainUserScreen(String Current_User) { //construction
         initComponents();
+        String tempUsername;
+        String[] tempUserData;
+        
+        tempUsername = "JOSHUA112";
+        tempUserData = Populate_Array();
+        
+        //pass the array of info into this and populate the screen
+        //Username, Password, PlaceOfBirth,DateOfBirth,FaveGenres,freinds,sentRequests,receivedRequests
+        Populate_Screen(tempUserData);
     }
 
     /**
@@ -28,25 +41,25 @@ public class MainUserScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        txt_friends_display = new javax.swing.JList<>();
+        lst_friends_display = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txt_info = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        txt_shared_songs = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txt_friend_posts = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_post = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        lst_friendslist = new javax.swing.JList<>();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        lst_friend_requests = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -56,35 +69,35 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txt_friends_display.setModel(new javax.swing.AbstractListModel<String>() {
+        lst_friends_display.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(txt_friends_display);
+        jScrollPane1.setViewportView(lst_friends_display);
 
         jLabel1.setText("Friends");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txt_info.setColumns(20);
+        txt_info.setRows(5);
+        jScrollPane2.setViewportView(txt_info);
 
         jLabel2.setText("Information");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        txt_shared_songs.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList2);
+        jScrollPane3.setViewportView(txt_shared_songs);
 
         jLabel3.setText("Shared Songs");
 
         jButton1.setText("Play");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane4.setViewportView(jTextArea2);
+        txt_friend_posts.setColumns(20);
+        txt_friend_posts.setRows(5);
+        jScrollPane4.setViewportView(txt_friend_posts);
 
         jLabel4.setText("Friends Posts");
 
@@ -93,19 +106,19 @@ public class MainUserScreen extends javax.swing.JFrame {
         jButton2.setText("Send");
         jButton2.setToolTipText("");
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+        lst_friendslist.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane5.setViewportView(jList3);
+        jScrollPane5.setViewportView(lst_friendslist);
 
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
+        lst_friend_requests.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane6.setViewportView(jList4);
+        jScrollPane6.setViewportView(lst_friend_requests);
 
         jLabel6.setText("Connected People");
 
@@ -148,7 +161,7 @@ public class MainUserScreen extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1)
+                        .addComponent(txt_post)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(46, 46, 46))
@@ -199,7 +212,7 @@ public class MainUserScreen extends javax.swing.JFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_post, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
@@ -221,7 +234,7 @@ public class MainUserScreen extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTextField1.getAccessibleContext().setAccessibleName("post_text_box");
+        txt_post.getAccessibleContext().setAccessibleName("post_text_box");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -256,14 +269,63 @@ public class MainUserScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainUserScreen().setVisible(true);
+           //new MainUserScreen().setVisible(true);
             }
         });
         
         
     }
     
+    private void Populate_Screen(String[] input_user_Data)
+    {
+        String delim = "/n";
+        //INFO BOX STUFF
+        String username = input_user_Data[0];
+        String PlaceOfBirth = input_user_Data[2];
+        String DateOfBirth = input_user_Data[3];
+        String Fave_genre = input_user_Data[4];
+        
+        String tempInfoString = username + delim + PlaceOfBirth + delim + DateOfBirth + delim + Fave_genre;
+      
+        txt_info.setText(tempInfoString); //Set text
+        //FRIENDS BOX STUFF
+        if (input_user_Data[5].equals("noFriends"))
+        {
+//            //lst_friends_display
+//            DefaultListModel model = new DefaultListModel();
+//            model.addElement("No Friends");
+//            lst_friends_display.setModel(model);
+        }      
+        //SENT FRIEND REQUEST STUFF
+        if (input_user_Data[6].equals("noSentRequests"))
+        {
+//            DefaultListModel templist = new DefaultListModel();
+//            templist.addElement("No Friends");
+//            JList lst_friends_display = new JList(templist);
+        }               
+        //RECIEVED FRIEND REQUEST STUFF
+        if (input_user_Data[7].equals("noRecievedRequests"))
+        {
+//            DefaultListModel templist = new DefaultListModel();
+//            templist.addElement("No Friends");
+//            JList lst_friends_display = new JList(templist);
+        }
+        
+    }
     
+    private String[] Populate_Array()
+    {
+        String[] userdata = new String[11];
+        userdata[0] = "JOSHUA112";
+        userdata[2] = "NOTTINGHAM";
+        userdata[3] = "21/October/4212";
+        userdata[4] = "Rap/Drum and Bass/";
+        userdata[5] = "noFriends";
+        userdata[6] = "noSentRequests";
+        userdata[7] = "noRecievedRequests";
+        
+        return userdata;
+    }
     
     
 
@@ -281,18 +343,18 @@ public class MainUserScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JList<String> txt_friends_display;
+    private javax.swing.JList<String> lst_friend_requests;
+    private javax.swing.JList<String> lst_friends_display;
+    private javax.swing.JList<String> lst_friendslist;
+    private javax.swing.JTextArea txt_friend_posts;
+    private javax.swing.JTextArea txt_info;
+    private javax.swing.JTextField txt_post;
+    private javax.swing.JList<String> txt_shared_songs;
     // End of variables declaration//GEN-END:variables
 }
