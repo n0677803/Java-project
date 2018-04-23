@@ -1,4 +1,5 @@
 
+
 import java.io.DataInputStream;
 import java.io.ObjectInputStream;
 import java.io.IOException;
@@ -129,12 +130,7 @@ public class LoginScreen extends javax.swing.JFrame {
         Thread th = new Thread(t);
         th.start();
         
-        if (Logged_In) //If the user has successfully logged in, they move to the profile screen
-        {
-            //Open up the main user screen form
-            this.dispose();
-            new MainUserScreen().setVisible(true); //Open up registartion form
-        }
+
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
@@ -223,7 +219,15 @@ class serverCode implements Runnable {
             
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "error caught login");
-        }       
+        } 
+        if (LoginScreen.Logged_In) //If the user has successfully logged in, they move to the profile screen
+        {
+            //Open up the main user screen form
+            //LoginScreen.dispose();
+            new MainUserScreen().setVisible(true); //Open up registartion form
+        }
+        
+        
     }   //thread method
         
 
