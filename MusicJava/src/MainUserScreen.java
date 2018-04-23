@@ -1,4 +1,5 @@
 
+import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
@@ -263,32 +264,103 @@ public class MainUserScreen extends javax.swing.JFrame {
         String username = input_user_Data[0];
         String PlaceOfBirth = input_user_Data[2];
         String DateOfBirth = input_user_Data[3];
-        String Fave_genre = input_user_Data[4];
+        //Split the fave genre into seperate elements
+        String Fave_genre = "";
+        StringTokenizer genreTokens = new StringTokenizer(input_user_Data[4], "/"); //Create tokens out of the retrieved line
         
+        for (int i = 0; i < genreTokens.countTokens(); i++ )
+        {
+            Fave_genre += genreTokens.nextToken().trim(); //Add the string onto it
+            Fave_genre += "-|-"; //Delimiter
+        }
+        
+//                String tempName = myTokens.nextToken().trim();
+//                if (input_username.equals(tempName)) //If the name being searched for equals the token (stored username)
+//                {
+//                    for (int j = 0; j < retrieved_record.length; j++) //Populate the array
+//                        {
+//                            retrieved_record[j] = myTokens.nextToken().trim(); //Get all the tokens out
+//                        }
+//                    break; //break out of the loop sin
+      
         String tempInfoString = username + delim + PlaceOfBirth + delim + DateOfBirth + delim + Fave_genre;
       
         txt_info.setText(tempInfoString); //Set text
+        
+        //LISTBOX VIDEO https://www.youtube.com/watch?v=oA_kcVaJQ3E
         //FRIENDS BOX STUFF
-        if (input_user_Data[5].equals("noFriends"))
+        String FriendsString = input_user_Data[5];
+        if (FriendsString.equals("noFriends"))
         {
             //lst_friends_display
             DefaultListModel tempModel = new DefaultListModel();
             tempModel.addElement("You have no friends");
             lst_friends_display.setModel(tempModel);
-        }      
+        }
+        else
+        {
+            //SET THE DELIMITER HERE TO WHAT IT'S ACTUALLY STORED AS
+            String FriendDelimiter = "-|-"; //Unique looking delimiter so usernames have low chance to contain them
+            DefaultListModel tempModel = new DefaultListModel();
+            
+            StringTokenizer friendTokens = new StringTokenizer(FriendsString, FriendDelimiter); //Create tokens out of the retrieved line
+        
+            for (int i = 0; i < friendTokens.countTokens(); i++ )
+            {
+                tempModel.addElement(friendTokens.nextToken().trim()); //Add the string onto it
+
+            }
+            //Set all the values onto the actual listbox
+            lst_friends_display.setModel(tempModel);
+            
+        }
         //SENT FRIEND REQUEST STUFF
-        if (input_user_Data[6].equals("noSentRequests"))
+        String SentFriendRequest = input_user_Data[6];
+        if (SentFriendRequest.equals("noSentRequests"))
         {
             DefaultListModel tempModel = new DefaultListModel();
             tempModel.addElement("You have no sent friend requests");
             lst_friends_display.setModel(tempModel);
-        }               
+        }
+        else
+        {
+            //SET THE DELIMITER HERE TO WHAT IT'S ACTUALLY STORED AS
+            String FriendDelimiter = "-|-"; //Unique looking delimiter so usernames have low chance to contain them
+            DefaultListModel tempModel = new DefaultListModel();
+            
+            StringTokenizer friendRequestTokens = new StringTokenizer(SentFriendRequest, FriendDelimiter); //Create tokens out of the retrieved line
+        
+            for (int i = 0; i < friendRequestTokens.countTokens(); i++ )
+            {
+                tempModel.addElement(friendRequestTokens.nextToken().trim()); //Add the string onto it
+
+            }
+            //Set all the values onto the actual listbox
+            lst_friend_requests.setModel(tempModel);
+            
+        }
         //RECIEVED FRIEND REQUEST STUFF
         if (input_user_Data[7].equals("noRecievedRequests"))
         {   //lst_friend_requests
             DefaultListModel tempModel = new DefaultListModel();
             tempModel.addElement("You have no recieved friend requests");
             lst_friend_requests.setModel(tempModel);
+        }
+        else
+        {
+            String FriendDelimiter = "-|-"; //Unique looking delimiter so usernames have low chance to contain them
+            DefaultListModel tempModel = new DefaultListModel();
+            
+            StringTokenizer friendTokens = new StringTokenizer(input_user_Data[5], FriendDelimiter); //Create tokens out of the retrieved line
+        
+            for (int i = 0; i < friendTokens.countTokens(); i++ )
+            {
+                tempModel.addElement(friendTokens.nextToken().trim()); //Add the string onto it
+
+            }
+            //Set all the values onto the actual listbox
+            lst_friends_display.setModel(tempModel);
+            
         }
         
     }
