@@ -105,7 +105,7 @@ public class MusicJavaHandler implements Runnable {
                                 }
                                 else if (user_found == true && loginsuccess == true)
                                 {
-                                    JOptionPane.showMessageDialog(null, "Login successful");
+                                    //JOptionPane.showMessageDialog(null, "Login successful");
                                     outToClient.writeObject(retrieve_file_record_byname(dataDir + fileName, 11, user_input_Name));
                                                                        
                                     //new MainUserScreen().setVisible(true); //Not in handler

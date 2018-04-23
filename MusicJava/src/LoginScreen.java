@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
 /*
@@ -131,6 +132,19 @@ public class LoginScreen extends javax.swing.JFrame {
         serverCode t = new serverCode(login);
         Thread th = new Thread(t);
         th.start();
+        try{
+        TimeUnit.SECONDS.sleep(3);
+        } catch(InterruptedException e) {
+            
+        }
+        try(Socket server = new Socket("localhost", 9090);){
+        if(Logged_In){
+            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+            outToServer.writeObject(serverCode.text);
+        } 
+        } catch (IOException y) {
+            JOptionPane.showMessageDialog(null, "error caught login2324");
+        }   
         
 
     }//GEN-LAST:event_loginButtonActionPerformed
@@ -200,16 +214,16 @@ class serverCode implements Runnable {
         
         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
 
-            JOptionPane.showMessageDialog(null, "Attempting To Login!");
+            //JOptionPane.showMessageDialog(null, "Attempting To Login!");
             ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
-            JOptionPane.showMessageDialog(null, "Attempting To Recieve data from server");
+            //JOptionPane.showMessageDialog(null, "Attempting To Recieve data from server");
             ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream()); //recieves array containing all the logged users information
             //also contains first value determining if login was success or failure refering to code below
             try{
                 text = (String[]) inFromServer.readObject(); //recieve code from the login screen
                
-            ObjectOutputStream outToServer2 = new ObjectOutputStream(server.getOutputStream());
+            
                 if("HndlMain".equals(text[0])){       
                     LoginScreen.Logged_In = true; //Yes they have logged in
                  
