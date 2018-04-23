@@ -203,7 +203,7 @@ public class MusicJavaHandler implements Runnable {
             //Now put the retrieved token set into the record
             if (myTokens != null) //If tokens were retrieved
             {
-                for (int j = 0; j < retrieved_record.length; j++)
+                for (int j = 1; j < retrieved_record.length; j++)
                 {
                 retrieved_record[j] = myTokens.nextToken(); //Get all the toekns out
                 }
@@ -235,7 +235,8 @@ public class MusicJavaHandler implements Runnable {
                 String tempName = myTokens.nextToken().trim();
                 if (input_username.equals(tempName)) //If the name being searched for equals the token (stored username)
                 {
-                    for (int j = 0; j < retrieved_record.length; j++) //Populate the array
+                    retrieved_record[1] = tempName;
+                    for (int j = 2; j < retrieved_record.length; j++) //Populate the array
                         {
                             retrieved_record[j] = myTokens.nextToken().trim(); //Get all the tokens out
                         }
