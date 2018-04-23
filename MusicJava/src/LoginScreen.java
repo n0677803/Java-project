@@ -241,7 +241,7 @@ class serverCode implements Runnable {
         {
             //Open up the main user screen form
             //LoginScreen.dispose();
-            new MainUserScreen().setVisible(true); //Open up registartion form
+            new MainUserScreen(text[1]).setVisible(true); //Open up registartion form
         }
         
         

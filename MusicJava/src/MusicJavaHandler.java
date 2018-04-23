@@ -123,6 +123,10 @@ public class MusicJavaHandler implements Runnable {
                         JOptionPane.showMessageDialog(null, "CODE WORKS!!");
                         outToClient.writeObject(text); 
                     }
+                    else if ("HndlRetrieve".equals(text[0]))
+                    {
+                        
+                    }
                     /*else if("HndlRetrieve".equals(text[0])){
                         String fileName = "userData.txt";
                         String dataDir = "dataStorage\\";

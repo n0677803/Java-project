@@ -1,4 +1,7 @@
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -17,14 +20,15 @@ public class MainUserScreen extends javax.swing.JFrame {
 
     /**
      * Creates new form MainUserScreen
+     * @param input_username
      */
     
-    public MainUserScreen() { //construction
+    public MainUserScreen(String input_username) { //construction
         initComponents();
-        String tempUsername;
-        String[] tempUserData;
+        String tempUsername = input_username;
+        String[] tempUserData = new String[11];
+        tempUserData[1] = tempUsername;
         
-        tempUsername = "JOSHUA112";
         tempUserData = Populate_Array();
         
         //pass the array of info into this and populate the screen
@@ -67,6 +71,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        lbl_cUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +119,8 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         jLabel7.setText("Friend Requests");
 
+        lbl_cUser.setText("jLabel8");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,24 +128,6 @@ public class MainUserScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jLabel1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(jLabel2)
-                                .addGap(174, 174, 174)
-                                .addComponent(jLabel3)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
@@ -160,35 +149,63 @@ public class MainUserScreen extends javax.swing.JFrame {
                             .addComponent(jButton6))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(241, 241, 241)
-                                    .addComponent(jLabel7))
-                                .addComponent(jLabel4)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(241, 241, 241)
+                                .addComponent(jLabel7))
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(161, 161, 161)
+                .addComponent(jLabel3)
+                .addGap(57, 57, 57))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lbl_cUser)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1)
-                        .addComponent(jScrollPane2))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(lbl_cUser)
+                            .addGap(21, 21, 21)
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(42, 42, 42)
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(9, 9, 9)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -196,7 +213,7 @@ public class MainUserScreen extends javax.swing.JFrame {
                     .addComponent(txt_post, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
@@ -261,12 +278,12 @@ public class MainUserScreen extends javax.swing.JFrame {
     {
         String delim = "\n";
         //INFO BOX STUFF
-        String username = input_user_Data[0];
-        String PlaceOfBirth = input_user_Data[2];
-        String DateOfBirth = input_user_Data[3];
+        String username = input_user_Data[1];
+        String PlaceOfBirth = input_user_Data[3];
+        String DateOfBirth = input_user_Data[4];
         //Split the fave genre into seperate elements
         String Fave_genre = "";
-        StringTokenizer genreTokens = new StringTokenizer(input_user_Data[4], "/"); //Create tokens out of the retrieved line
+        StringTokenizer genreTokens = new StringTokenizer(input_user_Data[5], "/"); //Create tokens out of the retrieved line
         
         for (int i = 0; i < genreTokens.countTokens(); i++ )
         {
@@ -286,10 +303,11 @@ public class MainUserScreen extends javax.swing.JFrame {
         String tempInfoString = username + delim + PlaceOfBirth + delim + DateOfBirth + delim + Fave_genre;
       
         txt_info.setText(tempInfoString); //Set text
+        lbl_cUser.setText("welcome " + username);
         
         //LISTBOX VIDEO https://www.youtube.com/watch?v=oA_kcVaJQ3E
         //FRIENDS BOX STUFF
-        String FriendsString = input_user_Data[5];
+        String FriendsString = input_user_Data[6];
         if (FriendsString.equals("noFriends"))
         {
             //lst_friends_display
@@ -315,7 +333,7 @@ public class MainUserScreen extends javax.swing.JFrame {
             
         }
         //SENT FRIEND REQUEST STUFF
-        String SentFriendRequest = input_user_Data[6];
+        String SentFriendRequest = input_user_Data[7];
         if (SentFriendRequest.equals("noSentRequests"))
         {
             DefaultListModel tempModel = new DefaultListModel();
@@ -340,7 +358,7 @@ public class MainUserScreen extends javax.swing.JFrame {
             
         }
         //RECIEVED FRIEND REQUEST STUFF
-        if (input_user_Data[7].equals("noRecievedRequests"))
+        if (input_user_Data[8].equals("noRecievedRequests"))
         {   //lst_friend_requests
             DefaultListModel tempModel = new DefaultListModel();
             tempModel.addElement("You have no recieved friend requests");
@@ -368,14 +386,19 @@ public class MainUserScreen extends javax.swing.JFrame {
     private String[] Populate_Array()
     {
         String[] userdata = new String[11];
-        userdata[0] = "JOSHUA112";
-        userdata[2] = "NOTTINGHAM";
-        userdata[3] = "21/October/4212";
-        userdata[4] = "Rap/Drum and Bass/";
-        userdata[5] = "noFriends";
-        userdata[6] = "noSentRequests";
-        userdata[7] = "noRecievedRequests";
         
+        try(Socket server = new Socket("localhost", 9090);){
+            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
+            try{
+                userdata = (String[]) inFromServer.readObject();
+            } catch (ClassNotFoundException t){
+                
+            }
+            
+        } catch(IOException f){
+            
+        }  
+            
         return userdata;
     }
     
@@ -401,6 +424,7 @@ public class MainUserScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JLabel lbl_cUser;
     private javax.swing.JList<String> lst_friend_requests;
     private javax.swing.JList<String> lst_friends_display;
     private javax.swing.JList<String> lst_friendslist;
