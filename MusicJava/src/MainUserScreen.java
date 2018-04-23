@@ -259,7 +259,7 @@ public class MainUserScreen extends javax.swing.JFrame {
     
     private void Populate_Screen(String[] input_user_Data)
     {
-        String delim = "/n";
+        String delim = "\n";
         //INFO BOX STUFF
         String username = input_user_Data[0];
         String PlaceOfBirth = input_user_Data[2];

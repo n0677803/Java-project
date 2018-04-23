@@ -123,14 +123,14 @@ public class MusicJavaHandler implements Runnable {
                         JOptionPane.showMessageDialog(null, "CODE WORKS!!");
                         outToClient.writeObject(text); 
                     }
-                    else if("HndlRetrieve".equals(text[0])){
+                    /*else if("HndlRetrieve".equals(text[0])){
                         String fileName = "userData.txt";
                         String dataDir = "dataStorage\\";
                         String file_location = dataDir + fileName;
                         String user_input_Name = text[1]; //hard coded test values , code to pass them in
                         
                         retrieve_file_record_byname(file_location , get_line_length(file_location) ,user_input_Name);
-                    }
+                    }*/
                        
                    
                 } catch (ClassNotFoundException a) {

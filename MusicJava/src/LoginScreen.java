@@ -26,6 +26,8 @@ public class LoginScreen extends javax.swing.JFrame {
 
         initComponents();
     }
+    
+   static String[] text = new String[11];
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,6 +190,7 @@ public class LoginScreen extends javax.swing.JFrame {
 class serverCode implements Runnable {
     
     String[] login = new String[3];
+    static String[] text = new String[11];
     
     public serverCode (String[] _login){
         login = _login;
@@ -196,7 +199,7 @@ class serverCode implements Runnable {
     public void run() {
         
         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-            
+
             JOptionPane.showMessageDialog(null, "Attempting To Login!");
             ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
@@ -204,18 +207,18 @@ class serverCode implements Runnable {
             ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream()); //recieves array containing all the logged users information
             //also contains first value determining if login was success or failure refering to code below
             try{
-                String[] text = (String[]) inFromServer.readObject(); //recieve code from the login screen
+                text = (String[]) inFromServer.readObject(); //recieve code from the login screen
                
             ObjectOutputStream outToServer2 = new ObjectOutputStream(server.getOutputStream());
                 if("HndlMain".equals(text[0])){       
                     LoginScreen.Logged_In = true; //Yes they have logged in
-                outToServer2.writeObject(text); //sending the users to data to server 
+                 
             }
             } catch (ClassNotFoundException d){
             
             }
             
-            server.close();
+            
             
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "error caught login");
@@ -231,4 +234,7 @@ class serverCode implements Runnable {
     }   //thread method
         
 
+    
+    
+    
 }
