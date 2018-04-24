@@ -37,6 +37,8 @@ public class MainUserScreen extends javax.swing.JFrame {
         //pass the array of info into this and populate the screen
         //Username, Password, PlaceOfBirth,DateOfBirth,FaveGenres,freinds,sentRequests,receivedRequests
         Populate_Screen(tempUserData);
+        
+        Populate_Posts();
     }
 
     /**
@@ -338,7 +340,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         else
         {
             //SET THE DELIMITER HERE TO WHAT IT'S ACTUALLY STORED AS
-            String FriendDelimiter = "-|-"; //Unique looking delimiter so usernames have low chance to contain them
+            String FriendDelimiter = "/"; //Unique looking delimiter so usernames have low chance to contain them
             DefaultListModel tempModel = new DefaultListModel();
             
             StringTokenizer friendTokens = new StringTokenizer(FriendsString, FriendDelimiter); //Create tokens out of the retrieved line
@@ -402,24 +404,52 @@ public class MainUserScreen extends javax.swing.JFrame {
             
         return userdata;
     }
-    private void Populate_Posts( String input_username)
+    private void Populate_Posts()
     {
             //SET THE DELIMITER HERE TO WHAT IT'S ACTUALLY STORED AS
             String FriendDelimiter = "/"; //Unique looking delimiter so usernames have low chance to contain them
-            String FriendString = input_username + FriendDelimiter + tempUserData[6];
+            String username = tempUserData[1];
+            String FriendString = username + FriendDelimiter + tempUserData[6];
             
-            //Add code here to pull the posts from the server, input friendstring
-            String[] friend_post_list = new String[10];
-            //Replace above
-            DefaultListModel tempModel = new DefaultListModel();
-            
-            for (int i = 0; i < friend_post_list.length; i++ )
-            { 
-                tempModel.addElement(friend_post_list[i]); //Add the posts into the list box
+            String[] userdata = new String[11];
+            String[] friend_post_list = null;
+            userdata[0] = "HndlPostRetrieve";
+            userdata[1] = FriendString;
 
+            try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+                ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+                outToServer.writeObject(userdata); //send the login details to server>>handler which validates and returns data
+                ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
+                try{
+                    friend_post_list = (String[]) inFromServer.readObject();  //retrive friend posts              
+                } catch (ClassNotFoundException p) {
+                    JOptionPane.showMessageDialog(null, "error caught mainuser around line 400 server");
+                    friend_post_list = new String[1];
+                }
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "error caught mainuser around line 419 server");
             }
-            //Set all the values onto the actual listbox
-            lst_friends_display.setModel(tempModel);
+            //IS NULL FOR SOME REASON
+            JOptionPane.showMessageDialog(null, friend_post_list);
+            if (friend_post_list != null) //If there are posts stored relevent to the user
+            {
+                String combined_string = "";
+                for (int i = 0; i < friend_post_list.length; i++ )
+                { 
+                    combined_string += friend_post_list[i];
+                    combined_string += "\n";
+                   // tempModel.addElement(friend_post_list[i]); //Add the posts into the list box
+                   JOptionPane.showMessageDialog(null, combined_string);
+
+                }
+                //Set all the values onto the actual listbox
+                txt_friend_posts.setText(combined_string);
+            }
+            else //If there are no posts stored relevent to the user
+            {
+                txt_friend_posts.setText("You have no posts visible, either add some friends or post yourself!");
+            }
     }
     private void Store_Post(String input_username)
     {

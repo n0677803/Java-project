@@ -18,6 +18,7 @@ public class MusicJavaHandler implements Runnable {
         try{
             ObjectInputStream inFromClient = new ObjectInputStream(client.getInputStream());
             String fileName = "userData.txt";
+            String postsFileName = "postData.txt";
             String dataDir = "dataStorage\\";            
                 try {
                     String[] text = (String[]) inFromClient.readObject(); //retrieves the array
@@ -34,7 +35,7 @@ public class MusicJavaHandler implements Runnable {
                                 pout.print(text[i] + ","); 
                             } /*ENDLOOP*/ 
                             pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
-                            } //END TRY
+                                } //END TRY
                             
                             new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
                             JOptionPane.showMessageDialog(null, "Registration Success! Welcome: " + text[1]);
@@ -91,6 +92,14 @@ public class MusicJavaHandler implements Runnable {
                         String file_location = dataDir + fileName;
                         String user_input_Name = text[1]; 
                         OoutToClient.writeObject(retrieve_file_record_byname(file_location , get_line_length(file_location) ,user_input_Name));
+                    }
+//-POST RETRIEVE HANDLE---POST RETRIEVE HANDLE--POST RETRIEVE HANDLE--POST RETRIEVE HANDLE--POST RETRIEVE HANDLE--POST RETRIEVE HANDLE-
+//-POST RETRIEVE HANDLE---POST RETRIEVE HANDLE--POST RETRIEVE HANDLE--POST RETRIEVE HANDLE--POST RETRIEVE HANDLE--POST RETRIEVE HANDLE-
+                    else if ("HndlPostRetrieve".equals(text[0]))
+                    {//postsFileName
+                        String[] postStorage = return_all_posts(dataDir + postsFileName , text[1]);
+                        
+                        OoutToClient.writeObject(postStorage);
                     }
 //-END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS-
 //-END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS-
