@@ -128,12 +128,13 @@ public class LoginScreen extends javax.swing.JFrame {
         login[1] = txt_Username.getText(); //this value is for the username
         login[2] = txt_Password.getText(); //this value is for the password   
         //Run the server class containing the serve code for logging in
-        
+
         serverCode t = new serverCode(login);
         Thread th = new Thread(t);
         th.start();
+        
         try{
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(2);
         } catch(InterruptedException e) {
             
         }

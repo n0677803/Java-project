@@ -1,0 +1,37 @@
+    public String[] retrieve_file_record_byindex(String input_filename ,int input_record_length, int input_index)
+    {
+        String[] retrieved_record = new String[input_record_length];
+        retrieved_record[0] = "HndlMain";
+        
+        if (input_index <= get_file_line_count(input_filename)) //Making sure that the input index is larger than the file record number
+        {
+            try{
+            BufferedReader reader = new BufferedReader(new FileReader(input_filename));
+            String line;
+            StringTokenizer myTokens = null;
+            int i = 1;
+
+            while ((line = reader.readLine()) != null){//start loop
+                if (i == input_index){ //If the current line is the one input by the program
+                    myTokens = new StringTokenizer(line, ",");
+                    break;
+                }    
+                i++;
+            } //endloop
+            //Now put the retrieved token set into the record
+            if (myTokens != null) //If tokens were retrieved
+            {
+                for (int j = 1; j < retrieved_record.length; j++)
+                {
+                retrieved_record[j] = myTokens.nextToken(); //Get all the toekns out
+                }
+            }
+            
+            }
+            catch (IOException e) 
+            {
+            System.err.println("Error! - " + e.getMessage());       
+            }
+        }
+        return retrieved_record;
+    }
