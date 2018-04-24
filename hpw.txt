@@ -1,0 +1,19 @@
+run server
+server loops checking for incoming objects
+
+run login
+enter login details
+push login button
+new array of strings created and contains "HndlLog" and username and password
+
+new thread runs to talk to server
+login tries to connect to server and send it the array of strings login
+server sends that object to handler
+handler gets the object with hndllog and user and pass
+because of "HndlLog" handler runs the if block for that
+
+handler compares username to every username in the file until it gets a match
+
+handler then compares the password to that usersnames password to see if it gets a match
+
+if it gets both matched it opens the main user screen and sends out to the client a string with the username

@@ -6,11 +6,11 @@ import javax.swing.JOptionPane;
 
 public class MusicJavaHandler implements Runnable {
     Socket client;
-    ObjectOutputStream outToClient;
+    DataOutputStream outToClient;
     
     public MusicJavaHandler (Socket _client) throws IOException{
         client = _client;
-        outToClient = new ObjectOutputStream(client.getOutputStream());   
+        outToClient = new DataOutputStream(client.getOutputStream());   
         } //CONSTRUCTOR
     
     public void run() {
@@ -72,10 +72,13 @@ public class MusicJavaHandler implements Runnable {
                             } else if (user_found == true && loginsuccess == false){ //USERNAME FOUND, BUT PASSWORD IS WRONG
                                 JOptionPane.showMessageDialog(null, "username found, however the password is incorrect");
                             } else if (user_found == true && loginsuccess == true) {
-                                outToClient.writeObject(retrieve_file_record_byname(dataDir + fileName, 11, user_input_Name));
-                            } else {
-                                int[] lol = {1,2,3}; //BAD CODE BUT JUST SENDING BACK ANYTHING TO PREVENT CRASH WITH WRONG LOGIN
-                                outToClient.writeObject(lol);
+                                JOptionPane.showMessageDialog(null, "user and pass correct should open main screen");
+                                MainUserScreen mus = new MainUserScreen(user_input_Name);
+                                mus.setVisible(true);
+                                //outToClient.writeUTF(user_input_Name);
+                                
+                            } else { //BAD CODE BUT JUST SENDING BACK ANYTHING TO PREVENT CRASH WITH WRONG LOGIN
+                                //outToClient.writeUTF("LINE78HANDLERBADCODE");
                             }
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 81 hndllog");

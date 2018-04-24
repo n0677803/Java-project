@@ -132,22 +132,6 @@ public class LoginScreen extends javax.swing.JFrame {
         serverCode t = new serverCode(login);
         Thread th = new Thread(t);
         th.start();
-        
-        try{
-        TimeUnit.SECONDS.sleep(2);
-        } catch(InterruptedException e) {
-            JOptionPane.showMessageDialog(null, "error caught login around line 139 try sleep");
-        }
-        try(Socket server = new Socket("localhost", 9090);){
-        if(Logged_In){
-            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
-            outToServer.writeObject(serverCode.text);
-        } 
-        } catch (IOException y) {
-            JOptionPane.showMessageDialog(null, "error caught login around line 147 try socket");
-        }   
-        
-
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
@@ -212,44 +196,11 @@ class serverCode implements Runnable {
     }
     
     public void run() {
-        
         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-
-            //JOptionPane.showMessageDialog(null, "Attempting To Login!");
             ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
-            //JOptionPane.showMessageDialog(null, "Attempting To Recieve data from server");
-            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream()); //recieves array containing all the logged users information
-            //also contains first value determining if login was success or failure refering to code below
-            try{
-                text = (String[]) inFromServer.readObject(); //recieve code from the login screen
-               
-            
-                if("HndlMain".equals(text[0])){       
-                    LoginScreen.Logged_In = true; //Yes they have logged in
-                 
-            }
-            } catch (ClassNotFoundException d){
-            JOptionPane.showMessageDialog(null, "error caught login around line 233 try server stuff");
-            }
-            
-            
-            
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "error caught login around line 239 server");
-        } 
-        if (LoginScreen.Logged_In) //If the user has successfully logged in, they move to the profile screen
-        {
-            //Open up the main user screen form
-            //LoginScreen.dispose();
-            new MainUserScreen(text[1]).setVisible(true); //Open up registartion form
-        }
-        
-        
+        }   
     }   //thread method
-        
-
-    
-    
-    
 }
