@@ -1,6 +1,5 @@
 import java.net.*;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.*;
 import javax.swing.JOptionPane;
 
@@ -85,11 +84,15 @@ public class MusicJavaHandler implements Runnable {
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 81 hndllog");
                         }
+//-RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE-
+//-RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE--RETRIEVE HANDLE-
                     } else if("HndlRetrieve".equals(text[0])){
                         String file_location = dataDir + fileName;
                         String user_input_Name = text[1]; 
                         OoutToClient.writeObject(retrieve_file_record_byname(file_location , get_line_length(file_location) ,user_input_Name));
                     }
+//-END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS-
+//-END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS-
                 } catch (ClassNotFoundException a) {
                     System.err.println("Error! - " + a.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 89");
                 }

@@ -241,12 +241,9 @@ public class RegistrationScreen extends javax.swing.JFrame {
     
     private String Combine_genre(){
         String temp = "";
-        String my2ndDelimiter = "/"; //Easier to manage if we use a variable
-        
-        if (!Fave_List.isEmpty())
-        { //If there's actual values populating the list
-            for (int i = 0; i < Fave_List.size(); i++) //start loop
-            {
+        String my2ndDelimiter = "/"; //Easier to manage if we use a variable        
+        if (!Fave_List.isEmpty()) { //If there's actual values populating the list
+            for (int i = 0; i < Fave_List.size(); i++){ //start loop
                 //commented ifs for removing final delimiter 
                 //   (this/this/this/) >>>
                 //>>>(this/this/this)
@@ -255,71 +252,53 @@ public class RegistrationScreen extends javax.swing.JFrame {
                 temp = temp + Fave_List.get(i) + my2ndDelimiter; //Merge the string
                 //} else {
                 //        temp = temp + Fave_List.get(i) + "\n"; //Merge the string
-               // }
-                    
+                // }
             } //end loop
-        }
-        else{
+        } else {
             temp = "NO-GENRE-SELECTED";
         }
-        
-        
         return temp;
     }
+    
   //Remove button, remove stuff from the list
     private void btn_RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RemoveActionPerformed
-
         Remove_String(cmb_FaveGenres.getSelectedItem().toString());
     }//GEN-LAST:event_btn_RemoveActionPerformed
 
     private void btn_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegisterActionPerformed
         JOptionPane.showMessageDialog(null, "Attempting To Register!");
-        
         if(txt_Username.getText().isEmpty() ||txt_Password_input.getText().isEmpty() || txt_PlaceOfBirth.getText().isEmpty() || txt_DateOfBirth.getText().isEmpty() || txt_Year.getText().isEmpty() ){
-         // error
-         JOptionPane.showMessageDialog(null, "Registration failed, please fill out all the boxes!");
+            // error
+            JOptionPane.showMessageDialog(null, "Registration failed, please fill out all the boxes!");
         } else { //every thing is fine, you can continue.
-
-            
-            
-            
-            
-        String[] userdata = new String[11];
-        String myDelimiter = " "; //Easier to manage if we use a variable
-        String my2ndDelimiter = "/"; //Easier to manage if we use a variable
-        
-        
-        
-        userdata[0] = "HndlReg";
-        userdata[1] = txt_Username.getText(); //
-        userdata[2] = txt_Password_input.getText(); //Place of birth
-        userdata[3] = txt_PlaceOfBirth.getText(); //Place of birth
-        userdata[4] = txt_DateOfBirth.getText() + my2ndDelimiter + cmb_Month_Select.getSelectedItem().toString() + my2ndDelimiter + txt_Year.getText(); //get the date stuff
-        userdata[5] = Combine_genre(); //Function to combine all of the genres into one line
-        userdata[6] = "noFriends";
-        userdata[7] = "noSentRequests";
-        userdata[8] = "noRecievedRequests";
-        userdata[9] = txt_file_path.getText();       
-        userdata[10] = userdata[1] + "_Music";
-        new File("dataStorage").mkdir();
-        
-      
-        try{
-        Socket server = new Socket("localhost", 9090);
-        
-        ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
-        outToServer.writeObject(userdata);
-        //here we need to make the server send back a message to confirm registration has worked
-        //this is good coding practice
-        //just because we can communicate with server, doesnt mean it actually worked
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Registration failed, Connection failed!!! reg line 317");
-            //handle error here
-        }
-        txt_Username.setText(null);
-        txt_PlaceOfBirth.setText(null);
-        txt_DateOfBirth.setText(null);
+            String[] userdata = new String[11];
+            String my2ndDelimiter = "/"; //Easier to manage if we use a variable
+            userdata[0] = "HndlReg";
+            userdata[1] = txt_Username.getText(); //
+            userdata[2] = txt_Password_input.getText(); //Place of birth
+            userdata[3] = txt_PlaceOfBirth.getText(); //Place of birth
+            userdata[4] = txt_DateOfBirth.getText() + my2ndDelimiter + cmb_Month_Select.getSelectedItem().toString() + my2ndDelimiter + txt_Year.getText(); //get the date stuff
+            userdata[5] = Combine_genre(); //Function to combine all of the genres into one line
+            userdata[6] = "noFriends";
+            userdata[7] = "noSentRequests";
+            userdata[8] = "noRecievedRequests";
+            userdata[9] = txt_file_path.getText();       
+            userdata[10] = userdata[1] + "_Music";
+            new File("dataStorage").mkdir();
+            try{
+                Socket server = new Socket("localhost", 9090);
+                ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+                outToServer.writeObject(userdata);
+                //here we need to make the server send back a message to confirm registration has worked
+                //this is good coding practice
+                //just because we can communicate with server, doesnt mean it actually worked
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Registration failed, Connection failed!!! reg line 317");
+                //handle error here
+            }
+            txt_Username.setText(null);
+            txt_PlaceOfBirth.setText(null);
+            txt_DateOfBirth.setText(null);
         }
     }//GEN-LAST:event_btn_RegisterActionPerformed
 
@@ -330,19 +309,12 @@ public class RegistrationScreen extends javax.swing.JFrame {
     private void btn_select_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_select_fileActionPerformed
         // TODO add your handling code here:
         String path = "C:\\Users\\Public";
-        
         JFileChooser fileChooser = new JFileChooser(path);
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "JPG, GIF, & PNG Images", "jpg", "gif", "png");
-        
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, GIF, & PNG Images", "jpg", "gif", "png");
         fileChooser.setFileFilter(filter);
-
         int result = fileChooser.showOpenDialog(null);
-        
-        if (result == JFileChooser.APPROVE_OPTION)
-        {
+        if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             System.out.println(selectedFile.getAbsolutePath());
             txt_file_path.setText(selectedFile.getAbsolutePath());
@@ -365,8 +337,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
     
     private void update_fave_box(){
         String myString = "";       
-        for (int i = 0; i < Fave_List.size(); i++)
-        {
+        for (int i = 0; i < Fave_List.size(); i++) {
             myString += Fave_List.get(i);
             myString += "\n";
         }     

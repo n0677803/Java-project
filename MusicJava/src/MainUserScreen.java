@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
+import javax.swing.JList; //CAN WE REMOVE THIS IMPORT JOSH?
 import javax.swing.JOptionPane;
 
 /*
