@@ -11,97 +11,97 @@ public class MusicJavaHandler implements Runnable {
     public MusicJavaHandler (Socket _client) throws IOException{
         client = _client;
         outToClient = new ObjectOutputStream(client.getOutputStream());   
-        } //constructor
+        } //CONSTRUCTOR
     
     public void run() {
         try{
             ObjectInputStream inFromClient = new ObjectInputStream(client.getInputStream());
-            
+            String fileName = "userData.txt";
+            String dataDir = "dataStorage\\";            
                 try {
                     String[] text = (String[]) inFromClient.readObject(); //retrieves the array
-                    if ("HndlReg".equals(text[0])) { ////REGISTER HANDLE ---------------------------------------------------------------------------
-                     String fileName = "userData.txt";
-                     String dataDir = "dataStorage\\";
-                     int from = 1;
-                     int to = text.length;
-                     FileWriter fout = new FileWriter(dataDir + fileName, true);
-                     if (!Username_duplicate_check(dataDir + fileName, text[1])){ //check if the username already exists or not
-                      try (PrintWriter pout = new PrintWriter(fout, true)) {
-                       //write to the file
-                       for (int i = from; i < to; i++) { //startloop
-                        pout.print(text[i] + ","); 
-                       } /*endloop*/ pout.println(""); //goes onto next line in preparation for the next line
-                      } new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
-                      JOptionPane.showMessageDialog(null, "Registration Success! Welcome: " + text[1]);
-                     } else {
-                      JOptionPane.showMessageDialog(null, "Registration failed, username already taken");
-                     }
-                     
-                    } else if ("HndlLog".equals(text[0])) { //LOGIN HANDLE ---------------------------------------------------------------------------
-                        String fileName = "userData.txt";
-                        String dataDir = "dataStorage\\";
+//-REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE-
+//-REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE-
+                    if ("HndlReg".equals(text[0])) { 
+                        int from = 1;
+                        int to = text.length;
+                        FileWriter fout = new FileWriter(dataDir + fileName, true);
+                        if (!Username_duplicate_check(dataDir + fileName, text[1])){ //CHECK IF THE USERNAME ALREADY EXISTS OR NOT
+                            try (PrintWriter pout = new PrintWriter(fout, true)) {
+                            //WRITE TO THE FILE
+                            for (int i = from; i < to; i++) { //STARTLOOP
+                                pout.print(text[i] + ","); 
+                            } /*ENDLOOP*/ 
+                            pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
+                            } 
+                            new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
+                            JOptionPane.showMessageDialog(null, "Registration Success! Welcome: " + text[1]);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Registration failed, username already taken");
+                        }
+//-LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE-
+//-LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE--LOGIN HANDLE-
+                    } else if ("HndlLog".equals(text[0])) { 
                         String file_location = dataDir + fileName;                        
-                        try { //file stuff                            
+                        try { //FILE STUFF                            
                             FileReader fin = new FileReader(file_location); 
-                            BufferedReader din = new BufferedReader(fin); //Reader                            
-                            int arSize = get_file_line_count(file_location); //Size of the file when dragging out the user names
-                            boolean user_found = false; //If the user has been found or not
-                            boolean loginsuccess = false; //If the user successfully logs in or not                            
+                            BufferedReader din = new BufferedReader(fin); //READER                            
+                            int arSize = get_file_line_count(file_location); //SIZE OF THE FILE WHEN DRAGGING OUT THE USER NAMES
+                            boolean user_found = false; //IF THE USER HAS BEEN FOUND OR NOT
+                            boolean loginsuccess = false; //IF THE USER SUCCESSFULLY LOGS IN OR NOT                            
                             String[] userdata = new String[arSize];
-                            String line = ""; // line of text
-                            String user_input_Name = text[1]; //hard coded test values , code to pass them in
-                            String user_input_Password = text[2] ; //hard coded test values , code to pass them in 
-                            while ((line = din.readLine()) != null){ //Read lines out until the right one is found, or not, retrieves next line every loop
-                                StringTokenizer st = new StringTokenizer(line, ","); //Create tokens out of the retrieved line
+                            String line = ""; // LINE OF TEXT
+                            String user_input_Name = text[1];
+                            String user_input_Password = text[2] ;
+                            while ((line = din.readLine()) != null){ //READ LINES OUT UNTIL THE RIGHT ONE IS FOUND, OR NOT, RETRIEVES NEXT LINE EVERY LOOP
+                                StringTokenizer st = new StringTokenizer(line, ","); //CREATE TOKENS OUT OF THE RETRIEVED LINE
                                 String tempName = st.nextToken().trim();
-                                if (user_input_Name.equals(tempName)){ //If the name being searched for equals the token (stored username)
+                                if (user_input_Name.equals(tempName)){ //IF THE NAME BEING SEARCHED FOR EQUALS THE TOKEN (STORED USERNAME)
                                     user_found = true;
-                                    String retrieved_password = st.nextToken().trim();//Retrieve the password
-                                    if (user_input_Password.equals(retrieved_password )){ //Compare the password                                        
-                                        loginsuccess = true; //found the username, and the password for it is correct
+                                    String retrieved_password = st.nextToken().trim();//RETRIEVE THE PASSWORD
+                                    if (user_input_Password.equals(retrieved_password )){ //COMPARE THE PASSWORD                                        
+                                        loginsuccess = true; //FOUND THE USERNAME, AND THE PASSWORD FOR IT IS CORRECT
                                     }
-                                    else if (!user_input_Password.equals(retrieved_password)){ //Does not equal
-                                        loginsuccess = false; //Found the username, but the password for it is incorrect
+                                    else if (!user_input_Password.equals(retrieved_password)){ //DOES NOT EQUAL
+                                        loginsuccess = false; //FOUND THE USERNAME, BUT THE PASSWORD FOR IT IS INCORRECT
                                     } break;                                
                                 }
-                            } //endloop                
-                            if(user_found == false){ //username not found
+                            } //ENDLOOP                
+                            if(user_found == false){ //USERNAME NOT FOUND
                                 JOptionPane.showMessageDialog(null,"username not found");
-                            } else if (user_found == true && loginsuccess == false){ //username found, but password is wrong
+                            } else if (user_found == true && loginsuccess == false){ //USERNAME FOUND, BUT PASSWORD IS WRONG
                                 JOptionPane.showMessageDialog(null, "username found, however the password is incorrect");
                             } else if (user_found == true && loginsuccess == true) {
                                 outToClient.writeObject(retrieve_file_record_byname(dataDir + fileName, 11, user_input_Name));
                             } else {
-                                int[] lol = {1,2,3}; //bad code but just sending back anything to prevent crash with wrong login
+                                int[] lol = {1,2,3}; //BAD CODE BUT JUST SENDING BACK ANYTHING TO PREVENT CRASH WITH WRONG LOGIN
                                 outToClient.writeObject(lol);
                             }
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage());
                         }
                     } /*else if("HndlRetrieve".equals(text[0])){
-                        String fileName = "userData.txt";
-                        String dataDir = "dataStorage\\";
                         String file_location = dataDir + fileName;
-                        String user_input_Name = text[1]; //hard coded test values , code to pass them in
+                        String user_input_Name = text[1]; 
                         retrieve_file_record_byname(file_location , get_line_length(file_location) ,user_input_Name);
                     }*/
                 } catch (ClassNotFoundException a) {
                     System.err.println("Error! - " + a.getMessage());
                 }
         } catch(IOException ai){System.err.println("Error! - " + ai.getMessage());}
-    }   //thread method
+    }   //THREAD METHOD
     
     
-    public int get_file_line_count(String input_filename) { //Retrieves number of lines in a file
+    public int get_file_line_count(String input_filename) { //RETRIEVES NUMBER OF LINES IN A FILE
      int line_count = 0;
      try { //start try                  
-      BufferedReader reader = new BufferedReader(new FileReader(input_filename)); //create reader
-      while (reader.readLine() != null) line_count++; //For every line in the file, plus 1       
-      reader.close(); //Don't need because netbeans automatically closes reader after try is done
+      BufferedReader reader = new BufferedReader(new FileReader(input_filename)); //CREATE READER
+      while (reader.readLine() != null) line_count++; //FOR EVERY LINE IN THE FILE, PLUS 1       
+      reader.close(); //DON'T NEED BECAUSE NETBEANS AUTOMATICALLY CLOSES READER AFTER TRY IS DONE
      } catch (IOException e) {
       System.err.println("Error! - " + e.getMessage());
      }
-     return line_count; //Return
+     return line_count; //RETURN
     }
     
     public int get_line_length(String input_filename) {
@@ -112,7 +112,7 @@ public class MusicJavaHandler implements Runnable {
       StringTokenizer myTokens = null;
       line = reader.readLine();
       myTokens = new StringTokenizer(line, ",");
-      line_length = myTokens.countTokens(); //Get the number of tokens
+      line_length = myTokens.countTokens(); //GET THE NUMBER OF TOKENS
      } catch (IOException e) {
       System.err.println("Error! - " + e.getMessage());
      }
@@ -126,18 +126,18 @@ public class MusicJavaHandler implements Runnable {
       BufferedReader reader = new BufferedReader(new FileReader(input_filename));
       String line;
       int i = 0;
-      StringTokenizer myTokens; //Initialize
-      while ((line = reader.readLine()) != null) { //start loop
-       myTokens = new StringTokenizer(line, ","); //Create tokens out of the retrieved line
+      StringTokenizer myTokens; //INITIALIZE
+      while ((line = reader.readLine()) != null) { //START LOOP
+       myTokens = new StringTokenizer(line, ","); //CREATE TOKENS OUT OF THE RETRIEVED LINE
        String tempName = myTokens.nextToken().trim();
-       if (input_username.equals(tempName)) { //If the name being searched for equals the token (stored username)
+       if (input_username.equals(tempName)) { //IF THE NAME BEING SEARCHED FOR EQUALS THE TOKEN (STORED USERNAME)
         retrieved_record[1] = tempName;
-        for (int j = 2; j < retrieved_record.length; j++) { //Populate the array
-         retrieved_record[j] = myTokens.nextToken().trim(); //Get all the tokens out
+        for (int j = 2; j < retrieved_record.length; j++) { //POPULATE THE ARRAY
+         retrieved_record[j] = myTokens.nextToken().trim(); //GET ALL THE TOKENS OUT
         }
-        break; //break out of the loop since the collect username has been found
-       } //endif
-      } //endloop            
+        break; //BREAK OUT OF THE LOOP SINCE THE COLLECT USERNAME HAS BEEN FOUND
+       } //ENDIF
+      } //ENDLOOP            
      } catch (IOException e) {
       System.err.println("Error! - " + e.getMessage());
      }
@@ -145,7 +145,7 @@ public class MusicJavaHandler implements Runnable {
     }
     
     public boolean Username_duplicate_check(String input_filename, String input_username) {
-     boolean username_found = false; //The resulting boolean whether the username is found or not
+     boolean username_found = false; //THE RESULTING BOOLEAN WHETHER THE USERNAME IS FOUND OR NOT
      try {
       BufferedReader reader = new BufferedReader(new FileReader(input_filename));
       String line;
@@ -153,14 +153,14 @@ public class MusicJavaHandler implements Runnable {
       StringTokenizer myTokens = null;
 
 
-      while ((line = reader.readLine()) != null) { //start loop
+      while ((line = reader.readLine()) != null) { //START LOOP
        myTokens = new StringTokenizer(line, ",");
-       retrieved_username = myTokens.nextToken(); //retrive the first token, which is the username, and put it into a string
-       if (retrieved_username.equals(input_username)) { //If the username input by the user is the same as the one on the current line
+       retrieved_username = myTokens.nextToken(); //RETRIVE THE FIRST TOKEN, WHICH IS THE USERNAME, AND PUT IT INTO A STRING
+       if (retrieved_username.equals(input_username)) { //IF THE USERNAME INPUT BY THE USER IS THE SAME AS THE ONE ON THE CURRENT LINE
         username_found = true;
-        break; //Break out of the loop since te username as already been found
+        break; //BREAK OUT OF THE LOOP SINCE TE USERNAME AS ALREADY BEEN FOUND
        }
-      } //endloop - Now put the retrieved token set into the record
+      } //ENDLOOP - NOW PUT THE RETRIEVED TOKEN SET INTO THE RECORD
      } catch (IOException e) {
       System.err.println("Error! - " + e.getMessage());
      }
