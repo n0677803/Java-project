@@ -10,7 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class RegistrationScreen extends javax.swing.JFrame {
     static List<String> Fave_List = new ArrayList<String>(); //List storing faves
-    static int Fave_Limit = 3; //How many faves they can have
+    static int Fave_Limit = 3; //How many favourite genres they can have
     
     public RegistrationScreen() {
         initComponents();        
@@ -244,15 +244,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         String my2ndDelimiter = "/"; //Easier to manage if we use a variable        
         if (!Fave_List.isEmpty()) { //If there's actual values populating the list
             for (int i = 0; i < Fave_List.size(); i++){ //start loop
-                //commented ifs for removing final delimiter 
-                //   (this/this/this/) >>>
-                //>>>(this/this/this)
-                //but havent decided if nessesary
-                //if (i < Fave_List.size() -1 ){
                 temp = temp + Fave_List.get(i) + my2ndDelimiter; //Merge the string
-                //} else {
-                //        temp = temp + Fave_List.get(i) + "\n"; //Merge the string
-                // }
             } //end loop
         } else {
             temp = "NO-GENRE-SELECTED";
@@ -272,13 +264,16 @@ public class RegistrationScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Registration failed, please fill out all the boxes!");
         } else { //every thing is fine, you can continue.
             String[] userdata = new String[11];
-            String my2ndDelimiter = "/"; //Easier to manage if we use a variable
+            String my2ndDelimiter = "/"; //Easier to manage if we use a variable, use of nested tokens
+            
+            
             userdata[0] = "HndlReg";
             userdata[1] = txt_Username.getText(); //
             userdata[2] = txt_Password_input.getText(); //Place of birth
             userdata[3] = txt_PlaceOfBirth.getText(); //Place of birth
             userdata[4] = txt_DateOfBirth.getText() + my2ndDelimiter + cmb_Month_Select.getSelectedItem().toString() + my2ndDelimiter + txt_Year.getText(); //get the date stuff
             userdata[5] = Combine_genre(); //Function to combine all of the genres into one line
+             //Default values, they don't start with any friend data
             userdata[6] = "noFriends";
             userdata[7] = "noSentRequests";
             userdata[8] = "noRecievedRequests";
@@ -322,7 +317,6 @@ public class RegistrationScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_select_fileActionPerformed
 
     private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
-        // TODO add your handling code here:
         this.dispose();//Close this form
         new LoginScreen().setVisible(true);
     }//GEN-LAST:event_btn_LoginActionPerformed

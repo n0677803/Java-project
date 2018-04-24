@@ -34,7 +34,8 @@ public class MusicJavaHandler implements Runnable {
                                 pout.print(text[i] + ","); 
                             } /*ENDLOOP*/ 
                             pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
-                            } 
+                            } //END TRY
+                            
                             new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
                             JOptionPane.showMessageDialog(null, "Registration Success! Welcome: " + text[1]);
                         } else {
@@ -176,4 +177,90 @@ public class MusicJavaHandler implements Runnable {
      }
      return username_found;
     }
+    
+    public String[] return_all_posts(String input_filename , String friend_string) {
+        
+      int arSize = get_line_length(input_filename); //Get the amount of posts, will cut down later     
+      int currentArraySize = 0;
+      String[] retrieved_posts = new String[arSize + 1]; //create the array with recovered size, +1 to make room for handler
+     retrieved_posts[0] = "HndlMain"; //Idk what to set this for now
+     
+    //NEED TO SPLIT THE FRIENDS INTO AN ARRAY SO THEY CAN BE CHECKED AGAINST THE POSTS 
+    
+    //Check if they have friends or not
+
+        StringTokenizer friendTokens = new  StringTokenizer(friend_string, "/");//Split the friends list into tokens       
+        String[] friendArray = new String[friendTokens.countTokens()]; //Create the array storing the firend names
+        
+        for (int i = 0; i < friendArray.length; i++)
+        {
+            friendArray[i] = friendTokens.nextToken(); //Add all the friend tokens into the array
+        }//END FOR LOOP
+    
+    
+     try {
+        BufferedReader reader = new BufferedReader(new FileReader(input_filename));
+        String line;
+        StringTokenizer myTokens; //INITIALIZE
+        while ((line = reader.readLine()) != null) { //START LOOP
+            
+            myTokens = new StringTokenizer(line, ":"); //CREATE TOKENS OUT OF THE RETRIEVED LINE
+            
+            String tempName = myTokens.nextToken().trim();
+            String tempPost = myTokens.nextToken();//No need to trim since the post will probably contain spaces
+            
+            for (int j = 0; j < friendArray.length; j++)
+            {
+                //Check if the post author is in the user's friendlist
+                if (friendArray.equals(tempName))
+                {
+                    //So because the post author is a friend of the user, we add it into the post array
+                    //Either one works, depends if we ever want to change the post delimiter, but if we keep it as : then we can just get the line
+                    //String combinedPost = tempName + " : " + tempPost;
+                    String combinedPost = line;
+                    retrieved_posts[currentArraySize] = combinedPost;
+                    currentArraySize++; //Increment, there is now one more post in the array
+                    break;
+                }
+            }//END FOR LOOP
+            
+        } //END WHILE LOOP            
+     } catch (IOException e) {
+      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 183 return all posts");
+     }//ENDCATCH
+     
+     //The first array started with the max size, just incase all the posts were by friends, however if that isn't the case then the values need to be shifted to a smaller array
+     
+     if (currentArraySize == arSize + 1) //If all the posts are in the textfile (unlikely)
+     {
+         return retrieved_posts;
+     }
+     else
+     {
+        String[] smallPostsArray = new String[currentArraySize];
+
+            for (int k = 0; k < currentArraySize; k++)
+            {
+                smallPostsArray[k] = retrieved_posts[k];//Move all the posts into the smaller array
+            }
+
+        return smallPostsArray;
+     }
+    }//ENDFUNCTION
+    
+    public void add_post(String input_filename , String post)
+    {
+        try{//FILE TRY
+        FileWriter fout = new FileWriter(input_filename, true);
+        try (PrintWriter pout = new PrintWriter(fout, true)) {
+            //WRITE TO THE FILE
+            pout.print(post); //Print the post 
+            pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
+            } //END TRY
+                        
+        }
+        catch (IOException e) { //FILE CATCH
+            System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 237 hndllog");
+        }
     }
+    }//ENDCLASS
