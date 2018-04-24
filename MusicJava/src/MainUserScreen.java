@@ -25,10 +25,12 @@ public class MainUserScreen extends javax.swing.JFrame {
      * @param input_username
      */
     
+    static String[] tempUserData = new String[11];
+    
     public MainUserScreen(String input_username) { //construction
         //mainscreen doesnt open because it cant run all the code need to write code to talk to server to get user details so can populatescreen
         initComponents();
-        String[] tempUserData = new String[11];
+        
         
         tempUserData = Populate_Array(input_username);
         
@@ -76,6 +78,12 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lst_friends_display.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "No Friends" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        lst_friends_display.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(lst_friends_display);
 
         jLabel1.setText("Friends");
@@ -245,7 +253,8 @@ public class MainUserScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendActionPerformed
-        // TODO add your handling code here:
+        Store_Post(lbl_cUser.getText());
+        txt_post.setText(""); //Set the text to 
     }//GEN-LAST:event_btn_sendActionPerformed
 
     /**
@@ -299,7 +308,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         for (int i = 0; i < genreTokens.countTokens(); i++ )
         {
             Fave_genre += genreTokens.nextToken().trim(); //Add the string onto it
-            Fave_genre += "-|-"; //Delimiter
+            Fave_genre += "\n"; //Delimiter next line
         }
         
 //                String tempName = myTokens.nextToken().trim();
@@ -343,31 +352,7 @@ public class MainUserScreen extends javax.swing.JFrame {
             lst_friends_display.setModel(tempModel);
             
         }
-        //SENT FRIEND REQUEST STUFF
-        String SentFriendRequest = input_user_Data[7];
-        if (SentFriendRequest.equals("noSentRequests"))
-        {
-            DefaultListModel tempModel = new DefaultListModel();
-            tempModel.addElement("You have no sent friend requests");
-            lst_friends_display.setModel(tempModel);
-        }
-        else
-        {
-            //SET THE DELIMITER HERE TO WHAT IT'S ACTUALLY STORED AS
-            String FriendDelimiter = "-|-"; //Unique looking delimiter so usernames have low chance to contain them
-            DefaultListModel tempModel = new DefaultListModel();
-            
-            StringTokenizer friendRequestTokens = new StringTokenizer(SentFriendRequest, FriendDelimiter); //Create tokens out of the retrieved line
         
-            for (int i = 0; i < friendRequestTokens.countTokens(); i++ )
-            {
-                tempModel.addElement(friendRequestTokens.nextToken().trim()); //Add the string onto it
-
-            }
-            //Set all the values onto the actual listbox
-            lst_friend_requests.setModel(tempModel);
-            
-        }
         //RECIEVED FRIEND REQUEST STUFF
         if (input_user_Data[8].equals("noRecievedRequests"))
         {   //lst_friend_requests
@@ -388,7 +373,7 @@ public class MainUserScreen extends javax.swing.JFrame {
 
             }
             //Set all the values onto the actual listbox
-            lst_friends_display.setModel(tempModel);
+            lst_friend_requests.setModel(tempModel);
             
         }
         
@@ -417,8 +402,31 @@ public class MainUserScreen extends javax.swing.JFrame {
             
         return userdata;
     }
-    
-    
+    private void Populate_Posts( String input_username)
+    {
+            //SET THE DELIMITER HERE TO WHAT IT'S ACTUALLY STORED AS
+            String FriendDelimiter = "/"; //Unique looking delimiter so usernames have low chance to contain them
+            String FriendString = input_username + FriendDelimiter + tempUserData[6];
+            
+            //Add code here to pull the posts from the server, input friendstring
+            String[] friend_post_list = new String[10];
+            //Replace above
+            DefaultListModel tempModel = new DefaultListModel();
+            
+            for (int i = 0; i < friend_post_list.length; i++ )
+            { 
+                tempModel.addElement(friend_post_list[i]); //Add the posts into the list box
+
+            }
+            //Set all the values onto the actual listbox
+            lst_friends_display.setModel(tempModel);
+    }
+    private void Store_Post(String input_username)
+    {
+        String myPost = input_username + " : " + txt_post.getText();
+        
+        //Mypost code to send to server.
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_send;
