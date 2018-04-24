@@ -61,7 +61,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txt_post = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btn_send = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         lst_friendslist = new javax.swing.JList<>();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -92,6 +92,7 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         jButton1.setText("Play");
 
+        txt_friend_posts.setEditable(false);
         txt_friend_posts.setColumns(20);
         txt_friend_posts.setRows(5);
         jScrollPane4.setViewportView(txt_friend_posts);
@@ -100,8 +101,13 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         jLabel5.setText("Post:");
 
-        jButton2.setText("Send");
-        jButton2.setToolTipText("");
+        btn_send.setText("Send");
+        btn_send.setToolTipText("");
+        btn_send.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sendActionPerformed(evt);
+            }
+        });
 
         jScrollPane5.setViewportView(lst_friendslist);
 
@@ -134,7 +140,7 @@ public class MainUserScreen extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txt_post)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(btn_send)
                         .addGap(46, 46, 46))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,7 +219,7 @@ public class MainUserScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_post, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jButton2))
+                    .addComponent(btn_send))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -237,6 +243,10 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_sendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,8 +421,8 @@ public class MainUserScreen extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_send;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
