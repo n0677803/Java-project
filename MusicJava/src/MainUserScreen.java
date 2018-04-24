@@ -1,6 +1,7 @@
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
@@ -27,11 +28,9 @@ public class MainUserScreen extends javax.swing.JFrame {
     public MainUserScreen(String input_username) { //construction
         //mainscreen doesnt open because it cant run all the code need to write code to talk to server to get user details so can populatescreen
         initComponents();
-        String tempUsername = input_username;
         String[] tempUserData = new String[11];
-        tempUserData[1] = tempUsername;
         
-        tempUserData = Populate_Array();
+        tempUserData = Populate_Array(input_username);
         
         //pass the array of info into this and populate the screen
         //Username, Password, PlaceOfBirth,DateOfBirth,FaveGenres,freinds,sentRequests,receivedRequests
@@ -385,9 +384,25 @@ public class MainUserScreen extends javax.swing.JFrame {
         
     }
     
-    private String[] Populate_Array()
+    private String[] Populate_Array(String username)
     {
         String[] userdata = new String[11];
+        userdata[0] = "HndlRetrieve";
+        userdata[1] = username;
+        
+        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+            outToServer.writeObject(userdata); //send the login details to server>>handler which validates and returns data
+            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
+            try{
+                userdata = (String[]) inFromServer.readObject();                
+            } catch (ClassNotFoundException p) {
+                JOptionPane.showMessageDialog(null, "error caught mainuser around line 400 server");
+            }
+            
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "error caught mainuser around line 404 server");
+        }
         
             
         return userdata;

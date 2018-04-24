@@ -7,10 +7,12 @@ import javax.swing.JOptionPane;
 public class MusicJavaHandler implements Runnable {
     Socket client;
     DataOutputStream outToClient;
+    ObjectOutputStream OoutToClient;
     
     public MusicJavaHandler (Socket _client) throws IOException{
         client = _client;
-        outToClient = new DataOutputStream(client.getOutputStream());   
+        outToClient = new DataOutputStream(client.getOutputStream());  
+        OoutToClient = new ObjectOutputStream(client.getOutputStream()); 
         } //CONSTRUCTOR
     
     public void run() {
@@ -83,11 +85,11 @@ public class MusicJavaHandler implements Runnable {
                         } catch (IOException e) {
                             System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 81 hndllog");
                         }
-                    } /*else if("HndlRetrieve".equals(text[0])){
+                    } else if("HndlRetrieve".equals(text[0])){
                         String file_location = dataDir + fileName;
                         String user_input_Name = text[1]; 
-                        retrieve_file_record_byname(file_location , get_line_length(file_location) ,user_input_Name);
-                    }*/
+                        OoutToClient.writeObject(retrieve_file_record_byname(file_location , get_line_length(file_location) ,user_input_Name));
+                    }
                 } catch (ClassNotFoundException a) {
                     System.err.println("Error! - " + a.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 89");
                 }
