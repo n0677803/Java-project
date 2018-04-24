@@ -25,6 +25,7 @@ public class MainUserScreen extends javax.swing.JFrame {
      */
     
     public MainUserScreen(String input_username) { //construction
+        //mainscreen doesnt open because it cant run all the code need to write code to talk to server to get user details so can populatescreen
         initComponents();
         String tempUsername = input_username;
         String[] tempUserData = new String[11];
@@ -388,17 +389,6 @@ public class MainUserScreen extends javax.swing.JFrame {
     {
         String[] userdata = new String[11];
         
-        try(Socket server = new Socket("localhost", 9090);){
-            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
-            try{
-                userdata = (String[]) inFromServer.readObject();
-            } catch (ClassNotFoundException t){
-                JOptionPane.showMessageDialog(null, "error caught mainuserscreen around line 396");
-            }
-            
-        } catch(IOException f){
-            JOptionPane.showMessageDialog(null, "error caught mian userscreen around line 400");
-        }  
             
         return userdata;
     }
