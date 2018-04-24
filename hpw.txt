@@ -16,4 +16,6 @@ handler compares username to every username in the file until it gets a match
 
 handler then compares the password to that usersnames password to see if it gets a match
 
-if it gets both matched it opens the main user screen and sends out to the client a string with the username
+if it gets both matched it opens the main user screen with the username that is logged in
+
+the main user screen uses the user name and calls the hndlretrieve which uses the username to get all the users data and then populates the main user screen
