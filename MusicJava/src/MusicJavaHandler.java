@@ -217,11 +217,10 @@ public class MusicJavaHandler implements Runnable {
             
             String tempName = myTokens.nextToken().trim();
             String tempPost = myTokens.nextToken();//No need to trim since the post will probably contain spaces
-            
             for (int j = 0; j < friendArray.length; j++)
             {
                 //Check if the post author is in the user's friendlist
-                if (friendArray.equals(tempName))
+                if (friendArray[j].equals(tempName))
                 {
                     //So because the post author is a friend of the user, we add it into the post array
                     //Either one works, depends if we ever want to change the post delimiter, but if we keep it as : then we can just get the line
@@ -233,7 +232,7 @@ public class MusicJavaHandler implements Runnable {
                 }
             }//END FOR LOOP
             
-        } //END WHILE LOOP            
+        } //END WHILE LOOP     
      } catch (IOException e) {
       System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 183 return all posts");
      }//ENDCATCH
@@ -252,7 +251,6 @@ public class MusicJavaHandler implements Runnable {
             {
                 smallPostsArray[k] = retrieved_posts[k];//Move all the posts into the smaller array
             }
-
         return smallPostsArray;
      }
     }//ENDFUNCTION

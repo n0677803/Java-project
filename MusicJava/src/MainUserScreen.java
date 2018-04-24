@@ -430,8 +430,7 @@ public class MainUserScreen extends javax.swing.JFrame {
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "error caught mainuser around line 419 server");
             }
-            //IS NULL FOR SOME REASON
-            JOptionPane.showMessageDialog(null, friend_post_list);
+
             if (friend_post_list != null) //If there are posts stored relevent to the user
             {
                 String combined_string = "";
@@ -440,7 +439,6 @@ public class MainUserScreen extends javax.swing.JFrame {
                     combined_string += friend_post_list[i];
                     combined_string += "\n";
                    // tempModel.addElement(friend_post_list[i]); //Add the posts into the list box
-                   JOptionPane.showMessageDialog(null, combined_string);
 
                 }
                 //Set all the values onto the actual listbox
