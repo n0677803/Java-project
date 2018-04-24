@@ -314,7 +314,7 @@ public class RegistrationScreen extends javax.swing.JFrame {
         //just because we can communicate with server, doesnt mean it actually worked
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Registration failed, Connection failed!!!");
+            JOptionPane.showMessageDialog(null, "Registration failed, Connection failed!!! reg line 317");
             //handle error here
         }
         txt_Username.setText(null);

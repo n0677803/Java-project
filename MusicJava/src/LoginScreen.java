@@ -136,7 +136,7 @@ public class LoginScreen extends javax.swing.JFrame {
         try{
         TimeUnit.SECONDS.sleep(2);
         } catch(InterruptedException e) {
-            
+            JOptionPane.showMessageDialog(null, "error caught login around line 139 try sleep");
         }
         try(Socket server = new Socket("localhost", 9090);){
         if(Logged_In){
@@ -144,7 +144,7 @@ public class LoginScreen extends javax.swing.JFrame {
             outToServer.writeObject(serverCode.text);
         } 
         } catch (IOException y) {
-            JOptionPane.showMessageDialog(null, "error caught login2324");
+            JOptionPane.showMessageDialog(null, "error caught login around line 147 try socket");
         }   
         
 
@@ -230,13 +230,13 @@ class serverCode implements Runnable {
                  
             }
             } catch (ClassNotFoundException d){
-            
+            JOptionPane.showMessageDialog(null, "error caught login around line 233 try server stuff");
             }
             
             
             
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "error caught login");
+            JOptionPane.showMessageDialog(null, "error caught login around line 239 server");
         } 
         if (LoginScreen.Logged_In) //If the user has successfully logged in, they move to the profile screen
         {

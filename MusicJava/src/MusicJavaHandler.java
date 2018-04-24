@@ -78,7 +78,7 @@ public class MusicJavaHandler implements Runnable {
                                 outToClient.writeObject(lol);
                             }
                         } catch (IOException e) {
-                            System.err.println("Error! - " + e.getMessage());
+                            System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 81 hndllog");
                         }
                     } /*else if("HndlRetrieve".equals(text[0])){
                         String file_location = dataDir + fileName;
@@ -86,9 +86,11 @@ public class MusicJavaHandler implements Runnable {
                         retrieve_file_record_byname(file_location , get_line_length(file_location) ,user_input_Name);
                     }*/
                 } catch (ClassNotFoundException a) {
-                    System.err.println("Error! - " + a.getMessage());
+                    System.err.println("Error! - " + a.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 89");
                 }
-        } catch(IOException ai){System.err.println("Error! - " + ai.getMessage());}
+        } catch(IOException ai){
+            System.err.println("Error! - " + ai.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 92");
+        }
     }   //THREAD METHOD
     
     
@@ -99,7 +101,7 @@ public class MusicJavaHandler implements Runnable {
       while (reader.readLine() != null) line_count++; //FOR EVERY LINE IN THE FILE, PLUS 1       
       reader.close(); //DON'T NEED BECAUSE NETBEANS AUTOMATICALLY CLOSES READER AFTER TRY IS DONE
      } catch (IOException e) {
-      System.err.println("Error! - " + e.getMessage());
+      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 104 get file line count");
      }
      return line_count; //RETURN
     }
@@ -114,7 +116,7 @@ public class MusicJavaHandler implements Runnable {
       myTokens = new StringTokenizer(line, ",");
       line_length = myTokens.countTokens(); //GET THE NUMBER OF TOKENS
      } catch (IOException e) {
-      System.err.println("Error! - " + e.getMessage());
+      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 119 get line length");
      }
      return line_length;
     }
@@ -139,7 +141,7 @@ public class MusicJavaHandler implements Runnable {
        } //ENDIF
       } //ENDLOOP            
      } catch (IOException e) {
-      System.err.println("Error! - " + e.getMessage());
+      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 144 retrieve record byname");
      }
      return retrieved_record;
     }
@@ -162,7 +164,7 @@ public class MusicJavaHandler implements Runnable {
        }
       } //ENDLOOP - NOW PUT THE RETRIEVED TOKEN SET INTO THE RECORD
      } catch (IOException e) {
-      System.err.println("Error! - " + e.getMessage());
+      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 167 username duplicate");
      }
      return username_found;
     }

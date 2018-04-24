@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -392,11 +393,11 @@ public class MainUserScreen extends javax.swing.JFrame {
             try{
                 userdata = (String[]) inFromServer.readObject();
             } catch (ClassNotFoundException t){
-                
+                JOptionPane.showMessageDialog(null, "error caught mainuserscreen around line 396");
             }
             
         } catch(IOException f){
-            
+            JOptionPane.showMessageDialog(null, "error caught mian userscreen around line 400");
         }  
             
         return userdata;
