@@ -17,14 +17,12 @@ public class MusicJavaHandler implements Runnable {
     public void run() {
         try{
             ObjectInputStream inFromClient = new ObjectInputStream(client.getInputStream());
-            
             String fileName = "userData.txt";
             String postsFileName = "postData.txt";
             String userFileName = "onlineUsers.txt";
             String dataDir = "dataStorage\\";            
                 try {
                     String[] text = (String[]) inFromClient.readObject(); //retrieves the array
-                    JOptionPane.showMessageDialog(null, text[0]);
 //-REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE-
 //-REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE-
                     if ("HndlReg".equals(text[0])) { 
@@ -126,10 +124,12 @@ public class MusicJavaHandler implements Runnable {
                 } catch (ClassNotFoundException a) {
                     System.err.println("Error! - " + a.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 89");
                 }
-        //inFromClient.close();
+        inFromClient.close();
         } catch(IOException ai){
+            //error "Software caused connection abort: recv failed"
             System.err.println("Error! - " + ai.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 92");
         }
+        Close_streams();
     }   //THREAD METHOD
     
     
@@ -148,12 +148,12 @@ public class MusicJavaHandler implements Runnable {
     public int get_line_length(String input_filename) {
      int line_length = 0;
      try {
-      BufferedReader reader = new BufferedReader(new FileReader(input_filename));
-      String line;
-      StringTokenizer myTokens = null;
-      line = reader.readLine();
-      myTokens = new StringTokenizer(line, ",");
-      line_length = myTokens.countTokens(); //GET THE NUMBER OF TOKENS
+        BufferedReader reader = new BufferedReader(new FileReader(input_filename));
+        String line;
+        line = reader.readLine();
+        StringTokenizer myTokens = new StringTokenizer(line, ",");
+        line_length = myTokens.countTokens(); //GET THE NUMBER OF TOKENS
+        reader.close();
      } catch (IOException e) {
       System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 119 get line length");
      }
@@ -316,35 +316,38 @@ public class MusicJavaHandler implements Runnable {
     }
     public void log_out_user(String input_filename , String user)
     {
-        String dataDir = "dataStorage\\"; 
-        File inputFile = new File(input_filename);
-        File tempFile = new File(dataDir + "tempFile.txt");
-        
+
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            FileWriter fout = new FileWriter(tempFile, true);
-            PrintWriter pout = new PrintWriter(fout, true);
+            BufferedReader reader = new BufferedReader(new FileReader(input_filename));
+            
+            FileWriter fout = new FileWriter(input_filename, false); //False so it replaces the file rather than appending
+            PrintWriter pout = new PrintWriter(fout, false);
+            
             String lineToRemove = user;
-            String line = "";
+            String line;
             
+            int limit = get_file_line_count(input_filename) - 1;
+            int i = 0;
+            String[] tempStorage = new String[limit];
+            
+            //Rewrite the file WITHOUT the user logging out
+            
+            //READ THE CONTENTS
             while ((line = reader.readLine()) != null){
-                if (line.equals(lineToRemove))
+                if (!line.equals(lineToRemove))
                 {
-                    continue; //Restart the loop early and read the next line so you skip the current line
+                    tempStorage[i] = line; //Print the line if the name being removed is the current line
+                    JOptionPane.showMessageDialog(null,tempStorage[i]);
+                    i++; //Next array element
                 }//END IF
-                pout.println(user);
+
             }//ENDWHILE
+            
+            for (int j = 0; j < limit; j++) { //STARTLOOP
+                pout.println(tempStorage[j]); 
+            } /*ENDLOOP*/ 
             //Close the file stuff
-            
-            if (inputFile.delete()) {  
-                if (!tempFile.renameTo(inputFile)) {
-                    throw new IOException("Could not rename " + dataDir + "tempFile.txt" + " to " + input_filename);
-                }
-            } else {
-                throw new IOException("Could not delete original input file " + input_filename);
-            }
-            
-            
+                     
             reader.close();
             fout.close();
             pout.close();
@@ -352,26 +355,21 @@ public class MusicJavaHandler implements Runnable {
             //tempFile.renameTo(inputFile); //Rename to replace old file
 
      } catch (IOException e) {
-      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 119 get line length");
+      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 317 [log out]");
      }
-//                            if ("HndlReg".equals(text[0])) { 
-//                        int from = 1;
-//                        int to = text.length;
-//                        FileWriter fout = new FileWriter(dataDir + fileName, true);
-//                        if (!Username_duplicate_check(dataDir + fileName, text[1])){ //CHECK IF THE USERNAME ALREADY EXISTS OR NOT
-//                            try (PrintWriter pout = new PrintWriter(fout, true)) {
-//                            //WRITE TO THE FILE
-//                            for (int i = from; i < to; i++) { //STARTLOOP
-//                                pout.print(text[i] + ","); 
-//                            } /*ENDLOOP*/ 
-//                            pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
-//                                } //END TRY
-//                            
-//                            new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
-//                            JOptionPane.showMessageDialog(null, "Registration Success! Welcome: " + text[1]);
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "Registration failed, username already taken");
-//                        }
+    }
+    public void Close_streams()
+    {
+        try{
+            
+        
+            outToClient.close();
+            OoutToClient.close(); 
+        }
+        catch (IOException e){
+            System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "Error closing streams");
+        }
+        
     }
     
     }//ENDCLASS
