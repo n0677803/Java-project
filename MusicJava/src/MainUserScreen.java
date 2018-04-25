@@ -331,13 +331,13 @@ public class MainUserScreen extends javax.swing.JFrame {
             }
         //Populate_Posts();
         //Refresh the form
-        this.invalidate();
-        this.validate();
-        this.repaint();
+       // this.invalidate();
+       // this.validate();
+       // this.repaint();
+        //String tempUser = tempUserData[1];
+        //this.setVisible(false);
         
-//        this.setVisible(false);
-//        String tempUser = tempUserData[1];
-//        new MainUserScreen(tempUser).setVisible(true);
+       // new MainUserScreen(tempUser).setVisible(true);
         
     }//GEN-LAST:event_btn_updateActionPerformed
 
