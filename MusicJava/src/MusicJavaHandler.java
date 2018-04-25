@@ -326,7 +326,7 @@ public class MusicJavaHandler implements Runnable {
             String lineToRemove = user;
             String line;
             
-            int limit = get_file_line_count(input_filename) - 1;
+            int limit = get_file_line_count(input_filename);
             int i = 0;
             String[] tempStorage = new String[limit];
             

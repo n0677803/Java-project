@@ -41,9 +41,6 @@ public class MainUserScreen extends javax.swing.JFrame {
         
         Populate_Posts();
         
-        update ut = new update();
-        Thread th = new Thread(t);
-        th.start();
         
     }
     /**
@@ -511,13 +508,20 @@ public class MainUserScreen extends javax.swing.JFrame {
     }
     private void Log_Off()
     {
-        String[] command = new String[2];
+        String[] command = new String[3];
         command[0] = "HndlLOGOFF";
         command[1] = tempUserData[1];
         
         serverCode t = new serverCode(command); //Run the server class containing the serve code for logging in
         Thread th = new Thread(t);
         th.start();
+        
+//         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+//            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+//            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
+//        } catch (IOException e) {
+//            JOptionPane.showMessageDialog(null, "error caught login around line server code 174");
+        
     }
     private void Populate_Friend_info(String[] friendData)
     {
@@ -588,12 +592,12 @@ class updateUserScreen implements Runnable {
         command = _command;
     }
     public void run() {
-            try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-                ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
-                outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "error caught login around line server code 174");
-            }   
+//            try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+//                ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+//                outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
+//            } catch (IOException e) {
+//                JOptionPane.showMessageDialog(null, "error caught login around line server code 174");
+//            }   
         }   //thread method
     
     public void update_posts()
