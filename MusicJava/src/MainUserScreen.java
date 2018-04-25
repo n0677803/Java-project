@@ -80,6 +80,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         lbl_cUser = new javax.swing.JLabel();
         btn_logout = new javax.swing.JButton();
+        btn_update = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,6 +154,13 @@ public class MainUserScreen extends javax.swing.JFrame {
             }
         });
 
+        btn_update.setText("UPDATE");
+        btn_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_updateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -210,6 +218,8 @@ public class MainUserScreen extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(lbl_cUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_update)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_logout)
                 .addContainerGap())
         );
@@ -227,7 +237,9 @@ public class MainUserScreen extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btn_logout)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btn_logout)
+                                    .addComponent(btn_update))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -308,6 +320,12 @@ public class MainUserScreen extends javax.swing.JFrame {
         Populate_Friend_info(friendData);
     }//GEN-LAST:event_lst_friends_displayValueChanged
 
+    private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
+        tempUserData = Populate_Array(tempUserData[1]);
+        Populate_Screen(tempUserData);
+        Populate_Posts();
+    }//GEN-LAST:event_btn_updateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -366,7 +384,6 @@ public class MainUserScreen extends javax.swing.JFrame {
             //SET THE DELIMITER HERE TO WHAT IT'S ACTUALLY STORED AS
             String FriendDelimiter = "/"; //Unique looking delimiter so usernames have low chance to contain them
             DefaultListModel tempModel = new DefaultListModel();
-            JOptionPane.showMessageDialog(null,FriendsString);
             StringTokenizer friendTokens = new StringTokenizer(FriendsString, FriendDelimiter); //Create tokens out of the retrieved line
             int limit = friendTokens.countTokens();
             for (int i = 0; i < limit; i++ )
@@ -568,6 +585,7 @@ public class MainUserScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_send;
+    private javax.swing.JButton btn_update;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
