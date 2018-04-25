@@ -273,6 +273,7 @@ public class MainUserScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_sendActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        Log_Off();
         this.dispose(); //Close this down
     }//GEN-LAST:event_btn_logoutActionPerformed
 

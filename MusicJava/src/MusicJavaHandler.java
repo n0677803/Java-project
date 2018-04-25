@@ -38,10 +38,14 @@ public class MusicJavaHandler implements Runnable {
                                 pout.print(text[i] + ","); 
                             } /*ENDLOOP*/ 
                             pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
+                            pout.close();
                                 } //END TRY
                             
                             new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
                             JOptionPane.showMessageDialog(null, "Registration Success! Welcome: " + text[1]);
+                            
+                            fout.close();
+                            
                         } else {
                             JOptionPane.showMessageDialog(null, "Registration failed, username already taken");
                         }
@@ -281,8 +285,9 @@ public class MusicJavaHandler implements Runnable {
             //WRITE TO THE FILE
             pout.print(post); //Print the post 
             pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
+            pout.close();
             } //END TRY
-                        
+        fout.close();              
         }
         catch (IOException e) { //FILE CATCH
             System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 237 hndllog");
@@ -297,6 +302,9 @@ public class MusicJavaHandler implements Runnable {
                 PrintWriter pout = new PrintWriter(fout, true);
                 pout.print(user);
                 pout.println(""); //next line
+                    
+                pout.close();
+                fout.close();
                 JOptionPane.showMessageDialog(null, user + " LOGGED IN");
             }
             catch (IOException e) {
@@ -308,6 +316,44 @@ public class MusicJavaHandler implements Runnable {
     }
     public void log_out_user(String input_filename , String user)
     {
+        String dataDir = "dataStorage\\"; 
+        File inputFile = new File(input_filename);
+        File tempFile = new File(dataDir + "tempFile.txt");
+        
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            FileWriter fout = new FileWriter(tempFile, true);
+            PrintWriter pout = new PrintWriter(fout, true);
+            String lineToRemove = user;
+            String line = "";
+            
+            while ((line = reader.readLine()) != null){
+                if (line.equals(lineToRemove))
+                {
+                    continue; //Restart the loop early and read the next line so you skip the current line
+                }//END IF
+                pout.println(user);
+            }//ENDWHILE
+            //Close the file stuff
+            
+            if (inputFile.delete()) {  
+                if (!tempFile.renameTo(inputFile)) {
+                    throw new IOException("Could not rename " + dataDir + "tempFile.txt" + " to " + input_filename);
+                }
+            } else {
+                throw new IOException("Could not delete original input file " + input_filename);
+            }
+            
+            
+            reader.close();
+            fout.close();
+            pout.close();
+            
+            //tempFile.renameTo(inputFile); //Rename to replace old file
+
+     } catch (IOException e) {
+      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 119 get line length");
+     }
 //                            if ("HndlReg".equals(text[0])) { 
 //                        int from = 1;
 //                        int to = text.length;
