@@ -501,33 +501,37 @@ public class MainUserScreen extends javax.swing.JFrame {
         command[0] = "HndlLOGIN";
         command[1] = tempUserData[1];
         
-        serverCode sCMU = new serverCode(command); //Run the server class containing the serve code for logging in
+        /*serverCode sCMU = new serverCode(command); //Run the server class containing the serve code for logging in
         Thread sCMUT = new Thread(sCMU);
-        sCMUT.start();
+        sCMUT.start();*/
 
-//        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-//            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
-//            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
-//        } catch (IOException e) {
-//            JOptionPane.showMessageDialog(null, "Cannot connect to server {Log_on}");
-//        }   
-
+        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090            
+            ObjectOutputStream outToServer = null;
+            outToServer = new ObjectOutputStream(server.getOutputStream());
+            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "error caught MUS around line 531");   
+        }
     }
+        
     private void Log_Off()
     {
         String[] command = new String[3];
         command[0] = "HndlLOGOFF";
         command[1] = tempUserData[1];
         
-        serverCode sCMUL = new serverCode(command); //Run the server class containing the serve code for logging in
+        /*serverCode sCMUL = new serverCode(command); //Run the server class containing the serve code for logging in
         Thread sCMULT = new Thread(sCMUL);
-        sCMULT.start();
+        sCMULT.start();*/
         
-//         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-//            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
-//            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
-//        } catch (IOException e) {
-//            JOptionPane.showMessageDialog(null, "error caught login around line server code 174");
+        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090            
+            ObjectOutputStream outToServer = null;
+            outToServer = new ObjectOutputStream(server.getOutputStream());
+            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "error caught MUS around line 531");
+        }
+        
         
     }
     private void Populate_Friend_info(String[] friendData)
