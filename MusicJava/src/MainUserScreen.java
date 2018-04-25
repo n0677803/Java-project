@@ -88,6 +88,11 @@ public class MainUserScreen extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         lst_friends_display.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        lst_friends_display.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lst_friends_displayValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lst_friends_display);
 
         jLabel1.setText("Friends");
@@ -277,6 +282,29 @@ public class MainUserScreen extends javax.swing.JFrame {
         this.dispose(); //Close this down
     }//GEN-LAST:event_btn_logoutActionPerformed
 
+    private void lst_friends_displayValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_friends_displayValueChanged
+        String[] command = new String[2];
+        command[0] = "HndlRetrieve";
+        command[1] = lst_friends_display.getSelectedValue(); //Retrieve username
+        String[] friendData = new String[11];
+        
+        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
+            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
+            try{
+                friendData = (String[]) inFromServer.readObject();                
+            } catch (ClassNotFoundException p) {
+                JOptionPane.showMessageDialog(null, "error caught mainuser around line 400 server");
+            }
+            
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "error caught mainuser around line 404 server");
+        }
+        
+        Populate_Friend_info(friendData);
+    }//GEN-LAST:event_lst_friends_displayValueChanged
+
     /**
      * @param args the command line arguments
      */
@@ -316,33 +344,8 @@ public class MainUserScreen extends javax.swing.JFrame {
     
     private void Populate_Screen(String[] input_user_Data)
     {
-        String delim = "\n";
         //INFO BOX STUFF
         String username = input_user_Data[1];
-        String PlaceOfBirth = input_user_Data[3];
-        String DateOfBirth = input_user_Data[4];
-        //Split the fave genre into seperate elements
-        String Fave_genre = "";
-        StringTokenizer genreTokens = new StringTokenizer(input_user_Data[5], "/"); //Create tokens out of the retrieved line
-        
-        for (int i = 0; i < genreTokens.countTokens(); i++ )
-        {
-            Fave_genre += genreTokens.nextToken().trim(); //Add the string onto it
-            Fave_genre += "\n"; //Delimiter next line
-        }
-        
-//                String tempName = myTokens.nextToken().trim();
-//                if (input_username.equals(tempName)) //If the name being searched for equals the token (stored username)
-//                {
-//                    for (int j = 0; j < retrieved_record.length; j++) //Populate the array
-//                        {
-//                            retrieved_record[j] = myTokens.nextToken().trim(); //Get all the tokens out
-//                        }
-//                    break; //break out of the loop sin
-      
-        String tempInfoString = username + delim + PlaceOfBirth + delim + DateOfBirth + delim + Fave_genre;
-      
-        txt_info.setText(tempInfoString); //Set text
         lbl_cUser.setText("welcome " + username);
         
         //LISTBOX VIDEO https://www.youtube.com/watch?v=oA_kcVaJQ3E
@@ -360,10 +363,10 @@ public class MainUserScreen extends javax.swing.JFrame {
             //SET THE DELIMITER HERE TO WHAT IT'S ACTUALLY STORED AS
             String FriendDelimiter = "/"; //Unique looking delimiter so usernames have low chance to contain them
             DefaultListModel tempModel = new DefaultListModel();
-            
+            JOptionPane.showMessageDialog(null,FriendsString);
             StringTokenizer friendTokens = new StringTokenizer(FriendsString, FriendDelimiter); //Create tokens out of the retrieved line
-        
-            for (int i = 0; i < friendTokens.countTokens(); i++ )
+            int limit = friendTokens.countTokens();
+            for (int i = 0; i < limit; i++ )
             {
                 tempModel.addElement(friendTokens.nextToken().trim()); //Add the string onto it
 
@@ -511,6 +514,36 @@ public class MainUserScreen extends javax.swing.JFrame {
         serverCode t = new serverCode(command); //Run the server class containing the serve code for logging in
         Thread th = new Thread(t);
         th.start();
+    }
+    private void Populate_Friend_info(String[] friendData)
+    {
+        String delim = "\n";
+        //INFO BOX STUFF
+        String username = friendData[1];
+        String PlaceOfBirth = friendData[3];
+        String DateOfBirth = friendData[4];
+        //Split the fave genre into seperate elements
+        String Fave_genre = "";
+        StringTokenizer genreTokens = new StringTokenizer(friendData[5], "/"); //Create tokens out of the retrieved line
+        
+        for (int i = 0; i < genreTokens.countTokens(); i++ )
+        {
+            Fave_genre += genreTokens.nextToken().trim(); //Add the string onto it
+            Fave_genre += "\n"; //Delimiter next line
+        }
+        
+//                String tempName = myTokens.nextToken().trim();
+//                if (input_username.equals(tempName)) //If the name being searched for equals the token (stored username)
+//                {
+//                    for (int j = 0; j < retrieved_record.length; j++) //Populate the array
+//                        {
+//                            retrieved_record[j] = myTokens.nextToken().trim(); //Get all the tokens out
+//                        }
+//                    break; //break out of the loop sin
+      
+        String tempInfoString = username + delim + PlaceOfBirth + delim + DateOfBirth + delim + Fave_genre;
+      
+        txt_info.setText(tempInfoString); //Set text
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables

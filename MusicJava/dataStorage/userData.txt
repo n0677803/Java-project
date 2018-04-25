@@ -3,5 +3,5 @@ test1,test1,nottingham,21/May/3212,Rap/Classical/Opera/,noFriends,noSentRequests
 tese7,test7,worcester,21/May/3212,Rap/Classical/Opera/,noFriends,noSentRequests,noRecievedRequests,C:\Users\Joshua\Desktop\Important.jpg,tese7_Music,
 joshua124,haha23,Worcester,21/July/1229,Rock and Roll/,noFriends,noSentRequests,noRecievedRequests,C:\Users\Joshua\Desktop\Important.jpg,joshua124_Music,
 JOSHUA112,123abc,Nottingham,21/October/4212,Rap/Drum and Bass/,India/,noSentRequests,noRecievedRequests,C:\Users\Joshua\Desktop\Important.jpg,JOSHUA112_Music,
-India,indiaPass,Kent,03/July/1996,Drum and Bass/,JOSHUA112/,noSentRequests,noRecievedRequests,C:\Users\Matt\Desktop\jazzaddictssoundcloudcover.gif,India_Music,
-TestUser,TestPassword,Notitngham,27/March/2123,NO-GENRE-SELECTED,noFriends,noSentRequests,noRecievedRequests,C:\Users\Joshua\Desktop\Important.jpg,TestUser_Music,
+India,indiaPass,Kent,03/July/1996,Drum and Bass/,TestUser/JOSHUA112/,noSentRequests,noRecievedRequests,C:\Users\Matt\Desktop\jazzaddictssoundcloudcover.gif,India_Music,
+TestUser,TestPassword,Notitngham,27/March/2123,NO-GENRE-SELECTED,India/,noSentRequests,noRecievedRequests,C:\Users\Joshua\Desktop\Important.jpg,TestUser_Music,
