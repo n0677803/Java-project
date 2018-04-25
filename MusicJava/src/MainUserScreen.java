@@ -40,8 +40,12 @@ public class MainUserScreen extends javax.swing.JFrame {
         Populate_Screen(tempUserData);
         
         Populate_Posts();
+        
+        update ut = new update();
+        Thread th = new Thread(t);
+        th.start();
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -576,4 +580,19 @@ public class MainUserScreen extends javax.swing.JFrame {
     private javax.swing.JTextField txt_post;
     private javax.swing.JList<String> txt_shared_songs;
     // End of variables declaration//GEN-END:variables
+}
+class updateUserScreen implements Runnable {
+    static String[] command;
+   
+    public updateUserScreen (String[] _command){
+        command = _command;
+    }
+    public void run() {
+            try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+                ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+                outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "error caught login around line server code 174");
+            }   
+        }   //thread method
 }
