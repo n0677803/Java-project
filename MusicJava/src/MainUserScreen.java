@@ -275,7 +275,7 @@ public class MainUserScreen extends javax.swing.JFrame {
 
     private void btn_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendActionPerformed
         Store_Post(tempUserData[1]);
-        txt_post.setText(""); //Set the text to 
+        //txt_post.setText(""); //Set the text to 
     }//GEN-LAST:event_btn_sendActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
@@ -290,9 +290,11 @@ public class MainUserScreen extends javax.swing.JFrame {
         String[] friendData = new String[11];
         
         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
-            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
-            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
+            ObjectOutputStream outToServer = null;
+                outToServer = new ObjectOutputStream(server.getOutputStream());
+                outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
+                ObjectInputStream inFromServer = null;
+                inFromServer = new ObjectInputStream(server.getInputStream());
             try{
                 friendData = (String[]) inFromServer.readObject();                
             } catch (ClassNotFoundException p) {
@@ -410,9 +412,11 @@ public class MainUserScreen extends javax.swing.JFrame {
         userdata[1] = username;
         
         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
-            outToServer.writeObject(userdata); //send the login details to server>>handler which validates and returns data
-            ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
+            ObjectOutputStream outToServer = null;
+                outToServer = new ObjectOutputStream(server.getOutputStream());
+                outToServer.writeObject(userdata); //send the login details to server>>handler which validates and returns data
+                ObjectInputStream inFromServer = null;
+                inFromServer = new ObjectInputStream(server.getInputStream());
             try{
                 userdata = (String[]) inFromServer.readObject();                
             } catch (ClassNotFoundException p) {
@@ -439,9 +443,11 @@ public class MainUserScreen extends javax.swing.JFrame {
             userdata[1] = FriendString;
 
             try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-                ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+                ObjectOutputStream outToServer = null;
+                outToServer = new ObjectOutputStream(server.getOutputStream());
                 outToServer.writeObject(userdata); //send the login details to server>>handler which validates and returns data
-                ObjectInputStream inFromServer = new ObjectInputStream(server.getInputStream());
+                ObjectInputStream inFromServer = null;
+                inFromServer = new ObjectInputStream(server.getInputStream());
                 try{
                     friend_post_list = (String[]) inFromServer.readObject();  //retrive friend posts              
                 } catch (ClassNotFoundException p) {
@@ -480,7 +486,8 @@ public class MainUserScreen extends javax.swing.JFrame {
         command[1] = myPost;
 
         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+            ObjectOutputStream outToServer = null;
+            outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "error caught MUS store post try object output 485");
@@ -494,9 +501,9 @@ public class MainUserScreen extends javax.swing.JFrame {
         command[0] = "HndlLOGIN";
         command[1] = tempUserData[1];
         
-        serverCode t = new serverCode(command); //Run the server class containing the serve code for logging in
-        Thread th = new Thread(t);
-        th.start();
+        serverCode sCMU = new serverCode(command); //Run the server class containing the serve code for logging in
+        Thread sCMUT = new Thread(sCMU);
+        sCMUT.start();
 
 //        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
 //            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
@@ -512,9 +519,9 @@ public class MainUserScreen extends javax.swing.JFrame {
         command[0] = "HndlLOGOFF";
         command[1] = tempUserData[1];
         
-        serverCode t = new serverCode(command); //Run the server class containing the serve code for logging in
-        Thread th = new Thread(t);
-        th.start();
+        serverCode sCMUL = new serverCode(command); //Run the server class containing the serve code for logging in
+        Thread sCMULT = new Thread(sCMUL);
+        sCMULT.start();
         
 //         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
 //            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());

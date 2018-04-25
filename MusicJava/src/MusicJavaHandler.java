@@ -4,19 +4,23 @@ import java.util.*;
 import javax.swing.JOptionPane;
 
 public class MusicJavaHandler implements Runnable {
-    Socket client;
-    DataOutputStream outToClient;
-    ObjectOutputStream OoutToClient;
+    Socket client = null;
+    DataOutputStream outToClient = null;
+    ObjectOutputStream OoutToClient = null;
+    ObjectInputStream inFromClient = null;
     
     public MusicJavaHandler (Socket _client) throws IOException{
         client = _client;
         outToClient = new DataOutputStream(client.getOutputStream());  
-        OoutToClient = new ObjectOutputStream(client.getOutputStream()); 
+        OoutToClient = new ObjectOutputStream(client.getOutputStream());
         } //CONSTRUCTOR
     
+    @Override
     public void run() {
+        
         try{
-            ObjectInputStream inFromClient = new ObjectInputStream(client.getInputStream());
+            inFromClient = null;
+            inFromClient = new ObjectInputStream(client.getInputStream());
             String fileName = "userData.txt";
             String postsFileName = "postData.txt";
             String userFileName = "onlineUsers.txt";
@@ -279,12 +283,11 @@ public class MusicJavaHandler implements Runnable {
     public void add_post(String input_filename , String post)
     {
         JOptionPane.showMessageDialog(null, post);
-        try{//FILE TRY
-        FileWriter fout = new FileWriter(input_filename, true);
+        try(FileWriter fout = new FileWriter(input_filename, true);){//FILE TRY
+        
         try (PrintWriter pout = new PrintWriter(fout, true)) {
             //WRITE TO THE FILE
-            pout.print(post); //Print the post 
-            pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
+            pout.println(post); //Print the post           
             pout.close();
             } //END TRY
         fout.close();              

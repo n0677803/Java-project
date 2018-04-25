@@ -8,9 +8,9 @@ public class MusicJavaServer {
             Socket client = server.accept();
             System.out.println("Client " + client.getInetAddress() + " connected!");
             //assign each client to a thread
-            MusicJavaHandler t = new MusicJavaHandler(client);
-            Thread th = new Thread(t);
-            th.start();
+            MusicJavaHandler MJH = new MusicJavaHandler(client);
+            Thread MJT = new Thread(MJH);
+            MJT.start();
          }
     }
 }

@@ -101,9 +101,9 @@ public class LoginScreen extends javax.swing.JFrame {
         login[0] = "HndlLog"; //this value us used in the handler to determine what needs to be handled e.g. "HndlReg" for registration handler - "HndlMain" for handling the main screen"
         login[1] = txt_Username.getText(); //this value is for the username
         login[2] = txt_Password.getText(); //this value is for the password  
-        serverCode t = new serverCode(login); //Run the server class containing the serve code for logging in
-        Thread th = new Thread(t);
-        th.start();
+        serverCode sC = new serverCode(login); //Run the server class containing the serve code for logging in
+        Thread sCT = new Thread(sC);
+        sCT.start();
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
@@ -167,8 +167,9 @@ class serverCode implements Runnable {
     }
     
     public void run() {
-        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
-            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090            
+            ObjectOutputStream outToServer = null;
+            outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "error caught login around line server code 174");

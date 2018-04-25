@@ -282,7 +282,8 @@ public class RegistrationScreen extends javax.swing.JFrame {
             new File("dataStorage").mkdir();
             try{
                 Socket server = new Socket("localhost", 9090);
-                ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+                ObjectOutputStream outToServer = null;
+                outToServer = new ObjectOutputStream(server.getOutputStream());
                 outToServer.writeObject(userdata);
                 //here we need to make the server send back a message to confirm registration has worked
                 //this is good coding practice
