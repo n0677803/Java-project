@@ -595,4 +595,9 @@ class updateUserScreen implements Runnable {
                 JOptionPane.showMessageDialog(null, "error caught login around line server code 174");
             }   
         }   //thread method
+    
+    public void update_posts()
+    {
+        
+    }
 }
