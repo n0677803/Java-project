@@ -300,6 +300,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         String[] command = new String[2];
         command[0] = "HndlRetrieve";
         command[1] = lst_friends_display.getSelectedValue(); //Retrieve username
+        command[2] = "THING";
         String[] friendData = new String[11];
         
         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
@@ -515,6 +516,7 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         command[0] = "HndlPostUpload";
         command[1] = myPost;
+        command[2] = "THING";
 
         try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
             ObjectOutputStream outToServer = null;
@@ -531,6 +533,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         String[] command = new String[3];
         command[0] = "HndlLOGIN";
         command[1] = tempUserData[1];
+        command[2] = "THING";
         
         /*serverCode sCMU = new serverCode(command); //Run the server class containing the serve code for logging in
         Thread sCMUT = new Thread(sCMU);
@@ -550,6 +553,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         String[] command = new String[3];
         command[0] = "HndlLOGOFF";
         command[1] = tempUserData[1];
+        command[2] = "THING";
         
         /*serverCode sCMUL = new serverCode(command); //Run the server class containing the serve code for logging in
         Thread sCMULT = new Thread(sCMUL);
