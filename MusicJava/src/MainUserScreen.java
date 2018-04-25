@@ -329,7 +329,16 @@ public class MainUserScreen extends javax.swing.JFrame {
             } catch (InterruptedException hey){
                 JOptionPane.showMessageDialog(null, "error mus 330");
             }
-        Populate_Posts();
+        //Populate_Posts();
+        //Refresh the form
+        this.invalidate();
+        this.validate();
+        this.repaint();
+        
+//        this.setVisible(false);
+//        String tempUser = tempUserData[1];
+//        new MainUserScreen(tempUser).setVisible(true);
+        
     }//GEN-LAST:event_btn_updateActionPerformed
 
     /**
