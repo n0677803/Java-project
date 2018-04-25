@@ -20,9 +20,11 @@ public class MusicJavaHandler implements Runnable {
             
             String fileName = "userData.txt";
             String postsFileName = "postData.txt";
+            String userFileName = "onlineUsers.txt";
             String dataDir = "dataStorage\\";            
                 try {
                     String[] text = (String[]) inFromClient.readObject(); //retrieves the array
+                    JOptionPane.showMessageDialog(null, text[0]);
 //-REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE-
 //-REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE--REGISTER HANDLE-
                     if ("HndlReg".equals(text[0])) { 
@@ -104,14 +106,23 @@ public class MusicJavaHandler implements Runnable {
                     }
                     else if ("HndlPostUpload".equals(text[0]))
                     {
-                        JOptionPane.showMessageDialog(null, text[1]);
                         add_post(dataDir + postsFileName , text[1]);
+                      
+                    }
+                    else if ("HndlLOGIN".equals(text[0]))
+                    {
+                       log_in_user(dataDir + userFileName ,text[1]);
+                    }
+                     else if ("HndlLOGOFF".equals(text[0]))
+                    {
+                        log_out_user(dataDir + userFileName ,text[1]);       
                     }
 //-END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS-
 //-END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS-
                 } catch (ClassNotFoundException a) {
                     System.err.println("Error! - " + a.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 89");
                 }
+        //inFromClient.close();
         } catch(IOException ai){
             System.err.println("Error! - " + ai.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 92");
         }
@@ -277,4 +288,44 @@ public class MusicJavaHandler implements Runnable {
             System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 237 hndllog");
         }
     }
+    public void log_in_user(String input_filename , String user)
+    {
+        if (!Username_duplicate_check(input_filename , user))
+        {
+            try{
+                FileWriter fout = new FileWriter(input_filename, true);
+                PrintWriter pout = new PrintWriter(fout, true);
+                pout.print(user);
+                pout.println(""); //next line
+                JOptionPane.showMessageDialog(null, user + " LOGGED IN");
+            }
+            catch (IOException e) {
+      System.err.println("Error! - " + e.getMessage()); JOptionPane.showMessageDialog(null, "error caught handler around line 289 get line length");
+            }
+            
+        }
+    
+    }
+    public void log_out_user(String input_filename , String user)
+    {
+//                            if ("HndlReg".equals(text[0])) { 
+//                        int from = 1;
+//                        int to = text.length;
+//                        FileWriter fout = new FileWriter(dataDir + fileName, true);
+//                        if (!Username_duplicate_check(dataDir + fileName, text[1])){ //CHECK IF THE USERNAME ALREADY EXISTS OR NOT
+//                            try (PrintWriter pout = new PrintWriter(fout, true)) {
+//                            //WRITE TO THE FILE
+//                            for (int i = from; i < to; i++) { //STARTLOOP
+//                                pout.print(text[i] + ","); 
+//                            } /*ENDLOOP*/ 
+//                            pout.println(""); //GOES ONTO NEXT LINE IN PREPARATION FOR THE NEXT LINE
+//                                } //END TRY
+//                            
+//                            new File("dataStorage\\Music\\" + text[1] + "_Music").mkdirs();
+//                            JOptionPane.showMessageDialog(null, "Registration Success! Welcome: " + text[1]);
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "Registration failed, username already taken");
+//                        }
+    }
+    
     }//ENDCLASS

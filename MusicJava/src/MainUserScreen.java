@@ -36,6 +36,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         
         //pass the array of info into this and populate the screen
         //Username, Password, PlaceOfBirth,DateOfBirth,FaveGenres,freinds,sentRequests,receivedRequests
+        Log_on();
         Populate_Screen(tempUserData);
         
         Populate_Posts();
@@ -77,6 +78,7 @@ public class MainUserScreen extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         lbl_cUser = new javax.swing.JLabel();
+        btn_logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,6 +140,13 @@ public class MainUserScreen extends javax.swing.JFrame {
 
         lbl_cUser.setText("jLabel8");
 
+        btn_logout.setText("LOG OUT");
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,26 +203,30 @@ public class MainUserScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(lbl_cUser)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_logout)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(lbl_cUser)
-                            .addGap(21, 21, 21)
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(42, 42, 42)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(9, 9, 9)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_cUser)
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btn_logout)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLabel2)
@@ -230,7 +243,7 @@ public class MainUserScreen extends javax.swing.JFrame {
                     .addComponent(txt_post, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(btn_send))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
@@ -258,6 +271,10 @@ public class MainUserScreen extends javax.swing.JFrame {
         Store_Post(tempUserData[1]);
         txt_post.setText(""); //Set the text to 
     }//GEN-LAST:event_btn_sendActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        this.dispose(); //Close this down
+    }//GEN-LAST:event_btn_logoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,8 +483,37 @@ public class MainUserScreen extends javax.swing.JFrame {
         
         //Mypost code to send to server.
     }
+    private void Log_on()
+    {
+        String[] command = new String[3];
+        command[0] = "HndlLOGIN";
+        command[1] = tempUserData[1];
+        
+        serverCode t = new serverCode(command); //Run the server class containing the serve code for logging in
+        Thread th = new Thread(t);
+        th.start();
 
+//        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+//            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+//            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
+//        } catch (IOException e) {
+//            JOptionPane.showMessageDialog(null, "Cannot connect to server {Log_on}");
+//        }   
+
+    }
+    private void Log_Off()
+    {
+        String[] command = new String[2];
+        command[0] = "HndlLOGOFF";
+        command[1] = tempUserData[1];
+        
+        serverCode t = new serverCode(command); //Run the server class containing the serve code for logging in
+        Thread th = new Thread(t);
+        th.start();
+    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_send;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
