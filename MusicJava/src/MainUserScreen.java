@@ -295,11 +295,11 @@ public class MainUserScreen extends javax.swing.JFrame {
             try{
                 friendData = (String[]) inFromServer.readObject();                
             } catch (ClassNotFoundException p) {
-                JOptionPane.showMessageDialog(null, "error caught mainuser around line 400 server");
+                JOptionPane.showMessageDialog(null, "error caught mainuser try read object 298 lst friends display");
             }
             
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "error caught mainuser around line 404 server");
+            JOptionPane.showMessageDialog(null, "error caught mainuser try object output stream 302 lst friends display");
         }
         
         Populate_Friend_info(friendData);
@@ -415,11 +415,11 @@ public class MainUserScreen extends javax.swing.JFrame {
             try{
                 userdata = (String[]) inFromServer.readObject();                
             } catch (ClassNotFoundException p) {
-                JOptionPane.showMessageDialog(null, "error caught mainuser around line 400 server");
+                JOptionPane.showMessageDialog(null, "error caught mainuser read object populate array 418");
             }
             
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "error caught mainuser around line 404 server");
+            JOptionPane.showMessageDialog(null, "error caught mainuser try object output populate array 422");
         }
         
             
@@ -444,12 +444,12 @@ public class MainUserScreen extends javax.swing.JFrame {
                 try{
                     friend_post_list = (String[]) inFromServer.readObject();  //retrive friend posts              
                 } catch (ClassNotFoundException p) {
-                    JOptionPane.showMessageDialog(null, "error caught mainuser around line 400 server");
+                    JOptionPane.showMessageDialog(null, "error caught mainuser populate posts try read object 447");
                     friend_post_list = new String[1];
                 }
 
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "error caught mainuser around line 419 server");
+                JOptionPane.showMessageDialog(null, "error caught mainuser try object output 452");
             }
 
             if (friend_post_list != null) //If there are posts stored relevent to the user
@@ -482,7 +482,7 @@ public class MainUserScreen extends javax.swing.JFrame {
             ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "error caught login around line 239 server");
+            JOptionPane.showMessageDialog(null, "error caught MUS store post try object output 485");
         }   
         
         //Mypost code to send to server.

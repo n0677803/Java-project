@@ -171,7 +171,7 @@ class serverCode implements Runnable {
             ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
             outToServer.writeObject(login); //send the login details to server>>handler which validates and returns data
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "error caught login around line 239 server");
+            JOptionPane.showMessageDialog(null, "error caught login around line server code 174");
         }   
     }   //thread method
 }
