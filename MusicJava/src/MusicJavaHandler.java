@@ -214,10 +214,11 @@ public class MusicJavaHandler implements Runnable {
     
     public String[] return_all_posts(String input_filename , String friend_string) {
         
-      int arSize = get_line_length(input_filename); //Get the amount of posts, will cut down later     
+      int arSize = get_file_line_count(input_filename); //Get the amount of posts, will cut down later     
       int currentArraySize = 0;
       String[] retrieved_posts = new String[arSize + 1]; //create the array with recovered size, +1 to make room for handler
      retrieved_posts[0] = "HndlMain"; //Idk what to set this for now
+     JOptionPane.showMessageDialog(null, "arsize is: " + arSize);
      
     //NEED TO SPLIT THE FRIENDS INTO AN ARRAY SO THEY CAN BE CHECKED AGAINST THE POSTS 
     
