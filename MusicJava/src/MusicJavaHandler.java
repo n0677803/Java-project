@@ -17,6 +17,7 @@ public class MusicJavaHandler implements Runnable {
     public void run() {
         try{
             ObjectInputStream inFromClient = new ObjectInputStream(client.getInputStream());
+            
             String fileName = "userData.txt";
             String postsFileName = "postData.txt";
             String dataDir = "dataStorage\\";            
@@ -100,6 +101,11 @@ public class MusicJavaHandler implements Runnable {
                         String[] postStorage = return_all_posts(dataDir + postsFileName , text[1]);
                         
                         OoutToClient.writeObject(postStorage);
+                    }
+                    else if ("HndlPostUpload".equals(text[0]))
+                    {
+                        JOptionPane.showMessageDialog(null, text[1]);
+                        add_post(dataDir + postsFileName , text[1]);
                     }
 //-END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS-
 //-END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS--END OF IFS-
@@ -257,6 +263,7 @@ public class MusicJavaHandler implements Runnable {
     
     public void add_post(String input_filename , String post)
     {
+        JOptionPane.showMessageDialog(null, post);
         try{//FILE TRY
         FileWriter fout = new FileWriter(input_filename, true);
         try (PrintWriter pout = new PrintWriter(fout, true)) {

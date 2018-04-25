@@ -255,7 +255,7 @@ public class MainUserScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendActionPerformed
-        Store_Post(lbl_cUser.getText());
+        Store_Post(tempUserData[1]);
         txt_post.setText(""); //Set the text to 
     }//GEN-LAST:event_btn_sendActionPerformed
 
@@ -451,7 +451,18 @@ public class MainUserScreen extends javax.swing.JFrame {
     }
     private void Store_Post(String input_username)
     {
-        String myPost = input_username + " : " + txt_post.getText();
+        String myPost = input_username + ":" + txt_post.getText();
+        String[] command = new String[3];
+
+        command[0] = "HndlPostUpload";
+        command[1] = myPost;
+
+        try(Socket server = new Socket("localhost", 9090);){ //new socket named server with name local host and port 9090
+            ObjectOutputStream outToServer = new ObjectOutputStream(server.getOutputStream());
+            outToServer.writeObject(command); //send the login details to server>>handler which validates and returns data
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "error caught login around line 239 server");
+        }   
         
         //Mypost code to send to server.
     }
