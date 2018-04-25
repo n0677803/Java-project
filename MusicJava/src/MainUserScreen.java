@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList; //CAN WE REMOVE THIS IMPORT JOSH?
 import javax.swing.JOptionPane;
+import java.util.concurrent.TimeUnit;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -321,8 +322,13 @@ public class MainUserScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_lst_friends_displayValueChanged
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
-        tempUserData = Populate_Array(tempUserData[1]);
-        Populate_Screen(tempUserData);
+        //tempUserData = Populate_Array(tempUserData[1]);
+        //Populate_Screen(tempUserData);
+        try{
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException hey){
+                JOptionPane.showMessageDialog(null, "error mus 330");
+            }
         Populate_Posts();
     }//GEN-LAST:event_btn_updateActionPerformed
 
@@ -455,7 +461,7 @@ public class MainUserScreen extends javax.swing.JFrame {
             String FriendString = username + FriendDelimiter + tempUserData[6];
             
             String[] userdata = new String[11];
-            String[] friend_post_list = null;
+            String[] friend_post_list = new String[20];
             userdata[0] = "HndlPostRetrieve";
             userdata[1] = FriendString;
 
@@ -468,8 +474,7 @@ public class MainUserScreen extends javax.swing.JFrame {
                 try{
                     friend_post_list = (String[]) inFromServer.readObject();  //retrive friend posts              
                 } catch (ClassNotFoundException p) {
-                    JOptionPane.showMessageDialog(null, "error caught mainuser populate posts try read object 447");
-                    friend_post_list = new String[1];
+                    JOptionPane.showMessageDialog(null, "error caught mainuser populate posts try read object 447");                    
                 }
 
             } catch (IOException e) {
